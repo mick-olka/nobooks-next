@@ -1,26 +1,26 @@
-# Development stage
-FROM node:18-alpine AS development
+# # Development stage
+# FROM node:18-alpine AS development
 
-# Install pnpm globally
-RUN npm install -g pnpm
+# # Install pnpm globally
+# RUN npm install -g pnpm
 
-# Set working directory
-WORKDIR /app
+# # Set working directory
+# WORKDIR /app
 
-# Copy package files
-COPY package.json pnpm-lock.yaml ./
+# # Copy package files
+# COPY package.json pnpm-lock.yaml ./
 
-# Install dependencies
-RUN pnpm install
+# # Install dependencies
+# RUN pnpm install
 
-# Copy the rest of the application
-COPY . .
+# # Copy the rest of the application
+# COPY . .
 
-# Expose port 3000
-EXPOSE 3000
+# # Expose port 3000
+# EXPOSE 3000
 
-# Start development server
-CMD ["pnpm", "dev"]
+# # Start development server
+# CMD ["pnpm", "dev"]
 
 # Production build stage
 FROM node:18-alpine AS builder
