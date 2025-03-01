@@ -3,66 +3,6 @@ import path from "node:path";
 import Markdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 
-// const news130125 = readFileSync(
-//   path.join(process.cwd(), "app/components/news-pane/data/13-01-25.md"),
-//   "utf-8"
-// );
-// const news150125 = readFileSync(
-//   path.join(process.cwd(), "app/components/news-pane/data/15-01-25.md"),
-//   "utf-8"
-// );
-// const news250125 = readFileSync(
-//   path.join(process.cwd(), "app/components/news-pane/data/25-01-25.md"),
-//   "utf-8"
-// );
-// const news040225 = readFileSync(
-//   path.join(process.cwd(), "app/components/news-pane/data/04-02-25.md"),
-//   "utf-8"
-// );
-// const news110225 = readFileSync(
-//   path.join(process.cwd(), "app/components/news-pane/data/11-02-25.md"),
-//   "utf-8"
-// );
-// const news180225 = readFileSync(
-//   path.join(process.cwd(), "app/components/news-pane/data/18-02-25.md"),
-//   "utf-8"
-// );
-// const news190225 = readFileSync(
-//   path.join(process.cwd(), "app/components/news-pane/data/19-02-25.md"),
-//   "utf-8"
-// );
-
-// const newsData = [
-//   {
-//     date: new Date("02/04/2025"),
-//     content: news040225,
-//   },
-//   {
-//     date: new Date("01/15/2025"),
-//     content: news150125,
-//   },
-//   {
-//     date: new Date("01/13/2025"),
-//     content: news130125,
-//   },
-//   {
-//     date: new Date("01/25/2025"),
-//     content: news250125,
-//   },
-//   {
-//     date: new Date("02/11/2025"),
-//     content: news110225,
-//   },
-//   {
-//     date: new Date("02/18/2025"),
-//     content: news180225,
-//   },
-//   {
-//     date: new Date("02/19/2025"),
-//     content: news190225,
-//   },
-// ];
-
 const getNewsData = () => {
   const dataDir = path.join(process.cwd(), "app/components/news-pane/data");
   const files = readdirSync(dataDir).filter((file) => file.endsWith(".md"));

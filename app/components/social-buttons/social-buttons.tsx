@@ -1,14 +1,17 @@
+import Link from "next/link";
 import { DiscordIcon } from "../icons/discord";
 import { TelegramIcon } from "../icons/telegram";
 
-export function SocialButtons() {
+export const SocialButtons = () => {
   return (
     <div className="flex justify-center gap-4 mx-auto mt-4 flex-wrap">
-      <button type="button" className="btn btn-secondary btn w-48">
-        Почати грати
-      </button>
+      <Link className="link-hover link" href="/start">
+        <button type="button" className="btn btn-secondary btn w-48">
+          Почати грати
+        </button>
+      </Link>
       <div className="flex justify-center gap-4 flex-wrap">
-        <a
+        <Link
           className="link-hover link"
           href="https://discord.gg/WrzV6BvEQD"
           target="_blank"
@@ -21,8 +24,8 @@ export function SocialButtons() {
             Ми в Discord
             <DiscordIcon />
           </button>
-        </a>
-        <a
+        </Link>
+        <Link
           className="link-hover link"
           href="https://t.me/noboobs_ua"
           target="_blank"
@@ -32,8 +35,8 @@ export function SocialButtons() {
             Ми в Telegram
             <TelegramIcon />
           </button>
-        </a>
+        </Link>
       </div>
     </div>
   );
-}
+};

@@ -1,9 +1,13 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { FixedAnnouncement, LayoutFooter, LayoutHeader } from "./components";
+import {
+  BuyMeACoffee,
+  FixedAnnouncement,
+  LayoutFooter,
+  LayoutHeader,
+} from "./components";
 import { AnimatePresence } from "framer-motion";
-import Script from "next/script";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -39,22 +43,7 @@ export default function RootLayout({
             <FixedAnnouncement message="v1.21-1.21.4" />
           </div>
         </AnimatePresence>
-        {/* <BuyMeACoffee />
-         */}
-        <Script
-          id="bmc-widget"
-          data-name="BMC-Widget"
-          data-cfasync="false"
-          src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js"
-          data-id="noboobs"
-          data-description="Support me on Buy me a coffee!"
-          data-message="Підтримка серверу"
-          data-color="#fde04799"
-          data-position="Right"
-          data-x_margin="18"
-          data-y_margin="18"
-          strategy="lazyOnload"
-        />
+        <BuyMeACoffee />
       </body>
     </html>
   );

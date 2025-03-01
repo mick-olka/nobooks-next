@@ -1,0 +1,63 @@
+"use client";
+
+import { useFeaturesList } from "../utils/hooks/useFeaturesList";
+import Markdown from "react-markdown";
+import rehypeRaw from "rehype-raw";
+import { useSectionsWithHash } from "../utils/hooks/use-hash-link";
+
+export const FaqPane = ({ featuresData }: { featuresData: string[] }) => {
+  const features = useFeaturesList(featuresData);
+  const { openSection, handleSectionClick } = useSectionsWithHash();
+
+  return (
+    <>
+      {features.map((section) => (
+        <div key={section.id} className="mb-8" id={section.id}>
+          <details
+            className="cursor-pointer group"
+            open={section.id === openSection}
+          >
+            <summary
+              className="text-2xl font-semibold mb-4 list-none"
+              onClick={(e) => {
+                e.preventDefault();
+                handleSectionClick(section.id);
+              }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  handleSectionClick(section.id);
+                }
+              }}
+              tabIndex={0}
+            >
+              <span className="flex items-center">
+                <svg
+                  className="w-6 h-6 mr-2 transition-transform duration-300 group-open:rotate-90"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <title>Arrow icon</title>
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+                <Markdown className="markdown">{section.title}</Markdown>
+              </span>
+            </summary>
+            <div className="mt-2 pl-4 overflow-hidden transition-all duration-300 max-h-0 group-open:max-h-[2600px]">
+              <Markdown className="markdown" rehypePlugins={[rehypeRaw]}>
+                {section.content}
+              </Markdown>
+            </div>
+          </details>
+        </div>
+      ))}
+    </>
+  );
+};

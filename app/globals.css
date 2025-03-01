@@ -22,37 +22,42 @@
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  /* font-family: Arial, Helvetica, sans-serif; */
+  /* color: var(--foreground);
+  background: var(--background); */
   font-family: "Minecraft", sans-serif;
 }
 
 .markdown > *:not(h1) {
-  all: revert;
+	all: revert;
 }
 
 .markdown code {
-  background-color: rgb(40, 44, 52);
-  color: rgb(171, 178, 191);
-  padding: 0.2em 0.4em;
-  border-radius: 6px;
-  font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation, monospace;
-  font-size: 85%;
-  text-wrap: wrap;
+	background-color: rgb(40, 44, 52);
+	color: rgb(171, 178, 191);
+	padding: 0.2em 0.4em;
+	border-radius: 6px;
+	font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas,
+		Liberation, monospace;
+	font-size: 85%;
+	text-wrap: wrap;
 }
 
 .markdown img {
-  border-radius: 10px 14px 10px 14px;
-  max-width: 300px;
-  height: auto;
+	border-radius: 10px 14px 10px 14px;
+	width: 460px;
+	max-width: 100%;
+	height: auto;
+}
+
+.markdown li {
+	margin: 1rem 0;
 }
 
 details > summary {
-    list-style: none;
-    display: flex;
-    align-items: center;
-  }
-  details > summary::-webkit-details-marker {
-    display: none;
-  }
+	list-style: none;
+	display: flex;
+	align-items: center;
+}
+details > summary::-webkit-details-marker {
+	display: none;
+}
