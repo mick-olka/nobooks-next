@@ -1,71 +1,22 @@
-# # Development stage
-# FROM node:18-alpine AS development
-
-# # Install pnpm globally
-# RUN npm install -g pnpm
-
-# # Set working directory
-# WORKDIR /app
-
-# # Copy package files
-# COPY package.json pnpm-lock.yaml ./
-
-# # Install dependencies
-# RUN pnpm install
-
-# # Copy the rest of the application
-# COPY . .
-
-# # Expose port 3000
-# EXPOSE 3000
-
-# # Start development server
-# CMD ["pnpm", "dev"]
-
-# Production build stage
-FROM node:18-alpine AS builder
+FROM node:20
 
 WORKDIR /app
 
-# Install pnpm globally
+# Copy package.json and package-lock.json to the working directory
+COPY package*.json ./
+
+# Install the application dependencies
 RUN npm install -g pnpm
-
-# Copy package files
-COPY package.json pnpm-lock.yaml ./
-
-# Install dependencies
 RUN pnpm install
 
-# Copy application code
+# Copy the rest of the application files
 COPY . .
 
-# Build application
-RUN pnpm run build
+# Build the NextJS application
+RUN pnpm build
 
-# Production stage
-FROM node:18-alpine AS production
-
-WORKDIR /app
-
-# Install pnpm globally
-RUN npm install -g pnpm
-
-# Set Node environment to production
-ENV NODE_ENV=production
-
-# Copy package files
-COPY package.json pnpm-lock.yaml ./
-
-# Install only production dependencies
-RUN pnpm install --prod
-
-# Copy built application from builder
-COPY --from=builder /app/.next ./.next
-COPY --from=builder /app/public ./public
-COPY --from=builder /app/next.config.js ./
-
-# Expose port 3000
+# Expose the application port
 EXPOSE 3000
 
-# Start production server
+# Command to run the application
 CMD ["pnpm", "start"]
