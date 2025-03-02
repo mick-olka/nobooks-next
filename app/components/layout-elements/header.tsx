@@ -7,7 +7,7 @@ import type { FC } from "react";
 export const LayoutHeader: FC = () => {
   return (
     <>
-      <header className="relative overflow-hidden">
+      <header className="relative">
         <FlowersBackground />
         <nav className="navbar bg-base-100">
           <Menu

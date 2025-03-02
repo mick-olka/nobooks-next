@@ -6,7 +6,7 @@ export const SocialButtons = () => {
   return (
     <div className="flex justify-center gap-4 mx-auto mt-4 flex-wrap">
       <Link className="link-hover link" href="/start">
-        <button type="button" className="btn btn-secondary btn w-48">
+        <button type="button" className="btn btn-accent w-48">
           Почати грати
         </button>
       </Link>
