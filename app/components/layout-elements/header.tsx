@@ -1,3 +1,4 @@
+import { FlowersBackground } from "../spring-ui";
 import { Logo } from "./logo";
 import { Menu } from "./menu";
 import Link from "next/link";
@@ -6,7 +7,8 @@ import type { FC } from "react";
 export const LayoutHeader: FC = () => {
   return (
     <>
-      <header>
+      <header className="relative overflow-hidden">
+        <FlowersBackground />
         <nav className="navbar bg-base-100">
           <Menu
             links={[

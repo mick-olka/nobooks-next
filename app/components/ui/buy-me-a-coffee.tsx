@@ -6,7 +6,8 @@ export const BuyMeACoffee = () => {
       href="https://buymeacoffee.com/noboobs"
       target="_blank"
       rel="noopener noreferrer"
-      className="fixed bottom-4 right-4 hover:right-4 bg-[#FFDD00] opacity-40 hover:opacity-100 text-black px-4 py-2 rounded-lg transition-all duration-300 flex items-center gap-2 font-medium"
+      style={{ right: "2px" }}
+      className="fixed bottom-4 bg-[#FFDD00] opacity-40 hover:opacity-100 text-black px-4 py-2 rounded-lg transition-all duration-300 flex items-center gap-2 font-medium"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
