@@ -5,10 +5,10 @@ import {
   PlayerCounter,
   SocialButtons,
 } from "@/app/components";
-import { BEDROCK_IP, JAVA_IP } from "./utils/constants";
+import { constants } from "./utils";
 import Image from "next/image";
 
-export default function Home() {
+export default async function Home() {
   return (
     <PageTransitionWrapper>
       <div className="hero min-h-[calc(100vh-264px)] bg-base-200 font-minecraft">
@@ -31,7 +31,7 @@ export default function Home() {
             <div className="p-2 my-2 rounded-lg bg-gray-800 mx-auto text-center">
               <div className="text-center">
                 <PlayerCounter
-                  ip={JAVA_IP}
+                  ip={constants.JAVA_IP}
                   format="Поточний онлайн: {online}"
                   refreshRate={600}
                 />
@@ -40,11 +40,11 @@ export default function Home() {
               <div className="flex flex-col items-center gap-2 mt-2">
                 <div className="flex items-center justify-center gap-2">
                   <span className="text-center">Java:</span>
-                  <IpContainer ip={JAVA_IP} />
+                  <IpContainer ip={constants.JAVA_IP} />
                 </div>
                 <div className="flex items-center justify-center gap-2 flex-wrap">
                   <span className="text-center">Bedrock:</span>
-                  <IpContainer ip={BEDROCK_IP} />
+                  <IpContainer ip={constants.BEDROCK_IP} />
                 </div>
               </div>
             </div>

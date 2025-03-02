@@ -1,5 +1,5 @@
 // import { IpContainer } from "../components/ui/ip-container";
-import { BEDROCK_IP } from "../utils/constants";
+import { constants } from "../utils";
 import { PageTransitionWrapper, IpContainer } from "../components/ui";
 
 export const BedrockStart = () => {
@@ -12,7 +12,7 @@ export const BedrockStart = () => {
         <div className="mt-2 pl-4 overflow-hidden transition-all duration-300 text-lg leading-relaxed">
           <p className="w-fit">
             Айпі для бедроку: <br />
-            <IpContainer ip={BEDROCK_IP} />
+            <IpContainer ip={constants.BEDROCK_IP} />
           </p>
           <p className="font-bold">Версія: (1.21+)</p>
           <p>Проходка безплатна!</p>

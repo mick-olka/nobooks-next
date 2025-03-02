@@ -9,7 +9,9 @@ export const BuyMeACoffee = () => {
       style={{ right: "2px" }}
       className="fixed bottom-4 bg-[#FFDD00] opacity-30 hover:opacity-100 text-black px-1 py-2 rounded-lg transition-all duration-300 flex flex-col items-center gap-2 text-sm"
     >
-      <p className="[writing-mode:vertical-lr] ml-[4px]">Підтримай сервер</p>
+      <p className="[writing-mode:vertical-lr] ml-[4px] text-nowrap">
+        Підтримай сервер
+      </p>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="24"

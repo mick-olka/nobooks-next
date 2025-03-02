@@ -1,5 +1,5 @@
 import { PageTransitionWrapper } from "../components";
-import { MAP_URL } from "../utils/constants";
+import { constants } from "../utils";
 
 export default function MapPage() {
   return (
@@ -8,7 +8,7 @@ export default function MapPage() {
         <iframe
           height="100%"
           id="no-boobs-map"
-          src={MAP_URL}
+          src={constants.MAP_URL}
           title="no boobs map"
           width="100%"
         />

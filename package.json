@@ -9,6 +9,8 @@
     "lint": "biome lint --write"
   },
   "dependencies": {
+    "@supabase/ssr": "^0.5.2",
+    "@supabase/supabase-js": "^2.49.1",
     "clsx": "^2.1.1",
     "framer-motion": "^11.15.0",
     "next": "15.1.3",

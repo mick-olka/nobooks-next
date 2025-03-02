@@ -1,6 +1,6 @@
 // import { IpContainer } from "../components/ui/ip-container";
 import { PageTransitionWrapper, IpContainer } from "../components/ui";
-import { JAVA_IP } from "../utils/constants";
+import { constants } from "../utils";
 
 export const JavaStart = () => {
   return (
@@ -11,7 +11,7 @@ export const JavaStart = () => {
         </div>
         <div className="mt-2 pl-4 overflow-hidden transition-all duration-300 text-lg leading-relaxed">
           <p className="w-fit">
-            Айпі для джави: <br /> <IpContainer ip={JAVA_IP} />
+            Айпі для джави: <br /> <IpContainer ip={constants.JAVA_IP} />
           </p>
           <p className="font-bold">Версія: (1.21+)</p>
           <p>Якщо айпі не працює - спробуйте айпі бедроку</p>
