@@ -1,9 +1,9 @@
-FROM node:20
+FROM node:latest
 
-WORKDIR /app
+WORKDIR /usr/src/app
 
 # Copy package.json and package-lock.json to the working directory
-COPY package*.json ./
+COPY package*.json pnpm-lock.yaml ./
 
 # Install the application dependencies
 RUN npm install -g pnpm
@@ -13,7 +13,7 @@ RUN pnpm install
 COPY . .
 
 # Build the NextJS application
-RUN pnpm build
+RUN pnpm run build
 
 # Expose the application port
 EXPOSE 3000
