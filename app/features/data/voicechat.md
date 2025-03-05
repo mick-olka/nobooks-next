@@ -6,6 +6,6 @@ voicechat |
 
 Завантажити його можна тут:
 
-[<u>Simple Voice Chat на Modrinth</u>](https://modrinth.com/plugin/simple-voice-chat)
+[<u>Plasmo Voice на Modrinth</u>](https://modrinth.com/plugin/plasmo-voice)
 
-**Увага: версії нижче 2.5.26 не будуть працювати.**
+**Увага: версії нижче 2.1.2 не будуть працювати.**

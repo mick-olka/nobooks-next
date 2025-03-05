@@ -59,6 +59,18 @@ export const FlowersBackground = () => {
       <li />
       <li />
       <li />
+      <li />
+      <li />
+      <li />
+      <li />
+      <li />
+      <li />
+      <li />
+      <li />
+      <li />
+      <li />
+      <li />
+      <li />
     </ul>
   );
 };
