@@ -17,6 +17,10 @@ body {
 	all: revert;
 }
 
+.editor > * {
+	all: revert;
+}
+
 .markdown code {
 	background-color: rgb(40, 44, 52);
 	color: rgb(171, 178, 191);

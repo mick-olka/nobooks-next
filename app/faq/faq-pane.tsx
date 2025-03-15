@@ -1,6 +1,6 @@
 "use client";
 
-import { useFeaturesList } from "../utils/hooks/useFeaturesList";
+import { useFeaturesList } from "../utils/hooks/use-features-list";
 import Markdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import { useSectionsWithHash } from "../utils/hooks/use-hash-link";

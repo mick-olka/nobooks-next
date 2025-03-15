@@ -1,15 +1,17 @@
 import Link from "next/link";
 import { constants } from "../utils";
 import { logout } from "@/app/login/actions";
-import { checkUserProtected } from "@/app/auth";
+import { getAuthorizedUser } from "@/app/auth";
 
 export default async function PrivatePage() {
-  const user = await checkUserProtected();
+  const user = await getAuthorizedUser({ protectedPage: true });
 
   const handleLogout = async () => {
     "use server";
     await logout();
   };
+
+  if (!user) return null;
 
   return (
     <div className="min-h-screen flex items-center justify-center p-8">
