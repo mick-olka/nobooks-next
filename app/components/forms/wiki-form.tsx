@@ -1,34 +1,28 @@
 "use client";
 
-import { updateWikiPage } from "@/app/utils/services";
-import { createClient } from "@/app/utils/supabase/client";
-import type { WikiPage } from "@/app/wiki/types";
-import { redirect } from "next/navigation";
+import type { WikiPage, WikiPageFormData } from "@/app/types";
 import { useState } from "react";
 import Markdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 
-export const RegionForm = ({
+export const WikiPageForm = ({
+  handleSubmitAction,
   pageData,
-  userId,
 }: {
+  handleSubmitAction: (formData: WikiPageFormData) => void;
   pageData: WikiPage;
-  userId: string;
 }) => {
-  const supabase = createClient();
   const [content, setContent] = useState(pageData.content);
   const [title, setTitle] = useState(pageData.title);
 
-  const updateHistoryPage = async () => {
-    const { data } = await updateWikiPage(supabase, pageData.id, {
-      title: title,
-      content: content,
-      last_modified_by: userId,
+  const handleSubmit = () => {
+    handleSubmitAction({
+      title,
+      content,
+      id: pageData.id,
+      userId: pageData.last_modified_by,
       type: pageData.type,
     });
-    if (data) {
-      redirect(`/wiki/history/${pageData.id}`);
-    }
   };
 
   return (
@@ -42,25 +36,21 @@ export const RegionForm = ({
         className="input input-bordered w-full max-w-xs"
       />
 
-      <div className="grid grid-cols-2 gap-4 h-full">
+      <div className="flex flex-col md:flex-row gap-4 h-full">
         <textarea
-          className="min-h-[300px] p-2 border rounded h-full"
+          className="min-h-[300px] p-2 border rounded w-full md:w-1/2"
           value={content}
           onChange={(e) => setContent(e.target.value)}
           placeholder="Enter markdown content..."
         />
-        <div className="border rounded p-4 overflow-y-auto">
+        <div className="border rounded p-4 overflow-y-auto w-full md:w-1/2">
           <Markdown className="markdown editor" rehypePlugins={[rehypeRaw]}>
             {content}
           </Markdown>
         </div>
       </div>
 
-      <button
-        className="btn btn-primary"
-        type="button"
-        onClick={() => updateHistoryPage()}
-      >
+      <button className="btn btn-primary" type="button" onClick={handleSubmit}>
         Зберегти
       </button>
     </div>

@@ -1,10 +1,11 @@
-import { RegionForm } from "./region-form";
 import { createClient } from "@/app/utils/supabase/server";
 import { getAuthorizedUser } from "@/app/auth";
 import { getWikiPageById } from "@/app/utils/services";
 import { redirect } from "next/navigation";
+import { WikiPageForm } from "@/app/components";
+import { updateWikiPageAction } from "@/app/actions/wiki";
 
-export default async function RegionEditPage({
+export default async function WikiEditPage({
   params,
 }: {
   params: Promise<{ id: string }>;
@@ -17,7 +18,7 @@ export default async function RegionEditPage({
 
   return (
     <div className="p-8">
-      <RegionForm pageData={data} userId={user.id} />
+      <WikiPageForm pageData={data} handleSubmitAction={updateWikiPageAction} />
     </div>
   );
 }

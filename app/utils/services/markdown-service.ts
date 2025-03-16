@@ -2,7 +2,7 @@ import type {
   PostgrestSingleResponse,
   SupabaseClient,
 } from "@supabase/supabase-js";
-import type { WikiPageType, WikiPage, WikiPageDTO } from "@/app/wiki/types";
+import type { WikiPageType, WikiPage, WikiPageDTO } from "@/app/types";
 import { redirect } from "next/navigation";
 
 export const getWikiPages = async (sb: SupabaseClient, type: WikiPageType) => {

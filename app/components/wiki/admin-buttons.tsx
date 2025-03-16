@@ -12,12 +12,12 @@ export const AdminButtons = ({ id }: { id: string }) => {
     }
     const { error } = await supabase.from("wiki_pages").delete().eq("id", id);
     if (!error) {
-      redirect("/wiki/history");
+      redirect("/");
     }
   };
   return (
     <div className="fixed top-24 right-4">
-      <Link href={`/wiki/history/${id}/edit`}>
+      <Link href={`/wiki/${id}/edit`}>
         <button
           type="button"
           className="btn btn-circle btn-info fixed top-20 right-4"

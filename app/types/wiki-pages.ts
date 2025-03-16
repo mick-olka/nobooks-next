@@ -24,3 +24,11 @@ export type WikiPageDTO = {
   last_modified_by?: string;
   type: WikiPageType;
 };
+
+export type WikiPageFormData = {
+  title: string;
+  content: string;
+  id: string;
+  userId: string;
+  type: WikiPageType;
+};
