@@ -26,6 +26,20 @@ export const getWikiPageById = async (sb: SupabaseClient, id: string) => {
   return { data, error };
 };
 
+export const getWikiPageByUrlName = async (
+  sb: SupabaseClient,
+  urlName: string
+) => {
+  const { data, error }: PostgrestSingleResponse<WikiPage> = await sb
+    .from("wiki_pages")
+    .select("*")
+    .eq("url_name", urlName)
+    .single();
+  if (!data) redirect("/404");
+  if (error) redirect("/error");
+  return { data, error };
+};
+
 export const createWikiPage = async (sb: SupabaseClient, body: WikiPageDTO) => {
   const { data, error }: PostgrestSingleResponse<WikiPage[]> = await sb
     .from("wiki_pages")
@@ -41,11 +55,12 @@ export const updateWikiPage = async (
   id: string,
   body: WikiPageDTO
 ) => {
-  const { data, error }: PostgrestSingleResponse<WikiPage[]> = await sb
+  const { data, error }: PostgrestSingleResponse<WikiPage> = await sb
     .from("wiki_pages")
     .update(body)
     .eq("id", id)
-    .select();
+    .select()
+    .single();
   if (!data) redirect("/404");
   if (error) redirect("/error");
   return { data, error };

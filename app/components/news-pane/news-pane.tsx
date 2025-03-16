@@ -1,3 +1,5 @@
+"use server";
+
 import { readdirSync, readFileSync } from "node:fs";
 import path from "node:path";
 import Markdown from "react-markdown";
@@ -22,7 +24,7 @@ const getNewsData = () => {
 
 const newsData = getNewsData();
 
-export const NewsPane = () => {
+export const NewsPane = async () => {
   const sortedNews = [...newsData].sort(
     (a, b) => b.date.getTime() - a.date.getTime()
   );

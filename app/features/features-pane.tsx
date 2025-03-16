@@ -1,17 +1,23 @@
 "use client";
 
-import { useFeaturesList } from "../utils/hooks/use-features-list";
 import Markdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import { useSectionsWithHash } from "../utils/hooks/use-hash-link";
+import type { WikiPage } from "../types";
+import { AdminButtons } from "../components";
 
-export const FeaturesPane = ({ featuresData }: { featuresData: string[] }) => {
-  const features = useFeaturesList(featuresData);
+export const FeaturesPane = ({
+  featuresData,
+  isAdmin,
+}: {
+  featuresData: WikiPage[];
+  isAdmin: boolean;
+}) => {
   const { openSection, handleSectionClick } = useSectionsWithHash();
 
   return (
     <>
-      {features.map((section) => (
+      {featuresData.map((section) => (
         <div key={section.id} className="mb-8" id={section.id}>
           <details
             className="cursor-pointer group"
@@ -31,6 +37,9 @@ export const FeaturesPane = ({ featuresData }: { featuresData: string[] }) => {
               }}
               tabIndex={0}
             >
+              <div className="relative">
+                {isAdmin && <AdminButtons id={section.url_name} />}
+              </div>
               <span className="flex items-center">
                 <svg
                   className="w-6 h-6 mr-2 transition-transform duration-300 group-open:rotate-90"
@@ -47,6 +56,7 @@ export const FeaturesPane = ({ featuresData }: { featuresData: string[] }) => {
                     d="M9 5l7 7-7 7"
                   />
                 </svg>
+
                 <Markdown className="markdown">{section.title}</Markdown>
               </span>
             </summary>

@@ -1,11 +1,14 @@
-import { UserRole } from "@/app/types/index";
+import { type UserAccount, UserRole } from "@/app/types/index";
 import { createClient } from "@/app/utils/supabase/server";
 import { redirect } from "next/navigation";
 
 export const getAuthorizedUser = async ({
   protectedPage,
   adminProtectedPage,
-}: { protectedPage?: boolean; adminProtectedPage?: boolean } = {}) => {
+}: {
+  protectedPage?: boolean;
+  adminProtectedPage?: boolean;
+} = {}): Promise<UserAccount | null> => {
   const supabase = await createClient();
 
   const { data, error } = await supabase.auth.getUser();

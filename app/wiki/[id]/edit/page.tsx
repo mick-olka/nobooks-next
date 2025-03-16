@@ -1,6 +1,6 @@
 import { createClient } from "@/app/utils/supabase/server";
 import { getAuthorizedUser } from "@/app/auth";
-import { getWikiPageById } from "@/app/utils/services";
+import { getWikiPageByUrlName } from "@/app/utils/services";
 import { redirect } from "next/navigation";
 import { WikiPageForm } from "@/app/components";
 import { updateWikiPageAction } from "@/app/actions/wiki";
@@ -13,7 +13,7 @@ export default async function WikiEditPage({
   const historyId = (await params).id;
   const supabase = await createClient();
   const user = await getAuthorizedUser({ adminProtectedPage: true });
-  const { data } = await getWikiPageById(supabase, historyId);
+  const { data } = await getWikiPageByUrlName(supabase, historyId);
   if (!user) redirect("/login");
 
   return (

@@ -10,24 +10,25 @@ type Props = {
   type: WikiPageType;
 };
 
-export const CreateHistoryPageBtn = ({ userId, type }: Props) => {
+export const CreateWikiPageBtn = ({ userId, type }: Props) => {
   const router = useRouter();
   const supabase = createClient();
-  const createHistoryPage = async () => {
+  const handleCreate = async () => {
     const { data } = await createWikiPage(supabase, {
-      title: "New history page",
-      content: "New history page content",
+      title: "New page title",
+      content: "New page content",
       created_by: userId,
       last_modified_by: userId,
+      url_name: Math.random().toString(36).substring(2, 10),
       type,
     });
-    if (data) router.push(`/wiki/${data[0].id}/edit`);
+    if (data) router.push(`/wiki/${data[0].url_name}/edit`);
   };
   return (
     <button
       className="fixed top-24 right-4 btn btn-circle btn-outline btn-sm text-xl btn-info"
       type="button"
-      onClick={createHistoryPage}
+      onClick={handleCreate}
     >
       +
     </button>

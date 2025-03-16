@@ -3,7 +3,7 @@ import Markdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import { getAuthorizedUser } from "@/app/auth";
 import { UserRole } from "@/app/types";
-import { getWikiPageById } from "@/app/utils/services";
+import { getWikiPageByUrlName } from "@/app/utils/services";
 import { BackBtn, AdminButtons } from "@/app/components";
 
 export default async function WikiPage({
@@ -15,12 +15,12 @@ export default async function WikiPage({
   const supabase = await createClient();
   const user = await getAuthorizedUser();
   const isAdmin = user ? user.user_role === UserRole.ADMIN : false;
-  const { data } = await getWikiPageById(supabase, pageId);
+  const { data } = await getWikiPageByUrlName(supabase, pageId);
 
   return (
     <div className="p-4 max-w-[1200px] mx-auto">
       <div className="flex items-center">
-        <BackBtn />
+        <BackBtn isAdmin={isAdmin} />
         <h1 className="text-3xl font-bold my-6">{data.title}</h1>
       </div>
       <div className="card bg-base-100 shadow-md p-4">
@@ -28,7 +28,7 @@ export default async function WikiPage({
           {data.content}
         </Markdown>
       </div>
-      {isAdmin && user && <AdminButtons id={data.id} />}
+      {isAdmin && user && <AdminButtons id={data.url_name} />}
     </div>
   );
 }

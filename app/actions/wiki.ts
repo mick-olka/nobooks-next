@@ -11,10 +11,11 @@ export async function updateWikiPageAction(formData: WikiPageFormData) {
     title: formData.title,
     content: formData.content,
     last_modified_by: formData.userId,
+    url_name: formData.url_name,
     type: formData.type,
   });
 
   if (updatedWiki) {
-    redirect(`/wiki/${formData.id}`);
+    redirect(`/wiki/${updatedWiki.url_name}`);
   }
 }

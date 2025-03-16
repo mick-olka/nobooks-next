@@ -8,7 +8,7 @@ export default function WikiPage() {
       <h1 className="text-3xl font-bold text-center m-4">no boobs Wiki</h1>
       <div className="flex flex-wrap gap-12 justify-center">
         <Link
-          href="/wiki/regions"
+          href="/regions"
           className="p-8 rounded-lg shadow-md bg-base-100 hover:shadow-lg hover:translate-y-[-10px] transition-all duration-300 max-w-96"
         >
           <h2 className="text-2xl font-semibold mb-2">Поселення</h2>
@@ -25,7 +25,7 @@ export default function WikiPage() {
         </Link>
 
         <Link
-          href="/wiki/history"
+          href="/history"
           className="p-8 rounded-lg shadow-md bg-base-100 hover:shadow-lg hover:translate-y-[-10px] transition-all duration-300 max-w-96"
         >
           <h2 className="text-2xl font-semibold mb-2">Історія сервера</h2>
