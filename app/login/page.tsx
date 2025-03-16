@@ -1,4 +1,4 @@
-import { login, signup } from "./actions";
+import { signInWithDiscord } from "./actions";
 
 export default function LoginPage() {
   return (
@@ -8,9 +8,8 @@ export default function LoginPage() {
           no boobs: особистий кабінет
         </h1>
 
-        <div className="space-y-4">
-          <div>
-            <label
+        <div className="space-y-4 flex items-center justify-center">
+          {/* <label
               htmlFor="email"
               className="block text-sm font-medium text-gray-400 mb-1"
             >
@@ -55,8 +54,14 @@ export default function LoginPage() {
               className="flex-1 bg-gray-600 text-white py-2 px-4 rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500"
             >
               Sign up
-            </button>
-          </div>
+            </button> */}
+          <button
+            type="submit"
+            formAction={signInWithDiscord}
+            className="flex-1 bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            Зайти з допомогою Discord
+          </button>
         </div>
       </form>
     </div>
