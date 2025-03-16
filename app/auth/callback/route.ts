@@ -7,7 +7,7 @@ export async function GET(request: Request) {
   console.log(searchParams, origin);
   const code = searchParams.get("code");
   // if "next" is in param, use it as the redirect URL
-  const next = searchParams.get("next") ?? "/";
+  // const next = searchParams.get("next") ?? "/";
   console.log(code);
   if (code) {
     const supabase = await createClient();
@@ -15,7 +15,7 @@ export async function GET(request: Request) {
     console.log(data, error);
     if (!error) {
       const forwardedHost = request.headers.get("x-forwarded-host"); // original origin before load balancer
-      const isLocalEnv = process.env.NODE_ENV === "development";
+      // const isLocalEnv = process.env.NODE_ENV === "development";
       console.log(
         "All headers:",
         Object.fromEntries(request.headers.entries())
