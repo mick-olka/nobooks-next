@@ -7,6 +7,13 @@ const nextConfig: NextConfig = {
     // Enables the styled-components SWC transform
     styledComponents: true,
   },
+  images: {
+    remotePatterns: [
+      {
+        hostname: "cdn.discordapp.com",
+      },
+    ],
+  },
 };
 
 export default nextConfig;
