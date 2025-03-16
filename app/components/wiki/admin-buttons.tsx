@@ -16,18 +16,18 @@ export const AdminButtons = ({ id }: { id: string }) => {
     }
   };
   return (
-    <div className="fixed top-24 right-4">
+    <div className="absolute top-24 right-4 flex gap-4">
       <Link href={`/wiki/${id}/edit`}>
         <button
           type="button"
-          className="btn btn-circle btn-info fixed top-20 right-4"
+          className="btn btn-circle btn-sm btn-outline btn-info"
         >
           ✏️
         </button>
       </Link>
       <button
         onClick={deleteWikiPage}
-        className="btn btn-circle btn-error fixed top-36 right-4"
+        className="btn btn-circle btn-sm btn-outline btn-error"
         type="button"
       >
         🗑️

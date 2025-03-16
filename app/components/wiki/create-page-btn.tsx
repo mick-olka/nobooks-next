@@ -25,7 +25,7 @@ export const CreateHistoryPageBtn = ({ userId, type }: Props) => {
   };
   return (
     <button
-      className="fixed top-24 right-4 btn btn-circle btn-primary text-2xl text-white"
+      className="fixed top-24 right-4 btn btn-circle btn-outline btn-sm text-xl btn-info"
       type="button"
       onClick={createHistoryPage}
     >
