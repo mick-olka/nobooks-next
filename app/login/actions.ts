@@ -60,7 +60,6 @@ export const signInWithDiscord = async () => {
       redirectTo: `${process.env.NEXT_PUBLIC_APP_URL}/auth/callback`,
     },
   });
-  console.log("LOGIN");
 
   if (error) {
     console.error("Error signing in with Discord", error);
