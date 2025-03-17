@@ -1,9 +1,10 @@
 "use client";
 
-import { createClient } from "@/app/utils/supabase/client";
+// import { createClient } from "@/app/utils/supabase/client";
 import { useRouter } from "next/navigation";
 import type { WikiPageType } from "@/app/types";
-import { createWikiPage } from "@/app/utils/services";
+import { createWikiPageAction } from "@/app/actions/wiki";
+// import { createWikiPage } from "@/app/utils/services";
 
 type Props = {
   userId: string;
@@ -12,9 +13,9 @@ type Props = {
 
 export const CreateWikiPageBtn = ({ userId, type }: Props) => {
   const router = useRouter();
-  const supabase = createClient();
+  // const supabase = createClient();
   const handleCreate = async () => {
-    const { data } = await createWikiPage(supabase, {
+    const data = await createWikiPageAction({
       title: "New page title",
       content: "New page content",
       created_by: userId,
@@ -26,7 +27,7 @@ export const CreateWikiPageBtn = ({ userId, type }: Props) => {
   };
   return (
     <button
-      className="fixed top-24 right-4 btn btn-circle btn-outline btn-sm text-xl btn-info"
+      className="fixed top-24 right-4 btn btn-circle btn-outline btn-sm text-xl btn-info z-20"
       type="button"
       onClick={handleCreate}
     >
