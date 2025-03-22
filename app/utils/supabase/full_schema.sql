@@ -1,5 +1,6 @@
 create type public.app_role as enum ('admin', 'moderator', 'user');
 create type public.wiki_type as enum ('region', 'wiki', 'feature', 'rule', 'history');
+ALTER TYPE public.wiki_type ADD VALUE 'faq';
 
 -- Create wiki table
 create table public.wiki_pages (

@@ -91,7 +91,7 @@ export const LayoutHeader: FC = () => {
                 Карта
               </button>
             </Link>
-            <Link href="/faq">
+            {/* <Link href="/faq">
               <button
                 className="w-32 btn-ghost btn-circle btn p-2"
                 type="button"
@@ -113,7 +113,7 @@ export const LayoutHeader: FC = () => {
                 </svg>
                 ЧаПи
               </button>
-            </Link>
+            </Link> */}
             <Link href={"/features"}>
               <button
                 className="w-32 btn-ghost btn-circle btn p-2"
