@@ -4,6 +4,12 @@
   "[javascript]": {
     "editor.defaultFormatter": "biomejs.biome"
   },
-  "cSpell.words": ["playercount", "Postgrest", "SUPABASE", "Turbopack"],
+  "cSpell.words": [
+    "playercount",
+    "playernames",
+    "Postgrest",
+    "SUPABASE",
+    "Turbopack"
+  ],
   "typescript.tsdk": "node_modules\\typescript\\lib"
 }

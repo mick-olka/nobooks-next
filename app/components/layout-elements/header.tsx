@@ -18,6 +18,7 @@ export const LayoutHeader: FC = () => {
               { name: "ЧаПи", href: "/faq" },
               { name: "Вікі", href: "/wiki" },
               { name: "Особистий кабінет", href: "/private" },
+              { name: "Стіна слави", href: "/stats" },
             ]}
           />
           <Logo logoName={"no boobs"} />
