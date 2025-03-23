@@ -1,13 +1,14 @@
 import { PageTransitionWrapper } from "../components";
-import { getPlayerStats } from "../utils/services";
-import { HallOfFame } from "./hall-of-fame";
+import { getPlayerStats } from "../utils/services/stats-service";
+import { revalidatePath } from "next/cache";
+import { StatsClient } from "./stats-client";
 
+// Server component to fetch initial data
 export default async function StatsPage() {
-  const statsData = await getPlayerStats();
+  const initialData = await getPlayerStats();
   return (
     <PageTransitionWrapper className="container mx-auto px-4 py-8">
-      <h1 className="text-4xl font-bold my-8 text-center">🎖️ Стіна слави 🎖️</h1>
-      <HallOfFame data={statsData} />
+      <StatsClient initialData={initialData} />
     </PageTransitionWrapper>
   );
 }
