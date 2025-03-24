@@ -15,10 +15,8 @@ export const LayoutHeader: FC = () => {
               { name: "Правила", href: "/rules" },
               { name: "Додатки", href: "/features" },
               { name: "Карта", href: "/map" },
-              { name: "ЧаПи", href: "/faq" },
               { name: "Вікі", href: "/wiki" },
               { name: "Особистий кабінет", href: "/private" },
-              { name: "Стіна слави", href: "/stats" },
             ]}
           />
           <Logo logoName={"no boobs"} />

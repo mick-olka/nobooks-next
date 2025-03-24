@@ -3,6 +3,52 @@
 import type { StatsData, StatsResponse } from "@/app/types";
 import { revalidatePath } from "next/cache";
 
+const scoresTranslate = {
+	"Total Time Played": "Загальний час гри",
+	"Time Since Last Death": "Час з останньої смерті",
+	Deaths: "Кількість смертей",
+	"Blocks Placed": "Поставлено блоків (шт.)",
+	"Damage Dealt": "Завдано шкоди",
+	"Damage Taken": "Отримано шкоди",
+	"Times Slept": "Ночей проспано",
+	"Player Kills": "Вбито гравців",
+	"Crafting Table Uses": "Використано крафт-стіл",
+	Jumps: "Кількість стрибків",
+	"Distance Fallen": "Відстань падіння (блоків)",
+	"Distance Walked": "Пройдено відстань (блоків)",
+	"Distance Climbed": "Відстань підйому (блоків)",
+	"Distance Sprinted": "Відстань у бігу (блоків)",
+	"Distance Flown": "Відстань в польоті (блоків)",
+	"Distance Swum": "Відстань вплав (блоків)",
+	"Distance Crouched": "Відстань крадькома (блоків)",
+	"Minecart Travel Distance": "Відстань у вагонетці (блоків)",
+	"Sneak Time": "Час крадькома (сек.)",
+	"Note Blocks Played": "Зіграно на нотних блоках",
+	"Boat Travel Distance": "Відстань на човні (блоків)",
+	"Villagers Talked To": "Взаємодій з селянами",
+	"Dispensers Inspected": "Взаємодій з роздавачами",
+	"Brewing Stand Interactions": "Взаємодій з варильною стійкою",
+	"Chests Opened": "Відкрито скринь",
+	"Flowers Potted": "Посаджено квітів у горщики",
+	"Records Played": "Використано платівок",
+	"Animals Bred": "Розмножено тварин",
+	"Trades with Villagers": "Торгівель з селянами",
+	"Items Enchanted": "Зачаровано предметів",
+	"Ender Chests Opened": "Відкрито ендер-скринь",
+	"Horse Travel Distance": "Пройдено відстань конем (блоків)",
+	"Fish Caught": "Спіймано риби",
+	"Note Blocks Tuned": "Налаштовано нотних блоків",
+	"Furnaces Used": "Використано печей",
+	"Droppers Inspected": "Взаємодій з роздавачами",
+	"Banners Cleaned": "Очищено банерів",
+	"Trapped Chests Triggered": "Відкрито скринь-пасток",
+	"Cauldrons Filled": "Наповнено чанів",
+	"Hoppers Inspected": "Взаємодій з воронками",
+	"Cake Slices Eaten": "З'їдено шматків торту",
+	"Cauldrons Used": "Використано чанів",
+	"Armor Cleaned": "Очищено броні",
+};
+
 /**
  * Format seconds into days, hours, minutes format
  */
@@ -66,10 +112,17 @@ export const getPlayerStats = async (): Promise<StatsData> => {
 			}
 		}
 
+		const translatedScores = Object.fromEntries(
+			Object.entries(scoresTranslate).map(([key, value]) => [
+				value,
+				filteredScores[key],
+			]),
+		);
+
 		const statsData: StatsData = {
 			online: data.online,
 			scoreboard: {
-				scores: filteredScores,
+				scores: translatedScores,
 			},
 			playernames: data.playernames,
 		};
