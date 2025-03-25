@@ -83,7 +83,7 @@ export const getPlayerStats = async (): Promise<StatsData> => {
 		const filteredScores = { ...data.scoreboard.scores };
 
 		// Time-related keys to remove
-		const timeRelatedKeys = [
+		const extraScores = [
 			"Minutes Played",
 			"Hours Played",
 			"Days Played",
@@ -97,7 +97,7 @@ export const getPlayerStats = async (): Promise<StatsData> => {
 		];
 
 		// Remove extra time-related keys
-		for (const key of timeRelatedKeys) {
+		for (const key of extraScores) {
 			delete filteredScores[key];
 		}
 		// Convert all distance measurements from centimeters to meters
@@ -107,6 +107,20 @@ export const getPlayerStats = async (): Promise<StatsData> => {
 					const distance = Number.parseInt(value);
 					if (!Number.isNaN(distance)) {
 						filteredScores[key][player] = String(Math.floor(distance / 100));
+					}
+				}
+			}
+			if (key.includes("Time")) {
+				// Initialize the object if it doesn't exist
+				if (!filteredScores[key]) filteredScores[key] = {};
+				for (const [player, value] of Object.entries(playerScores)) {
+					if (value) {
+						const time = value
+							.replace("d", "д")
+							.replace("h", "г")
+							.replace("m", "хв")
+							.replace("s", "c");
+						filteredScores[key][player] = time;
 					}
 				}
 			}

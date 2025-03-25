@@ -15,23 +15,23 @@ export const HallOfFame = ({ data }: { data: StatsData }) => {
   const parseValue = (value: string): number => {
     // Handle time format like "6d 7h 46m 45s"
     if (
-      value.includes("d ") ||
-      value.includes("h ") ||
-      value.includes("m ") ||
-      value.includes("s")
+      value.includes("д ") ||
+      value.includes("г ") ||
+      value.includes("хв ") ||
+      value.includes("с")
     ) {
       let totalSeconds = 0;
 
-      const days = value.match(/(\d+)d/);
+      const days = value.match(/(\d+)д/);
       if (days) totalSeconds += Number.parseInt(days[1]) * 86400;
 
-      const hours = value.match(/(\d+)h/);
+      const hours = value.match(/(\d+)г/);
       if (hours) totalSeconds += Number.parseInt(hours[1]) * 3600;
 
-      const minutes = value.match(/(\d+)m/);
+      const minutes = value.match(/(\d+)хв/);
       if (minutes) totalSeconds += Number.parseInt(minutes[1]) * 60;
 
-      const seconds = value.match(/(\d+)s/);
+      const seconds = value.match(/(\d+)с/);
       if (seconds) totalSeconds += Number.parseInt(seconds[1]);
 
       return totalSeconds;
