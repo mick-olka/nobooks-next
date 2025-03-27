@@ -8,6 +8,7 @@ import {
   LayoutHeader,
 } from "./components";
 import { AnimatePresence } from "framer-motion";
+import { getAuthorizedUser } from "./auth";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,11 +28,12 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const user = await getAuthorizedUser();
   return (
     <html lang="en">
       <body
@@ -39,7 +41,7 @@ export default function RootLayout({
       >
         <AnimatePresence mode="wait">
           <div className="h-screen overflow-x-hidden">
-            <LayoutHeader />
+            <LayoutHeader userName={user?.name} />
             <main className="min-h-full bg-base-200">{children}</main>
             <LayoutFooter />
 

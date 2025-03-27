@@ -4,7 +4,11 @@ import { Menu } from "./menu";
 import Link from "next/link";
 import type { FC } from "react";
 
-export const LayoutHeader: FC = () => {
+type LayoutHeaderProps = {
+  userName?: string;
+};
+
+export const LayoutHeader: FC<LayoutHeaderProps> = ({ userName }) => {
   return (
     <>
       <header className="relative">
@@ -19,7 +23,7 @@ export const LayoutHeader: FC = () => {
               { name: "Особистий кабінет", href: "/private" },
             ]}
           />
-          <Logo logoName={"no boobs"} />
+          <Logo logoName={userName || "no boobs"} />
           <div className="navbar-end hidden lg:flex">
             <Link href={"/wiki"}>
               <button

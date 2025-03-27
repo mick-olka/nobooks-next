@@ -3,10 +3,15 @@ import { constants } from "../utils";
 import { logout } from "@/app/login/actions";
 import { getAuthorizedUser } from "@/app/auth";
 import Image from "next/image";
+import { getPlayerIndividualStats } from "../utils/services";
 
 export default async function PrivatePage() {
   const user = await getAuthorizedUser({ protectedPage: true });
-
+  const discordId = user?.user_metadata.provider_id;
+  let playerIndividualStats: Record<string, string> = {};
+  if (discordId) {
+    playerIndividualStats = await getPlayerIndividualStats(discordId);
+  }
   const handleLogout = async () => {
     "use server";
     await logout();
@@ -42,11 +47,7 @@ export default async function PrivatePage() {
           <div className="flex-grow">
             <h2 className="text-xl font-semibold mb-2">
               {user.user_metadata?.full_name || user.email}
-              {user.user_metadata?.custom_claims?.global_name && (
-                <span className="text-sm text-gray-500 ml-2">
-                  ({user.user_metadata.custom_claims.global_name})
-                </span>
-              )}
+              <span className="text-sm text-gray-500 ml-2">({user.name})</span>
             </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -78,7 +79,11 @@ export default async function PrivatePage() {
         <div className="divider" />
 
         <p className="text-lg leading-relaxed">
-          Привіт, <span className="font-medium">{user.email}</span>!
+          Привіт,{" "}
+          <span className="font-medium">
+            {user.user_metadata.custom_claims.global_name || user.email}
+          </span>
+          !
           <br />
           Скоро тут буде більше функцій для твого особистого кабінету, слідкуй
           за оновленнями в нашому{" "}
@@ -100,6 +105,22 @@ export default async function PrivatePage() {
             Телеграмі
           </Link>
         </p>
+
+        <div className="divider" />
+
+        {Object.keys(playerIndividualStats).length > 0 && (
+          <>
+            <h2 className="text-xl font-semibold mb-4">Статистика гравця</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+              {Object.entries(playerIndividualStats).map(([key, value]) => (
+                <div key={key} className="card bg-base-200 p-3 rounded-md">
+                  <p className="text-sm text-gray-500">{key}</p>
+                  <p className="font-medium">{value}</p>
+                </div>
+              ))}
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

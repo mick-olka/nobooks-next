@@ -7,7 +7,7 @@ const scoresTranslate = {
 	"Total Time Played": "Загальний час гри",
 	"Time Since Last Death": "Час з останньої смерті",
 	Deaths: "Кількість смертей",
-	"Blocks Placed": "Поставлено блоків (шт.)",
+	// "Blocks Placed": "Поставлено блоків (шт.)",
 	"Damage Dealt": "Завдано шкоди",
 	"Damage Taken": "Отримано шкоди",
 	"Times Slept": "Ночей проспано",
@@ -49,21 +49,31 @@ const scoresTranslate = {
 	"Armor Cleaned": "Очищено броні",
 };
 
-/**
- * Format seconds into days, hours, minutes format
- */
-function formatTimeFromSeconds(seconds: number): string {
-	const days = Math.floor(seconds / 86400);
-	const hours = Math.floor((seconds % 86400) / 3600);
-	const minutes = Math.floor((seconds % 3600) / 60);
+export const getPlayersUUIDS = async (): Promise<Record<string, string>> => {
+	const response = await fetch(
+		`${process.env.NEXT_PUBLIC_STATS_URL}/stats.json`,
+	);
+	const data: StatsResponse = await response.json();
+	const playersIds = data.scoreboard.scores["Player UUID"];
+	return playersIds;
+};
 
-	let result = "";
-	if (days > 0) result += `${days}d `;
-	if (hours > 0) result += `${hours}h `;
-	if (minutes > 0) result += `${minutes}m`;
+export const getDiscordIds = async (): Promise<Record<string, string>> => {
+	const response = await fetch("https://map.noboobs.world:3140/accounts.aof");
+	const text = await response.text();
+	const lines = text.split("\n");
+	const accounts: Record<string, string> = {};
 
-	return result.trim();
-}
+	for (const line of lines) {
+		if (!line) continue;
+		const [uuid, discordId] = line.split(" ");
+		if (uuid && discordId) {
+			accounts[uuid] = discordId;
+		}
+	}
+
+	return accounts;
+};
 
 export const getPlayerStats = async (): Promise<StatsData> => {
 	try {
@@ -160,3 +170,24 @@ export async function fetchStatsData() {
 	revalidatePath("/stats");
 	return statsData;
 }
+
+export const getPlayerIndividualStats = async (discordId: string) => {
+	const discordIds = await getDiscordIds();
+	const uuid = discordIds[discordId];
+	const playersUUIDS = await getPlayersUUIDS();
+	const playerName = Object.keys(playersUUIDS).find(
+		(key) => playersUUIDS[key] === uuid,
+	);
+	const {
+		scoreboard: { scores },
+	} = await getPlayerStats();
+	const playerIndividualStats: Record<string, string> = {};
+	if (!playerName) return playerIndividualStats;
+	for (const [key, value] of Object.entries(scores)) {
+		if (value) {
+			const userStat = value[playerName];
+			playerIndividualStats[key] = userStat;
+		}
+	}
+	return playerIndividualStats;
+};
