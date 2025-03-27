@@ -4,8 +4,8 @@ import type { StatsData, StatsResponse } from "@/app/types";
 import { revalidatePath } from "next/cache";
 
 const scoresTranslate = {
-	"Total Time Played": "Загальний час гри",
-	"Time Since Last Death": "Час з останньої смерті",
+	"Hours Played": "Зіграно годин",
+	"Hours Since Last Death": "Остання смерть (годин тому)",
 	Deaths: "Кількість смертей",
 	// "Blocks Placed": "Поставлено блоків (шт.)",
 	"Damage Dealt": "Завдано шкоди",
@@ -95,7 +95,7 @@ export const getPlayerStats = async (): Promise<StatsData> => {
 		// Time-related keys to remove
 		const extraScores = [
 			"Minutes Played",
-			"Hours Played",
+			// "Hours Played",
 			"Days Played",
 			"Seconds Played",
 			"Ticks Played",
@@ -103,7 +103,7 @@ export const getPlayerStats = async (): Promise<StatsData> => {
 			"Days Since Last Death",
 			"Seconds Since Last Death",
 			"Minutes Since Last Death",
-			"Hours Since Last Death",
+			// "Hours Since Last Death",
 		];
 
 		// Remove extra time-related keys
@@ -120,20 +120,21 @@ export const getPlayerStats = async (): Promise<StatsData> => {
 					}
 				}
 			}
-			if (key.includes("Time")) {
-				// Initialize the object if it doesn't exist
-				if (!filteredScores[key]) filteredScores[key] = {};
-				for (const [player, value] of Object.entries(playerScores)) {
-					if (value) {
-						const time = value
-							.replace("d", "д")
-							.replace("h", "г")
-							.replace("m", "хв")
-							.replace("s", "c");
-						filteredScores[key][player] = time;
-					}
-				}
-			}
+			// if (key.includes("Time")) {
+			// 	// Initialize the object if it doesn't exist
+			// 	if (!filteredScores[key]) filteredScores[key] = {};
+			// 	for (const [player, value] of Object.entries(playerScores)) {
+			// 		if (value) {
+			// 			const time = value
+			// 				.replace("w", "т")
+			// 				.replace("d", "д")
+			// 				.replace("h", "г")
+			// 				.replace("m", "хв")
+			// 				.replace("s", "c");
+			// 			filteredScores[key][player] = time;
+			// 		}
+			// 	}
+			// }
 		}
 
 		const translatedScores = Object.fromEntries(

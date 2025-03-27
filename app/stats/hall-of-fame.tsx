@@ -14,28 +14,28 @@ export const HallOfFame = ({ data }: { data: StatsData }) => {
   // Helper function to parse values for comparison
   const parseValue = (value: string): number => {
     // Handle time format like "6d 7h 46m 45s"
-    if (
-      value.includes("д ") ||
-      value.includes("г ") ||
-      value.includes("хв ") ||
-      value.includes("с")
-    ) {
-      let totalSeconds = 0;
+    // if (
+    //   value.includes("д ") ||
+    //   value.includes("г ") ||
+    //   value.includes("хв ") ||
+    //   value.includes("с")
+    // ) {
+    //   let totalSeconds = 0;
 
-      const days = value.match(/(\d+)д/);
-      if (days) totalSeconds += Number.parseInt(days[1]) * 86400;
+    //   const days = value.match(/(\d+)д/);
+    //   if (days) totalSeconds += Number.parseInt(days[1]) * 86400;
 
-      const hours = value.match(/(\d+)г/);
-      if (hours) totalSeconds += Number.parseInt(hours[1]) * 3600;
+    //   const hours = value.match(/(\d+)г/);
+    //   if (hours) totalSeconds += Number.parseInt(hours[1]) * 3600;
 
-      const minutes = value.match(/(\d+)хв/);
-      if (minutes) totalSeconds += Number.parseInt(minutes[1]) * 60;
+    //   const minutes = value.match(/(\d+)хв/);
+    //   if (minutes) totalSeconds += Number.parseInt(minutes[1]) * 60;
 
-      const seconds = value.match(/(\d+)с/);
-      if (seconds) totalSeconds += Number.parseInt(seconds[1]);
+    //   const seconds = value.match(/(\d+)с/);
+    //   if (seconds) totalSeconds += Number.parseInt(seconds[1]);
 
-      return totalSeconds;
-    }
+    //   return totalSeconds;
+    // }
 
     // Default: parse as number
     return Number.parseInt(value.replace(/,/g, ""), 10) || 0;
