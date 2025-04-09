@@ -35,7 +35,7 @@ export default async function RootLayout({
 }>) {
   const user = await getAuthorizedUser();
   return (
-    <html lang="en">
+    <html lang="en" data-theme="dark">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
