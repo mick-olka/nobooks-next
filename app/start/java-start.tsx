@@ -12,6 +12,8 @@ export const JavaStart = () => {
         <div className="mt-2 pl-4 overflow-hidden transition-all duration-300 text-lg leading-relaxed">
           <p className="w-fit">
             Айпі для джави: <br /> <IpContainer ip={constants.JAVA_IP} />
+            Якщо не виходить приєднатись, спробуйте інший айпі: <br />
+            <IpContainer ip={"tunel.noboobs.world:3134"} />
           </p>
           <p className="font-bold">Версія: (1.21+)</p>
           <p>Якщо айпі не працює - спробуйте айпі бедроку</p>
