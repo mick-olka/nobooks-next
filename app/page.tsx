@@ -7,6 +7,7 @@ import {
 } from "@/app/components";
 import { constants } from "./utils";
 import Image from "next/image";
+import Link from "next/link";
 
 export default async function Home() {
   return (
@@ -38,11 +39,17 @@ export default async function Home() {
                 {/* <b>Ведуться технічні роботи - сервер скоро повернеться</b> */}
               </div>
               <div className="flex flex-col items-center gap-2 mt-2">
-                <div className="flex items-center justify-center gap-2">
+                <div className="flex items-center justify-center gap-2 mb-4 relative">
                   <span className="text-center">Java:</span>
                   <IpContainer ip={constants.JAVA_IP} />
+                  <Link
+                    className="text-sm text-gray-400 underline absolute top-7 right-0"
+                    href="/start/java"
+                  >
+                    <p>Проблеми з підключенням?</p>
+                  </Link>
                 </div>
-                <div className="flex items-center justify-center gap-2 flex-wrap">
+                <div className="flex items-center justify-center gap-0 flex-wrap sm:gap-2">
                   <span className="text-center">Bedrock:</span>
                   <IpContainer ip={constants.BEDROCK_IP} />
                 </div>
