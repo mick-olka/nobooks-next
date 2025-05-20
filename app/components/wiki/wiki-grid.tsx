@@ -1,14 +1,14 @@
+import React from "react";
+import { CreateWikiPageBtn } from "./create-page-btn";
 import {
-	type UserAccount,
 	UserRole,
 	type WikiPage,
 	type WikiPageType,
+	type UserAccount,
 } from "@/app/types";
-import Link from "next/link";
-import React from "react";
 import Markdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
-import { CreateWikiPageBtn } from "./create-page-btn";
+import Link from "next/link";
 
 type Props = {
 	user: UserAccount | null;
@@ -24,20 +24,24 @@ export const WikiGrid = ({ data, user, type }: Props) => {
 			{/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"> */}
 			<div className="flex flex-wrap gap-6">
 				{data?.map((page) => (
-					<div
+					<Link
+						href={`/wiki/${page.url_name}`}
+						// className="absolute bottom-4"
 						key={page.id}
-						className="card bg-base-100 shadow-md p-6 w-96 h-44"
 					>
-						<h2 className="card-title">{page.title}</h2>
-						<Markdown rehypePlugins={[rehypeRaw]} className="my-4">
-							{`${page.content.slice(0, 60)}...`}
-						</Markdown>
-						{/* <Link href={`/wiki/${page.url_name}`} className="absolute bottom-4">
+						<div className="card bg-base-100 shadow-md p-6 w-96 h-32">
+							<h2 className="card-title max-h-10">{page.title}</h2>
+							{/* <Markdown rehypePlugins={[rehypeRaw]} className="my-4 max-h-12">
+								{`${page.content.slice(0, 50)}...`}
+							</Markdown> */}
+							{/* <Link href={`/wiki/${page.url_name}`} className="absolute bottom-4">
               <button type="button" className="btn btn-primary">
                 Читати
               </button>
             </Link> */}
-					</div>
+							<p className="underline mt-4">Детальніше</p>
+						</div>
+					</Link>
 				))}
 			</div>
 		</>
