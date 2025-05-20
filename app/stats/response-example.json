@@ -1,340 +1,334 @@
 {
-    "online": {
-        "chuwick": true,
-        "Yamtom_": true
-    },
-    "scoreboard": {
-        "entries": [],
-        "columns": [],
-        "scores": {
-            "Distance Fallen": {
-                "chuwick": "3191583",
-                "Yamtom_": "234737",
-                "enwoody": "2795908"
-            },
-            "Minutes Played": {
-                "chuwick": "9106",
-                "Yamtom_": "1581",
-                "enwoody": "8155"
-            },
-            "Crafting Table Uses": {
-                "chuwick": "874",
-                "Yamtom_": "67",
-                "enwoody": "629"
-            },
-            "Note Blocks Played": {
-                "chuwick": "28",
-                "Yamtom_": "0",
-                "enwoody": "4"
-            },
-            "Treasure Fished": {
-                "chuwick": "Unknown statistic \u0027treasure_fished\u0027, check https://helpch.at/docs/1.21.4/org/bukkit/Statistic.html for more info",
-                "Yamtom_": "Unknown statistic \u0027treasure_fished\u0027, check https://helpch.at/docs/1.21.4/org/bukkit/Statistic.html for more info",
-                "enwoody": "Unknown statistic \u0027treasure_fished\u0027, check https://helpch.at/docs/1.21.4/org/bukkit/Statistic.html for more info"
-            },
-            "Times Slept": {
-                "chuwick": "172",
-                "Yamtom_": "34",
-                "enwoody": "59"
-            },
-            "Seconds Since Last Death": {
-                "chuwick": "57483",
-                "Yamtom_": "17133",
-                "enwoody": "1056"
-            },
-            "Distance Sprinted": {
-                "chuwick": "22047212",
-                "Yamtom_": "962696",
-                "enwoody": "15715299"
-            },
-            "Ticks Since Last Death": {
-                "chuwick": "Unknown statistic \u0027ticks_since_death\u0027, check https://helpch.at/docs/1.21.4/org/bukkit/Statistic.html for more info",
-                "Yamtom_": "Unknown statistic \u0027ticks_since_death\u0027, check https://helpch.at/docs/1.21.4/org/bukkit/Statistic.html for more info",
-                "enwoody": "Unknown statistic \u0027ticks_since_death\u0027, check https://helpch.at/docs/1.21.4/org/bukkit/Statistic.html for more info"
-            },
-            "Distance Flown": {
-                "chuwick": "710600",
-                "Yamtom_": "100217",
-                "enwoody": "126578516"
-            },
-            "Boat Travel Distance": {
-                "chuwick": "4714712",
-                "Yamtom_": "2679573",
-                "enwoody": "542240"
-            },
-            "Droppers Inspected": {
-                "chuwick": "0",
-                "Yamtom_": "0",
-                "enwoody": "0"
-            },
-            "Villagers Talked To": {
-                "chuwick": "2128",
-                "Yamtom_": "211",
-                "enwoody": "561"
-            },
-            "Dispensers Inspected": {
-                "chuwick": "40",
-                "Yamtom_": "0",
-                "enwoody": "38"
-            },
-            "Sneak Time": {
-                "chuwick": "532380",
-                "Yamtom_": "10363",
-                "enwoody": "460907"
-            },
-            "Banners Cleaned": {
-                "chuwick": "0",
-                "Yamtom_": "0",
-                "enwoody": "4"
-            },
-            "Beacons Used": {
-                "chuwick": "Unknown statistic \u0027beacon_interacted\u0027, check https://helpch.at/docs/1.21.4/org/bukkit/Statistic.html for more info",
-                "Yamtom_": "Unknown statistic \u0027beacon_interacted\u0027, check https://helpch.at/docs/1.21.4/org/bukkit/Statistic.html for more info",
-                "enwoody": "Unknown statistic \u0027beacon_interacted\u0027, check https://helpch.at/docs/1.21.4/org/bukkit/Statistic.html for more info"
-            },
-            "Days Played Remaining": {
-                "chuwick": "Unknown statistic \u0027days_played_remaining\u0027, check https://helpch.at/docs/1.21.4/org/bukkit/Statistic.html for more info",
-                "Yamtom_": "Unknown statistic \u0027days_played_remaining\u0027, check https://helpch.at/docs/1.21.4/org/bukkit/Statistic.html for more info",
-                "enwoody": "Unknown statistic \u0027days_played_remaining\u0027, check https://helpch.at/docs/1.21.4/org/bukkit/Statistic.html for more info"
-            },
-            "Minutes Since Last Death": {
-                "chuwick": "958",
-                "Yamtom_": "285",
-                "enwoody": "17"
-            },
-            "Hours Played": {
-                "chuwick": "151",
-                "Yamtom_": "26",
-                "enwoody": "135"
-            },
-            "Brewing Stand Interactions": {
-                "chuwick": "194",
-                "Yamtom_": "159",
-                "enwoody": "209"
-            },
-            "Seconds Played Remaining": {
-                "chuwick": "Unknown statistic \u0027seconds_played_remaining\u0027, check https://helpch.at/docs/1.21.4/org/bukkit/Statistic.html for more info",
-                "Yamtom_": "Unknown statistic \u0027seconds_played_remaining\u0027, check https://helpch.at/docs/1.21.4/org/bukkit/Statistic.html for more info",
-                "enwoody": "Unknown statistic \u0027seconds_played_remaining\u0027, check https://helpch.at/docs/1.21.4/org/bukkit/Statistic.html for more info"
-            },
-            "Chests Opened": {
-                "chuwick": "10547",
-                "Yamtom_": "807",
-                "enwoody": "6976"
-            },
-            "Flowers Potted": {
-                "chuwick": "2",
-                "Yamtom_": "1",
-                "enwoody": "1"
-            },
-            "Hours Since Last Death": {
-                "chuwick": "15",
-                "Yamtom_": "4",
-                "enwoody": "0"
-            },
-            "Player Kills": {
-                "chuwick": "1",
-                "Yamtom_": "0",
-                "enwoody": "20"
-            },
-            "Records Played": {
-                "chuwick": "2",
-                "Yamtom_": "0",
-                "enwoody": "5"
-            },
-            "Distance Swum": {
-                "chuwick": "1532491",
-                "Yamtom_": "3952",
-                "enwoody": "439442"
-            },
-            "Animals Bred": {
-                "chuwick": "338",
-                "Yamtom_": "0",
-                "enwoody": "139"
-            },
-            "Trades with Villagers": {
-                "chuwick": "4377",
-                "Yamtom_": "4",
-                "enwoody": "557"
-            },
-            "Pig Travel Distance": {
-                "chuwick": "0",
-                "Yamtom_": "0",
-                "enwoody": "94064"
-            },
-            "Trapped Chests Triggered": {
-                "chuwick": "1",
-                "Yamtom_": "0",
-                "enwoody": "5"
-            },
-            "Times Left": {
-                "chuwick": "211",
-                "Yamtom_": "32",
-                "enwoody": "136"
-            },
-            "Distance Crouched": {
-                "chuwick": "1230024",
-                "Yamtom_": "12571",
-                "enwoody": "2581649"
-            },
-            "Time Since Last Death": {
-                "chuwick": "15h 58m 3s",
-                "Yamtom_": "4h 45m 33s",
-                "enwoody": "17m 36s"
-            },
-            "Minecart Travel Distance": {
-                "chuwick": "0",
-                "Yamtom_": "10313395",
-                "enwoody": "511754"
-            },
-            "Hours Played Remaining": {
-                "chuwick": "Unknown statistic \u0027hours_played_remaining\u0027, check https://helpch.at/docs/1.21.4/org/bukkit/Statistic.html for more info",
-                "Yamtom_": "Unknown statistic \u0027hours_played_remaining\u0027, check https://helpch.at/docs/1.21.4/org/bukkit/Statistic.html for more info",
-                "enwoody": "Unknown statistic \u0027hours_played_remaining\u0027, check https://helpch.at/docs/1.21.4/org/bukkit/Statistic.html for more info"
-            },
-            "Cauldrons Filled": {
-                "chuwick": "0",
-                "Yamtom_": "56",
-                "enwoody": "18"
-            },
-            "Deaths": {
-                "chuwick": "103",
-                "Yamtom_": "33",
-                "enwoody": "35"
-            },
-            "Hoppers Inspected": {
-                "chuwick": "20",
-                "Yamtom_": "30",
-                "enwoody": "116"
-            },
-            "Days Since Last Death": {
-                "chuwick": "0",
-                "Yamtom_": "0",
-                "enwoody": "0"
-            },
-            "Cake Slices Eaten": {
-                "chuwick": "0",
-                "Yamtom_": "0",
-                "enwoody": "1"
-            },
-            "Distance Dived": {
-                "chuwick": "Unknown statistic \u0027dive_one_cm\u0027, check https://helpch.at/docs/1.21.4/org/bukkit/Statistic.html for more info",
-                "Yamtom_": "Unknown statistic \u0027dive_one_cm\u0027, check https://helpch.at/docs/1.21.4/org/bukkit/Statistic.html for more info",
-                "enwoody": "Unknown statistic \u0027dive_one_cm\u0027, check https://helpch.at/docs/1.21.4/org/bukkit/Statistic.html for more info"
-            },
-            "Damage Taken": {
-                "chuwick": "108324",
-                "Yamtom_": "16365",
-                "enwoody": "147045"
-            },
-            "Times Joined": {
-                "chuwick": "Unknown statistic \u0027join_game\u0027, check https://helpch.at/docs/1.21.4/org/bukkit/Statistic.html for more info",
-                "Yamtom_": "Unknown statistic \u0027join_game\u0027, check https://helpch.at/docs/1.21.4/org/bukkit/Statistic.html for more info",
-                "enwoody": "Unknown statistic \u0027join_game\u0027, check https://helpch.at/docs/1.21.4/org/bukkit/Statistic.html for more info"
-            },
-            "Items Enchanted": {
-                "chuwick": "158",
-                "Yamtom_": "0",
-                "enwoody": "226"
-            },
-            "Total Time Played": {
-                "chuwick": "6d 7h 46m 45s",
-                "Yamtom_": "1d 2h 21m 39s",
-                "enwoody": "5d 15h 55m 23s"
-            },
-            "Distance Climbed": {
-                "chuwick": "849203",
-                "Yamtom_": "82968",
-                "enwoody": "119379"
-            },
-            "Damage Dealt": {
-                "chuwick": "450955",
-                "Yamtom_": "4501",
-                "enwoody": "499686"
-            },
-            "Ender Chests Opened": {
-                "chuwick": "73",
-                "Yamtom_": "8",
-                "enwoody": "424"
-            },
-            "Horse Travel Distance": {
-                "chuwick": "844198",
-                "Yamtom_": "0",
-                "enwoody": "4580773"
-            },
-            "Cauldrons Used": {
-                "chuwick": "0",
-                "Yamtom_": "3",
-                "enwoody": "3"
-            },
-            "Seconds Played": {
-                "chuwick": "546405",
-                "Yamtom_": "94899",
-                "enwoody": "489323"
-            },
-            "Fish Caught": {
-                "chuwick": "0",
-                "Yamtom_": "0",
-                "enwoody": "1"
-            },
-            "Junk Fished": {
-                "chuwick": "Unknown statistic \u0027junk_fished\u0027, check https://helpch.at/docs/1.21.4/org/bukkit/Statistic.html for more info",
-                "Yamtom_": "Unknown statistic \u0027junk_fished\u0027, check https://helpch.at/docs/1.21.4/org/bukkit/Statistic.html for more info",
-                "enwoody": "Unknown statistic \u0027junk_fished\u0027, check https://helpch.at/docs/1.21.4/org/bukkit/Statistic.html for more info"
-            },
-            "Days Played": {
-                "chuwick": "6",
-                "Yamtom_": "1",
-                "enwoody": "5"
-            },
-            "Note Blocks Tuned": {
-                "chuwick": "113",
-                "Yamtom_": "0",
-                "enwoody": "58"
-            },
-            "Jumps": {
-                "chuwick": "145087",
-                "Yamtom_": "14205",
-                "enwoody": "77020"
-            },
-            "Items Dropped": {
-                "chuwick": "The statistic \u0027drop\u0027 require an argument, check https://helpch.at/docs/1.21.4/org/bukkit/Statistic.Type.html for more info",
-                "Yamtom_": "The statistic \u0027drop\u0027 require an argument, check https://helpch.at/docs/1.21.4/org/bukkit/Statistic.Type.html for more info",
-                "enwoody": "The statistic \u0027drop\u0027 require an argument, check https://helpch.at/docs/1.21.4/org/bukkit/Statistic.Type.html for more info"
-            },
-            "Minutes Played Remaining": {
-                "chuwick": "Unknown statistic \u0027minutes_played_remaining\u0027, check https://helpch.at/docs/1.21.4/org/bukkit/Statistic.html for more info",
-                "Yamtom_": "Unknown statistic \u0027minutes_played_remaining\u0027, check https://helpch.at/docs/1.21.4/org/bukkit/Statistic.html for more info",
-                "enwoody": "Unknown statistic \u0027minutes_played_remaining\u0027, check https://helpch.at/docs/1.21.4/org/bukkit/Statistic.html for more info"
-            },
-            "Ticks Played": {
-                "chuwick": "Unknown statistic \u0027ticks_played\u0027, check https://helpch.at/docs/1.21.4/org/bukkit/Statistic.html for more info",
-                "Yamtom_": "Unknown statistic \u0027ticks_played\u0027, check https://helpch.at/docs/1.21.4/org/bukkit/Statistic.html for more info",
-                "enwoody": "Unknown statistic \u0027ticks_played\u0027, check https://helpch.at/docs/1.21.4/org/bukkit/Statistic.html for more info"
-            },
-            "Distance Walked": {
-                "chuwick": "31616238",
-                "Yamtom_": "5505995",
-                "enwoody": "14182376"
-            },
-            "Armor Cleaned": {
-                "chuwick": "0",
-                "Yamtom_": "0",
-                "enwoody": "1"
-            },
-            "Furnaces Used": {
-                "chuwick": "1067",
-                "Yamtom_": "11",
-                "enwoody": "522"
-            }
-        }
-    },
-    "playernames": [
-        "Shurachmur",
-        "chuwick",
-        "Yamtom_",
-        "enwoody",
-        "mioriss"
-    ],
-    "units": {}
+	"online": {
+		"chuwick": true,
+		"Yamtom_": true
+	},
+	"scoreboard": {
+		"entries": [],
+		"columns": [],
+		"scores": {
+			"Distance Fallen": {
+				"chuwick": "3191583",
+				"Yamtom_": "234737",
+				"enwoody": "2795908"
+			},
+			"Minutes Played": {
+				"chuwick": "9106",
+				"Yamtom_": "1581",
+				"enwoody": "8155"
+			},
+			"Crafting Table Uses": {
+				"chuwick": "874",
+				"Yamtom_": "67",
+				"enwoody": "629"
+			},
+			"Note Blocks Played": {
+				"chuwick": "28",
+				"Yamtom_": "0",
+				"enwoody": "4"
+			},
+			"Treasure Fished": {
+				"chuwick": "Unknown statistic \u0027treasure_fished\u0027, check https://helpch.at/docs/1.21.4/org/bukkit/Statistic.html for more info",
+				"Yamtom_": "Unknown statistic \u0027treasure_fished\u0027, check https://helpch.at/docs/1.21.4/org/bukkit/Statistic.html for more info",
+				"enwoody": "Unknown statistic \u0027treasure_fished\u0027, check https://helpch.at/docs/1.21.4/org/bukkit/Statistic.html for more info"
+			},
+			"Times Slept": {
+				"chuwick": "172",
+				"Yamtom_": "34",
+				"enwoody": "59"
+			},
+			"Seconds Since Last Death": {
+				"chuwick": "57483",
+				"Yamtom_": "17133",
+				"enwoody": "1056"
+			},
+			"Distance Sprinted": {
+				"chuwick": "22047212",
+				"Yamtom_": "962696",
+				"enwoody": "15715299"
+			},
+			"Ticks Since Last Death": {
+				"chuwick": "Unknown statistic \u0027ticks_since_death\u0027, check https://helpch.at/docs/1.21.4/org/bukkit/Statistic.html for more info",
+				"Yamtom_": "Unknown statistic \u0027ticks_since_death\u0027, check https://helpch.at/docs/1.21.4/org/bukkit/Statistic.html for more info",
+				"enwoody": "Unknown statistic \u0027ticks_since_death\u0027, check https://helpch.at/docs/1.21.4/org/bukkit/Statistic.html for more info"
+			},
+			"Distance Flown": {
+				"chuwick": "710600",
+				"Yamtom_": "100217",
+				"enwoody": "126578516"
+			},
+			"Boat Travel Distance": {
+				"chuwick": "4714712",
+				"Yamtom_": "2679573",
+				"enwoody": "542240"
+			},
+			"Droppers Inspected": {
+				"chuwick": "0",
+				"Yamtom_": "0",
+				"enwoody": "0"
+			},
+			"Villagers Talked To": {
+				"chuwick": "2128",
+				"Yamtom_": "211",
+				"enwoody": "561"
+			},
+			"Dispensers Inspected": {
+				"chuwick": "40",
+				"Yamtom_": "0",
+				"enwoody": "38"
+			},
+			"Sneak Time": {
+				"chuwick": "532380",
+				"Yamtom_": "10363",
+				"enwoody": "460907"
+			},
+			"Banners Cleaned": {
+				"chuwick": "0",
+				"Yamtom_": "0",
+				"enwoody": "4"
+			},
+			"Beacons Used": {
+				"chuwick": "Unknown statistic \u0027beacon_interacted\u0027, check https://helpch.at/docs/1.21.4/org/bukkit/Statistic.html for more info",
+				"Yamtom_": "Unknown statistic \u0027beacon_interacted\u0027, check https://helpch.at/docs/1.21.4/org/bukkit/Statistic.html for more info",
+				"enwoody": "Unknown statistic \u0027beacon_interacted\u0027, check https://helpch.at/docs/1.21.4/org/bukkit/Statistic.html for more info"
+			},
+			"Days Played Remaining": {
+				"chuwick": "Unknown statistic \u0027days_played_remaining\u0027, check https://helpch.at/docs/1.21.4/org/bukkit/Statistic.html for more info",
+				"Yamtom_": "Unknown statistic \u0027days_played_remaining\u0027, check https://helpch.at/docs/1.21.4/org/bukkit/Statistic.html for more info",
+				"enwoody": "Unknown statistic \u0027days_played_remaining\u0027, check https://helpch.at/docs/1.21.4/org/bukkit/Statistic.html for more info"
+			},
+			"Minutes Since Last Death": {
+				"chuwick": "958",
+				"Yamtom_": "285",
+				"enwoody": "17"
+			},
+			"Hours Played": {
+				"chuwick": "151",
+				"Yamtom_": "26",
+				"enwoody": "135"
+			},
+			"Brewing Stand Interactions": {
+				"chuwick": "194",
+				"Yamtom_": "159",
+				"enwoody": "209"
+			},
+			"Seconds Played Remaining": {
+				"chuwick": "Unknown statistic \u0027seconds_played_remaining\u0027, check https://helpch.at/docs/1.21.4/org/bukkit/Statistic.html for more info",
+				"Yamtom_": "Unknown statistic \u0027seconds_played_remaining\u0027, check https://helpch.at/docs/1.21.4/org/bukkit/Statistic.html for more info",
+				"enwoody": "Unknown statistic \u0027seconds_played_remaining\u0027, check https://helpch.at/docs/1.21.4/org/bukkit/Statistic.html for more info"
+			},
+			"Chests Opened": {
+				"chuwick": "10547",
+				"Yamtom_": "807",
+				"enwoody": "6976"
+			},
+			"Flowers Potted": {
+				"chuwick": "2",
+				"Yamtom_": "1",
+				"enwoody": "1"
+			},
+			"Hours Since Last Death": {
+				"chuwick": "15",
+				"Yamtom_": "4",
+				"enwoody": "0"
+			},
+			"Player Kills": {
+				"chuwick": "1",
+				"Yamtom_": "0",
+				"enwoody": "20"
+			},
+			"Records Played": {
+				"chuwick": "2",
+				"Yamtom_": "0",
+				"enwoody": "5"
+			},
+			"Distance Swum": {
+				"chuwick": "1532491",
+				"Yamtom_": "3952",
+				"enwoody": "439442"
+			},
+			"Animals Bred": {
+				"chuwick": "338",
+				"Yamtom_": "0",
+				"enwoody": "139"
+			},
+			"Trades with Villagers": {
+				"chuwick": "4377",
+				"Yamtom_": "4",
+				"enwoody": "557"
+			},
+			"Pig Travel Distance": {
+				"chuwick": "0",
+				"Yamtom_": "0",
+				"enwoody": "94064"
+			},
+			"Trapped Chests Triggered": {
+				"chuwick": "1",
+				"Yamtom_": "0",
+				"enwoody": "5"
+			},
+			"Times Left": {
+				"chuwick": "211",
+				"Yamtom_": "32",
+				"enwoody": "136"
+			},
+			"Distance Crouched": {
+				"chuwick": "1230024",
+				"Yamtom_": "12571",
+				"enwoody": "2581649"
+			},
+			"Time Since Last Death": {
+				"chuwick": "15h 58m 3s",
+				"Yamtom_": "4h 45m 33s",
+				"enwoody": "17m 36s"
+			},
+			"Minecart Travel Distance": {
+				"chuwick": "0",
+				"Yamtom_": "10313395",
+				"enwoody": "511754"
+			},
+			"Hours Played Remaining": {
+				"chuwick": "Unknown statistic \u0027hours_played_remaining\u0027, check https://helpch.at/docs/1.21.4/org/bukkit/Statistic.html for more info",
+				"Yamtom_": "Unknown statistic \u0027hours_played_remaining\u0027, check https://helpch.at/docs/1.21.4/org/bukkit/Statistic.html for more info",
+				"enwoody": "Unknown statistic \u0027hours_played_remaining\u0027, check https://helpch.at/docs/1.21.4/org/bukkit/Statistic.html for more info"
+			},
+			"Cauldrons Filled": {
+				"chuwick": "0",
+				"Yamtom_": "56",
+				"enwoody": "18"
+			},
+			"Deaths": {
+				"chuwick": "103",
+				"Yamtom_": "33",
+				"enwoody": "35"
+			},
+			"Hoppers Inspected": {
+				"chuwick": "20",
+				"Yamtom_": "30",
+				"enwoody": "116"
+			},
+			"Days Since Last Death": {
+				"chuwick": "0",
+				"Yamtom_": "0",
+				"enwoody": "0"
+			},
+			"Cake Slices Eaten": {
+				"chuwick": "0",
+				"Yamtom_": "0",
+				"enwoody": "1"
+			},
+			"Distance Dived": {
+				"chuwick": "Unknown statistic \u0027dive_one_cm\u0027, check https://helpch.at/docs/1.21.4/org/bukkit/Statistic.html for more info",
+				"Yamtom_": "Unknown statistic \u0027dive_one_cm\u0027, check https://helpch.at/docs/1.21.4/org/bukkit/Statistic.html for more info",
+				"enwoody": "Unknown statistic \u0027dive_one_cm\u0027, check https://helpch.at/docs/1.21.4/org/bukkit/Statistic.html for more info"
+			},
+			"Damage Taken": {
+				"chuwick": "108324",
+				"Yamtom_": "16365",
+				"enwoody": "147045"
+			},
+			"Times Joined": {
+				"chuwick": "Unknown statistic \u0027join_game\u0027, check https://helpch.at/docs/1.21.4/org/bukkit/Statistic.html for more info",
+				"Yamtom_": "Unknown statistic \u0027join_game\u0027, check https://helpch.at/docs/1.21.4/org/bukkit/Statistic.html for more info",
+				"enwoody": "Unknown statistic \u0027join_game\u0027, check https://helpch.at/docs/1.21.4/org/bukkit/Statistic.html for more info"
+			},
+			"Items Enchanted": {
+				"chuwick": "158",
+				"Yamtom_": "0",
+				"enwoody": "226"
+			},
+			"Total Time Played": {
+				"chuwick": "6d 7h 46m 45s",
+				"Yamtom_": "1d 2h 21m 39s",
+				"enwoody": "5d 15h 55m 23s"
+			},
+			"Distance Climbed": {
+				"chuwick": "849203",
+				"Yamtom_": "82968",
+				"enwoody": "119379"
+			},
+			"Damage Dealt": {
+				"chuwick": "450955",
+				"Yamtom_": "4501",
+				"enwoody": "499686"
+			},
+			"Ender Chests Opened": {
+				"chuwick": "73",
+				"Yamtom_": "8",
+				"enwoody": "424"
+			},
+			"Horse Travel Distance": {
+				"chuwick": "844198",
+				"Yamtom_": "0",
+				"enwoody": "4580773"
+			},
+			"Cauldrons Used": {
+				"chuwick": "0",
+				"Yamtom_": "3",
+				"enwoody": "3"
+			},
+			"Seconds Played": {
+				"chuwick": "546405",
+				"Yamtom_": "94899",
+				"enwoody": "489323"
+			},
+			"Fish Caught": {
+				"chuwick": "0",
+				"Yamtom_": "0",
+				"enwoody": "1"
+			},
+			"Junk Fished": {
+				"chuwick": "Unknown statistic \u0027junk_fished\u0027, check https://helpch.at/docs/1.21.4/org/bukkit/Statistic.html for more info",
+				"Yamtom_": "Unknown statistic \u0027junk_fished\u0027, check https://helpch.at/docs/1.21.4/org/bukkit/Statistic.html for more info",
+				"enwoody": "Unknown statistic \u0027junk_fished\u0027, check https://helpch.at/docs/1.21.4/org/bukkit/Statistic.html for more info"
+			},
+			"Days Played": {
+				"chuwick": "6",
+				"Yamtom_": "1",
+				"enwoody": "5"
+			},
+			"Note Blocks Tuned": {
+				"chuwick": "113",
+				"Yamtom_": "0",
+				"enwoody": "58"
+			},
+			"Jumps": {
+				"chuwick": "145087",
+				"Yamtom_": "14205",
+				"enwoody": "77020"
+			},
+			"Items Dropped": {
+				"chuwick": "The statistic \u0027drop\u0027 require an argument, check https://helpch.at/docs/1.21.4/org/bukkit/Statistic.Type.html for more info",
+				"Yamtom_": "The statistic \u0027drop\u0027 require an argument, check https://helpch.at/docs/1.21.4/org/bukkit/Statistic.Type.html for more info",
+				"enwoody": "The statistic \u0027drop\u0027 require an argument, check https://helpch.at/docs/1.21.4/org/bukkit/Statistic.Type.html for more info"
+			},
+			"Minutes Played Remaining": {
+				"chuwick": "Unknown statistic \u0027minutes_played_remaining\u0027, check https://helpch.at/docs/1.21.4/org/bukkit/Statistic.html for more info",
+				"Yamtom_": "Unknown statistic \u0027minutes_played_remaining\u0027, check https://helpch.at/docs/1.21.4/org/bukkit/Statistic.html for more info",
+				"enwoody": "Unknown statistic \u0027minutes_played_remaining\u0027, check https://helpch.at/docs/1.21.4/org/bukkit/Statistic.html for more info"
+			},
+			"Ticks Played": {
+				"chuwick": "Unknown statistic \u0027ticks_played\u0027, check https://helpch.at/docs/1.21.4/org/bukkit/Statistic.html for more info",
+				"Yamtom_": "Unknown statistic \u0027ticks_played\u0027, check https://helpch.at/docs/1.21.4/org/bukkit/Statistic.html for more info",
+				"enwoody": "Unknown statistic \u0027ticks_played\u0027, check https://helpch.at/docs/1.21.4/org/bukkit/Statistic.html for more info"
+			},
+			"Distance Walked": {
+				"chuwick": "31616238",
+				"Yamtom_": "5505995",
+				"enwoody": "14182376"
+			},
+			"Armor Cleaned": {
+				"chuwick": "0",
+				"Yamtom_": "0",
+				"enwoody": "1"
+			},
+			"Furnaces Used": {
+				"chuwick": "1067",
+				"Yamtom_": "11",
+				"enwoody": "522"
+			}
+		}
+	},
+	"playernames": ["Shurachmur", "chuwick", "Yamtom_", "enwoody", "mioriss"],
+	"units": {}
 }

@@ -10,7 +10,7 @@
 }
 
 body {
-  font-family: "Minecraft", sans-serif;
+	font-family: "Minecraft", sans-serif;
 }
 
 .markdown > *:not(h1) {

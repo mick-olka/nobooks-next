@@ -1,15 +1,22 @@
 {
-  "json.schemas": [],
-  "editor.defaultFormatter": "dbaeumer.vscode-eslint",
-  "[javascript]": {
-    "editor.defaultFormatter": "biomejs.biome"
-  },
-  "cSpell.words": [
-    "playercount",
-    "playernames",
-    "Postgrest",
-    "SUPABASE",
-    "Turbopack"
-  ],
-  "typescript.tsdk": "node_modules\\typescript\\lib"
+	"json.schemas": [],
+	"editor.defaultFormatter": "biomejs.biome",
+	"[javascript]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"cSpell.words": [
+		"playercount",
+		"playernames",
+		"Postgrest",
+		"SUPABASE",
+		"Turbopack"
+	],
+	"typescript.tsdk": "node_modules\\typescript\\lib",
+	"editor.formatOnSave": true,
+	"[typescriptreact]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[jsonc]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	}
 }
