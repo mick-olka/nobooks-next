@@ -12,7 +12,7 @@ export default async function HistoryListPage() {
 
 	return (
 		<PageTransitionWrapper className="p-8">
-			<h1 className="text-2xl font-bold m-6">Історія сервера</h1>
+			<h1 className="text-2xl font-bold m-6 text-center">Історія сервера</h1>
 			<WikiGrid data={data} user={user} type={WikiPageType.HISTORY} />
 		</PageTransitionWrapper>
 	);

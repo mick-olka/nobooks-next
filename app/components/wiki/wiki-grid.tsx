@@ -22,7 +22,7 @@ export const WikiGrid = ({ data, user, type }: Props) => {
 		<>
 			{isAdmin && user && <CreateWikiPageBtn userId={user.id} type={type} />}
 			{/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"> */}
-			<div className="flex flex-wrap gap-6">
+			<div className="flex flex-wrap gap-6 justify-center">
 				{data?.map((page) => (
 					<Link
 						href={`/wiki/${page.url_name}`}

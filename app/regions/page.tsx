@@ -12,7 +12,9 @@ export default async function RegionListPage() {
 
 	return (
 		<PageTransitionWrapper className="p-8">
-			<h1 className="text-2xl font-bold m-6">Поселення на сервері</h1>
+			<h1 className="text-2xl font-bold m-6 text-center">
+				Поселення на сервері
+			</h1>
 			<WikiGrid data={data} user={user} type={WikiPageType.REGION} />
 		</PageTransitionWrapper>
 	);

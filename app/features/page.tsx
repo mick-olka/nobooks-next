@@ -12,7 +12,9 @@ export default async function FeaturesListPage() {
 
 	return (
 		<PageTransitionWrapper className="p-8">
-			<h1 className="text-2xl font-bold m-6">Особливості серверу</h1>
+			<h1 className="text-2xl font-bold m-6 text-center">
+				Особливості серверу
+			</h1>
 			<WikiGrid data={data} user={user} type={WikiPageType.FEATURE} />
 		</PageTransitionWrapper>
 	);
