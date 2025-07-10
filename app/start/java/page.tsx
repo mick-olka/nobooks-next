@@ -15,7 +15,7 @@ export default function JavaPage() {
 						Якщо не виходить приєднатись, спробуйте інший айпі: <br />
 						<IpContainer ip={"tunel.noboobs.world:3134"} />
 					</p>
-					<p className="font-bold my-4">Версія: (1.21+)</p>
+					<p className="font-bold my-4">Версія: (1.21.7)</p>
 					<p>Якщо айпі не працює - спробуйте айпі бедроку</p>
 					<br />
 					<p>Проходка безплатна!</p>

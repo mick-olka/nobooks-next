@@ -45,7 +45,7 @@ export default async function RootLayout({
 						<main className="min-h-full bg-base-200">{children}</main>
 						<LayoutFooter />
 
-						<FixedAnnouncement message="v1.21+" />
+						<FixedAnnouncement message="v1.21.7" />
 					</div>
 				</AnimatePresence>
 				<BuyMeACoffee />
