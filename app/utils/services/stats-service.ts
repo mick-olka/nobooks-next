@@ -200,7 +200,6 @@ export const getPlayerStats = async (retries = 3): Promise<StatsData> => {
 // Server action to fetch fresh stats data
 export async function fetchStatsData() {
   "use server";
-  console.log("fetching stats data");
   const statsData = await getPlayerStats();
   revalidatePath("/stats");
   return statsData;

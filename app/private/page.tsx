@@ -7,11 +7,11 @@ import { getPlayerIndividualStats } from "../utils/services";
 
 export default async function PrivatePage() {
 	const user = await getAuthorizedUser({ protectedPage: true });
-	const discordId = user?.user_metadata.provider_id;
-	let playerIndividualStats: Record<string, string> = {};
-	if (discordId) {
-		playerIndividualStats = await getPlayerIndividualStats(discordId);
-	}
+	// const discordId = user?.user_metadata.provider_id;
+	// let playerIndividualStats: Record<string, string> = {};
+	// if (discordId) {
+	// 	playerIndividualStats = await getPlayerIndividualStats(discordId);
+	// }
 	const handleLogout = async () => {
 		"use server";
 		await logout();
@@ -106,7 +106,7 @@ export default async function PrivatePage() {
 					</Link>
 				</p>
 
-				<div className="divider" />
+				{/* <div className="divider" />
 
 				{Object.keys(playerIndividualStats).length > 0 && (
 					<>
@@ -120,7 +120,7 @@ export default async function PrivatePage() {
 							))}
 						</div>
 					</>
-				)}
+				)} */}
 			</div>
 		</div>
 	);
