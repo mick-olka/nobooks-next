@@ -4,11 +4,11 @@ services:
   app:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.optimized
     ports:
       - "8085:3000"
-    volumes:
-      - .:/app
+    # volumes:
+      # - .:/app
     environment:
       - NODE_ENV=production
-    restart: always
+    restart: no

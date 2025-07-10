@@ -1,28 +1,30 @@
-FROM node:latest
+# Use the official Node.js runtime as a parent image
+FROM node:18-alpine
 
-WORKDIR /usr/src/app
+# Set the working directory in the container
+WORKDIR /app
 
-# Set NODE_OPTIONS to increase memory limit
-ENV NODE_OPTIONS="--max-old-space-size=4096"
+# Install dependencies
+RUN apk add --no-cache libc6-compat
 
-# Copy package.json and package-lock.json to the working directory
-COPY package*.json pnpm-lock.yaml ./
+# Copy package files
+COPY package.json pnpm-lock.yaml* .npmrc* ./
 
-# Install the application dependencies
-RUN npm install -g pnpm
-RUN pnpm install
+# Install dependencies
+RUN corepack enable pnpm && pnpm install --frozen-lockfile
 
-# Copy the rest of the application files
+# Copy the rest of the application code
 COPY . .
 
-# Build the NextJS application
+# Build the Next.js application
 RUN pnpm run build
 
-# Reset NODE_OPTIONS for runtime (optional, but good practice)
-ENV NODE_OPTIONS=""
-
-# Expose the application port
+# Expose the port the app runs on
 EXPOSE 3000
 
-# Command to run the application
+# Set environment variables
+ENV NODE_ENV=production
+ENV PORT=3000
+
+# Run the application
 CMD ["pnpm", "start"]
