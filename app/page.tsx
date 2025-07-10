@@ -9,10 +9,40 @@ import Image from "next/image";
 import Link from "next/link";
 import { constants } from "./utils";
 
+// Time periods configuration for hero background
+const TIME_PERIODS = {
+	MORNING: { start: 6, end: 12, className: "sb-morning" },
+	DAY: { start: 12, end: 18, className: "sb-day" },
+	EVENING: { start: 18, end: 21, className: "sb-evening" },
+	NIGHT: { start: 21, end: 6, className: "sb-night" },
+} as const;
+
+/**
+ * Determines the current time period based on the hour
+ */
+function getCurrentTimePeriod(hour: number): string {
+	if (hour >= TIME_PERIODS.MORNING.start && hour < TIME_PERIODS.MORNING.end) {
+		return TIME_PERIODS.MORNING.className;
+	}
+	if (hour >= TIME_PERIODS.DAY.start && hour < TIME_PERIODS.DAY.end) {
+		return TIME_PERIODS.DAY.className;
+	}
+	if (hour >= TIME_PERIODS.EVENING.start && hour < TIME_PERIODS.EVENING.end) {
+		return TIME_PERIODS.EVENING.className;
+	}
+	// Night period (21-23 and 0-5)
+	return TIME_PERIODS.NIGHT.className;
+}
+
 export default async function Home() {
+	const currentHour = new Date().getHours();
+	const timeBasedClass = getCurrentTimePeriod(currentHour);
+
 	return (
 		<PageTransitionWrapper>
-			<div className="hero min-h-[calc(100vh-264px)] bg-base-200 font-minecraft">
+			<div
+				className={`hero min-h-[calc(100vh-264px)] bg-base-200 font-minecraft ${timeBasedClass}`}
+			>
 				<div className="hero-content flex-col lg:flex-row">
 					<Image
 						src="/images/bg1.png"

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { FC } from "react";
-import { FlowersBackground } from "../spring-ui";
+// import { FlowersBackground } from "../spring-ui";
 import { Logo } from "./logo";
 import { Menu } from "./menu";
 
@@ -12,7 +12,7 @@ export const LayoutHeader: FC<LayoutHeaderProps> = ({ userName }) => {
 	return (
 		<>
 			<header className="relative">
-				<FlowersBackground />
+				{/* <FlowersBackground /> */}
 				<nav className="navbar bg-base-100">
 					<Menu
 						links={[

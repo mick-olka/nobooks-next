@@ -52,3 +52,39 @@ details > summary {
 details > summary::-webkit-details-marker {
 	display: none;
 }
+
+.summer-background {
+	background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.9)),
+		url("/images/village-day.png");
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: 100%;
+	transition: background-size 0.5s ease-in-out;
+	&:hover {
+		background-size: 120%;
+		transition: background-size 0.5s ease-in-out;
+	}
+	@media (max-width: 1200px) {
+		background-size: cover;
+	}
+}
+
+.sb-night {
+	background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.5)),
+		url("/images/village-night.png");
+}
+
+.sb-day {
+	background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.9)),
+		url("/images/village-day.png");
+}
+
+.sb-evening {
+	background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.9)),
+		url("/images/village-evening.png");
+}
+
+.sb-morning {
+	background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.9)),
+		url("/images/village-morning.png");
+}
