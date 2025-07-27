@@ -157,31 +157,31 @@ export const getPlayerStats = async (retries = 3): Promise<StatsData> => {
     }
 
     // Calculate custom "Least Deaths" statistic
-    if (filteredScores.Deaths) {
-      const deathsData = filteredScores.Deaths;
-      const playersWithDeaths: Array<{ player: string; deaths: number }> = [];
+    // if (filteredScores.Deaths) {
+    //   const deathsData = filteredScores.Deaths;
+    //   const playersWithDeaths: Array<{ player: string; deaths: number }> = [];
 
-      // Collect all players with their death counts
-      for (const [player, deathsStr] of Object.entries(deathsData)) {
-        const deaths = Number.parseInt(deathsStr);
-        if (!Number.isNaN(deaths)) {
-          playersWithDeaths.push({ player, deaths });
-        }
-      }
+    //   // Collect all players with their death counts
+    //   for (const [player, deathsStr] of Object.entries(deathsData)) {
+    //     const deaths = Number.parseInt(deathsStr);
+    //     if (!Number.isNaN(deaths)) {
+    //       playersWithDeaths.push({ player, deaths });
+    //     }
+    //   }
 
-      // Sort by deaths (ascending) and take top 3
-      playersWithDeaths.sort((a, b) => a.deaths - b.deaths);
-      const top3LeastDeaths = playersWithDeaths.slice(0, 3);
+    //   // Sort by deaths (ascending) and take top 3
+    //   playersWithDeaths.sort((a, b) => a.deaths - b.deaths);
+    //   // const top3LeastDeaths = playersWithDeaths.slice(0, 3);
 
-      // Create the "Least Deaths" statistic with top 3 players
-      if (top3LeastDeaths.length > 0) {
-        const leastDeathsData: Record<string, string> = {};
-        for (const { player, deaths } of top3LeastDeaths) {
-          leastDeathsData[player] = String(deaths);
-        }
-        filteredScores["Least Deaths"] = leastDeathsData;
-      }
-    }
+    //   // Create the "Least Deaths" statistic
+    //   if (playersWithDeaths.length > 0) {
+    //     const leastDeathsData: Record<string, string> = {};
+    //     for (const { player, deaths } of playersWithDeaths) {
+    //       leastDeathsData[player] = String(deaths);
+    //     }
+    //     filteredScores["Least Deaths"] = leastDeathsData;
+    //   }
+    // }
 
     const translatedScores = Object.fromEntries(
       Object.entries(scoresTranslate).map(([key, value]) => [

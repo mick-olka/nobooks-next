@@ -1,7 +1,74 @@
 import type { StatsData } from "@/app/types";
+import { useState } from "react";
 import "./stats.scss";
 
+// Modal component for showing all players
+const PlayerModal = ({
+	isOpen,
+	onClose,
+	statName,
+	allPlayers,
+}: {
+	isOpen: boolean;
+	onClose: () => void;
+	statName: string;
+	allPlayers: Array<{ player: string; value: string; rawValue: number }>;
+}) => {
+	if (!isOpen) return null;
+
+	return (
+		<dialog
+			className="modal-overlay"
+			onClick={onClose}
+			onKeyDown={(e) => e.key === "Escape" && onClose()}
+			open
+		>
+			<div
+				className="modal-content"
+				onClick={(e) => e.stopPropagation()}
+				onKeyDown={(e) => e.key === "Escape" && onClose()}
+			>
+				<div className="modal-header">
+					<h3>{statName}</h3>
+					<button
+						type="button"
+						className="modal-close"
+						onClick={onClose}
+						aria-label="Close modal"
+					>
+						×
+					</button>
+				</div>
+				<div className="modal-body">
+					<ul className="all-players-list">
+						{allPlayers.map((entry, index) => (
+							<li
+								key={`${statName}-${entry.player}-${index}`}
+								className={`rank-${index + 1}`}
+							>
+								<span className="position">#{index + 1}</span>
+								<span className="player-name">{entry.player}</span>
+								<span className="score">{entry.value}</span>
+							</li>
+						))}
+					</ul>
+				</div>
+			</div>
+		</dialog>
+	);
+};
+
 export const HallOfFame = ({ data }: { data: StatsData }) => {
+	const [modalState, setModalState] = useState<{
+		isOpen: boolean;
+		statName: string;
+		allPlayers: Array<{ player: string; value: string; rawValue: number }>;
+	}>({
+		isOpen: false,
+		statName: "",
+		allPlayers: [],
+	});
+
 	// Skip statistics with error messages
 	const isValidStat = (value: string): boolean => {
 		return (
@@ -41,6 +108,22 @@ export const HallOfFame = ({ data }: { data: StatsData }) => {
 		return Number.parseInt(value.replace(/,/g, ""), 10) || 0;
 	};
 
+	// Get all players for a specific stat
+	const getAllPlayersForStat = (statName: string) => {
+		if (!data?.scoreboard?.scores?.[statName]) return [];
+
+		const allScores = Object.entries(data.scoreboard.scores[statName])
+			.filter(([_, value]) => isValidStat(value))
+			.map(([player, value]) => ({
+				player,
+				value,
+				rawValue: parseValue(value),
+			}));
+
+		// Sort players by their scores (highest first)
+		return allScores.sort((a, b) => b.rawValue - a.rawValue);
+	};
+
 	// Get top performers for each stat
 	const getTopPerformers = () => {
 		const records: Record<
@@ -77,27 +160,65 @@ export const HallOfFame = ({ data }: { data: StatsData }) => {
 
 	const records = getTopPerformers();
 
+	const handleShowAll = (statName: string) => {
+		const allPlayers = getAllPlayersForStat(statName);
+		setModalState({
+			isOpen: true,
+			statName,
+			allPlayers,
+		});
+	};
+
+	const handleCloseModal = () => {
+		setModalState({
+			isOpen: false,
+			statName: "",
+			allPlayers: [],
+		});
+	};
+
 	return (
 		<div className="hall-of-fame">
 			<div className="records-container">
-				{Object.entries(records).map(([statName, topPlayers]) => (
-					<div key={statName} className="stat-card">
-						<h3>{statName}</h3>
-						<ul className="top-players">
-							{topPlayers.map((entry, index) => (
-								<li
-									key={`${statName}-${entry.player}`}
-									className={`rank-${index + 1}`}
+				{Object.entries(records).map(([statName, topPlayers]) => {
+					const allPlayers = getAllPlayersForStat(statName);
+					const hasMorePlayers = allPlayers.length > topPlayers.length;
+
+					return (
+						<div key={statName} className="stat-card">
+							<h3>{statName}</h3>
+							<ul className="top-players">
+								{topPlayers.map((entry, index) => (
+									<li
+										key={`${statName}-${entry.player}`}
+										className={`rank-${index + 1}`}
+									>
+										<span className="position">#{index + 1}</span>
+										<span className="player-name">{entry.player}</span>
+										<span className="score">{entry.value}</span>
+									</li>
+								))}
+							</ul>
+							{hasMorePlayers && (
+								<button
+									type="button"
+									className="show-all-btn"
+									onClick={() => handleShowAll(statName)}
 								>
-									<span className="position">#{index + 1}</span>
-									<span className="player-name">{entry.player}</span>
-									<span className="score">{entry.value}</span>
-								</li>
-							))}
-						</ul>
-					</div>
-				))}
+									Показати всіх ({allPlayers.length})
+								</button>
+							)}
+						</div>
+					);
+				})}
 			</div>
+
+			<PlayerModal
+				isOpen={modalState.isOpen}
+				onClose={handleCloseModal}
+				statName={modalState.statName}
+				allPlayers={modalState.allPlayers}
+			/>
 		</div>
 	);
 };
