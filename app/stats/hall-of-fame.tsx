@@ -121,6 +121,8 @@ export const HallOfFame = ({ data }: { data: StatsData }) => {
 			}));
 
 		// Sort players by their scores (highest first)
+		if (statName === "Найменше смертей")
+			return allScores.sort((a, b) => a.rawValue - b.rawValue);
 		return allScores.sort((a, b) => b.rawValue - a.rawValue);
 	};
 
@@ -136,22 +138,12 @@ export const HallOfFame = ({ data }: { data: StatsData }) => {
 		// biome-ignore lint/complexity/noForEach: <fix later>
 		Object.entries(data.scoreboard.scores).forEach(
 			([statName, playerScores]) => {
-				// Filter out invalid statistics
-				const validScores = Object.entries(playerScores)
-					.filter(([_, value]) => isValidStat(value))
-					.map(([player, value]) => ({
-						player,
-						value,
-						rawValue: parseValue(value),
-					}));
+				const allPlayers = getAllPlayersForStat(statName);
 
-				if (validScores.length === 0) return;
-
-				// Sort players by their scores (highest first)
-				validScores.sort((a, b) => b.rawValue - a.rawValue);
+				if (allPlayers.length === 0) return;
 
 				// Take top 3 (or fewer if there aren't 3 players)
-				records[statName] = validScores.slice(0, 3);
+				records[statName] = allPlayers.slice(0, 3);
 			},
 		);
 
