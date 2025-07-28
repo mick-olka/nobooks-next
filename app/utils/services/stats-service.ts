@@ -129,6 +129,31 @@ export const getPlayerStats = async (retries = 3): Promise<StatsData> => {
     for (const key of extraScores) {
       delete filteredScores[key];
     }
+
+    // Filter players based on "Hours Played" - only include players with more than 2 hours
+    const hoursPlayedData = data.scoreboard.scores["Hours Played"];
+    const eligiblePlayers = new Set<string>();
+
+    if (hoursPlayedData) {
+      for (const [player, hoursStr] of Object.entries(hoursPlayedData)) {
+        const hours = Number.parseFloat(hoursStr);
+        if (!Number.isNaN(hours) && hours > 2) {
+          eligiblePlayers.add(player);
+        }
+      }
+    }
+
+    // Filter all scores to only include eligible players
+    for (const [statName, playerScores] of Object.entries(filteredScores)) {
+      const filteredPlayerScores: Record<string, string> = {};
+      for (const [player, value] of Object.entries(playerScores)) {
+        if (eligiblePlayers.has(player)) {
+          filteredPlayerScores[player] = value;
+        }
+      }
+      filteredScores[statName] = filteredPlayerScores;
+    }
+
     // Convert all distance measurements from centimeters to meters
     for (const [key, playerScores] of Object.entries(data.scoreboard.scores)) {
       if (key.includes("Distance")) {
