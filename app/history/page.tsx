@@ -25,34 +25,40 @@ export default async function HistoryListPage() {
 				)}
 
 				<h1 className="text-2xl font-bold mb-6 text-center">Історія сервера</h1>
-				{data?.map((page) => (
-					<div
-						key={page.id}
-						className="relative mb-8 p-6 bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-shadow"
-					>
-						{isAdmin && user && <AdminButtons id={page.url_name} />}
-						<div className="text-gray-600 font-semibold mb-4">
-							{new Date(page.updated_at).toLocaleDateString("uk-UA", {
-								day: "2-digit",
-								month: "long",
-								year: "numeric",
-							})}
+				{data
+					?.sort(
+						(a, b) =>
+							new Date(b.created_at).getTime() -
+							new Date(a.created_at).getTime(),
+					)
+					.map((page) => (
+						<div
+							key={page.id}
+							className="relative mb-8 p-6 bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-shadow"
+						>
+							{isAdmin && user && <AdminButtons id={page.url_name} />}
+							<div className="text-gray-600 font-semibold mb-4">
+								{new Date(page.created_at).toLocaleDateString("uk-UA", {
+									day: "2-digit",
+									month: "long",
+									year: "numeric",
+								})}
+							</div>
+							<div className="text-xl font-semibold mb-4">
+								<Link
+									href={`/wiki/${page.url_name}`}
+									className="hover:text-blue-400 transition-colors"
+								>
+									{page.title}
+								</Link>
+							</div>
+							<div className="prose prose-slate max-w-none">
+								<Markdown className="markdown" rehypePlugins={[rehypeRaw]}>
+									{page.content}
+								</Markdown>
+							</div>
 						</div>
-						<div className="text-xl font-semibold mb-4">
-							<Link
-								href={`/wiki/${page.url_name}`}
-								className="hover:text-blue-400 transition-colors"
-							>
-								{page.title}
-							</Link>
-						</div>
-						<div className="prose prose-slate max-w-none">
-							<Markdown className="markdown" rehypePlugins={[rehypeRaw]}>
-								{page.content}
-							</Markdown>
-						</div>
-					</div>
-				))}
+					))}
 			</div>
 		</PageTransitionWrapper>
 	);
