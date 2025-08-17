@@ -8,6 +8,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { constants } from "./utils";
+import HistoryListPage from "./history/page";
 
 // Time periods configuration for hero background
 const TIME_PERIODS = {

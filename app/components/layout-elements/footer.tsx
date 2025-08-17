@@ -27,8 +27,8 @@ export const LayoutFooter: FC = () => {
 					<Link className="link-hover link" href="https://t.me/froggyfroggs">
 						froggyfroggs
 					</Link>
-					<Link className="link-hover link" href="https://t.me/srenik_brek">
-						srenik
+					<Link className="link-hover link" href="https://t.me/serpenika">
+						Serpenika
 					</Link>
 				</div>
 				<div>

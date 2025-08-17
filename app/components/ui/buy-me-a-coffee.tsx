@@ -3,7 +3,8 @@ import Link from "next/link";
 export const BuyMeACoffee = () => {
 	return (
 		<Link
-			href="https://buymeacoffee.com/noboobs"
+			// href="https://buymeacoffee.com/noboobs"
+			href="/wiki/hats"
 			target="_blank"
 			rel="noopener noreferrer"
 			style={{ right: "2px" }}
