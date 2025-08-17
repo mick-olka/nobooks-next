@@ -137,7 +137,7 @@ export const getPlayerStats = async (retries = 3): Promise<StatsData> => {
     if (hoursPlayedData) {
       for (const [player, hoursStr] of Object.entries(hoursPlayedData)) {
         const hours = Number.parseFloat(hoursStr);
-        if (!Number.isNaN(hours) && hours > 2) {
+        if (!Number.isNaN(hours) && hours > 8) {
           eligiblePlayers.add(player);
         }
       }
