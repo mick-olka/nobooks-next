@@ -57,13 +57,17 @@ export const FeaturesPane = ({
 									/>
 								</svg>
 
-								<Markdown className="markdown">{section.title}</Markdown>
+								<div className="markdown">
+									<Markdown>{section.title}</Markdown>
+								</div>
 							</span>
 						</summary>
 						<div className="mt-2 pl-4 overflow-hidden transition-all duration-300 max-h-0 group-open:max-h-[2600px]">
-							<Markdown className="markdown" rehypePlugins={[rehypeRaw]}>
-								{section.content}
-							</Markdown>
+							<div className="markdown">
+								<Markdown rehypePlugins={[rehypeRaw]}>
+									{section.content}
+								</Markdown>
+							</div>
 						</div>
 					</details>
 				</div>

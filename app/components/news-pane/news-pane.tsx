@@ -34,9 +34,11 @@ export const NewsPane = async () => {
 						})}
 					</div>
 					<div className="prose prose-slate max-w-none">
-						<Markdown className="markdown" rehypePlugins={[rehypeRaw]}>
-							{record.content}
-						</Markdown>
+						<div className="markdown">
+							<Markdown rehypePlugins={[rehypeRaw]}>
+								{record.content}
+							</Markdown>
+						</div>
 					</div>
 				</div>
 			))}

@@ -24,9 +24,11 @@ export default async function WikiPage({
 				<h1 className="text-3xl font-bold my-6">{data.title}</h1>
 			</div>
 			<div className="card bg-base-100 shadow-md p-4">
-				<Markdown className="markdown editor" rehypePlugins={[rehypeRaw]}>
-					{data.content}
-				</Markdown>
+				<div className="markdown editor">
+					<Markdown rehypePlugins={[rehypeRaw]}>
+						{data.content}
+					</Markdown>
+				</div>
 			</div>
 			{isAdmin && user && <AdminButtons id={data.url_name} />}
 		</div>

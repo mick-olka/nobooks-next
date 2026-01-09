@@ -62,9 +62,11 @@ export const WikiPageForm = ({
 					placeholder="Enter markdown content..."
 				/>
 				<div className="border rounded p-4 overflow-y-auto w-full md:w-1/2">
-					<Markdown className="markdown editor" rehypePlugins={[rehypeRaw]}>
-						{content}
-					</Markdown>
+					<div className="markdown editor">
+						<Markdown rehypePlugins={[rehypeRaw]}>
+							{content}
+						</Markdown>
+					</div>
 				</div>
 			</div>
 
