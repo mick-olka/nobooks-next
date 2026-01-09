@@ -1,6 +1,6 @@
 // import { IpContainer } from "../components/ui/ip-container";
-import { IpContainer, PageTransitionWrapper } from "../../components/ui";
 import { constants } from "../../utils";
+import { IpContainer, PageTransitionWrapper } from "../../components/ui";
 
 export default function JavaPage() {
 	return (
