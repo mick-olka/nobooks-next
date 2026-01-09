@@ -9,6 +9,7 @@ import {
 	LayoutFooter,
 	LayoutHeader,
 } from "./components";
+import { constants } from "./utils";
 
 const geistSans = Geist({
 	variable: "--font-geist-sans",
@@ -45,7 +46,7 @@ export default async function RootLayout({
 						<main className="min-h-full bg-base-200">{children}</main>
 						<LayoutFooter />
 
-						<FixedAnnouncement message="v1.21.7" />
+						<FixedAnnouncement message={`v${constants.VERSION}`} />
 					</div>
 				</AnimatePresence>
 				<BuyMeACoffee />

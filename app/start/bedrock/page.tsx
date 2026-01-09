@@ -15,7 +15,7 @@ export default function BedrockPage() {
 						<IpContainer ip={constants.BEDROCK_IP} />
 					</p>
 					<br />
-					<p className="font-bold">Версія: (1.21.7)</p>
+					<p className="font-bold">Версія: ({constants.VERSION})</p>
 					<br />
 					<p>Проходка безплатна!</p>
 					<br />
