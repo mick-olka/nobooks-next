@@ -11,6 +11,7 @@ export const getWikiPages = async (sb: ClientType, type: WikiPageType) => {
   const { data, error }: PostgrestSingleResponse<WikiPage[]> = await sb
     .from("wiki_pages")
     .select("*")
+    .order("updated_at", { ascending: false })
     .eq("type", type);
   if (!data) redirect("/404");
   if (error) redirect("/error");
