@@ -51,43 +51,63 @@ const scoresTranslate = {
 };
 
 export const getPlayersUUIDS = async (): Promise<Record<string, string>> => {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_STATS_URL}/stats.json`,
-    {
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_STATS_URL}/stats.json`,
+      {
+        headers: {
+          "User-Agent": "Mozilla/5.0 (compatible; Next.js Server)",
+        },
+        signal: AbortSignal.timeout(10000), // 10 second timeout
+      }
+    );
+    if (!response.ok) {
+      throw new Error(
+        `Failed to fetch UUIDs: ${response.status} ${response.statusText}`
+      );
+    }
+    const data: StatsResponse = await response.json();
+    const playersIds = data.scoreboard.scores["Player UUID"];
+    return playersIds || {};
+  } catch (error) {
+    console.error("Error fetching player UUIDs:", error);
+    return {};
+  }
+};
+
+export const getDiscordIds = async (): Promise<Record<string, string>> => {
+  try {
+    const response = await fetch("https://map.noboobs.world:3140/accounts.aof", {
       headers: {
         "User-Agent": "Mozilla/5.0 (compatible; Next.js Server)",
       },
       signal: AbortSignal.timeout(10000), // 10 second timeout
+    });
+    if (!response.ok) {
+      throw new Error(
+        `Failed to fetch Discord IDs: ${response.status} ${response.statusText}`
+      );
     }
-  );
-  const data: StatsResponse = await response.json();
-  const playersIds = data.scoreboard.scores["Player UUID"];
-  return playersIds;
-};
+    const text = await response.text();
+    const lines = text.split("\n");
+    const accounts: Record<string, string> = {};
 
-export const getDiscordIds = async (): Promise<Record<string, string>> => {
-  const response = await fetch("https://map.noboobs.world:3140/accounts.aof", {
-    headers: {
-      "User-Agent": "Mozilla/5.0 (compatible; Next.js Server)",
-    },
-    signal: AbortSignal.timeout(10000), // 10 second timeout
-  });
-  const text = await response.text();
-  const lines = text.split("\n");
-  const accounts: Record<string, string> = {};
-
-  for (const line of lines) {
-    if (!line) continue;
-    const [uuid, discordId] = line.split(" ");
-    if (uuid && discordId) {
-      accounts[uuid] = discordId;
+    for (const line of lines) {
+      if (!line) continue;
+      const [uuid, discordId] = line.split(" ");
+      if (uuid && discordId) {
+        accounts[uuid] = discordId;
+      }
     }
+
+    return accounts;
+  } catch (error) {
+    console.error("Error fetching Discord IDs:", error);
+    return {};
   }
-
-  return accounts;
 };
 
-export const getPlayerStats = async (retries = 3): Promise<StatsData> => {
+export const getPlayerStats = async (retries = 2): Promise<StatsData> => {
   try {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_STATS_URL}/stats.json`,
@@ -96,7 +116,7 @@ export const getPlayerStats = async (retries = 3): Promise<StatsData> => {
           "User-Agent": "Mozilla/5.0 (compatible; Next.js Server)",
         },
         // Add timeout and other options
-        signal: AbortSignal.timeout(2000), // 2 second timeout
+        signal: AbortSignal.timeout(10000), // 10 second timeout (increased from 2s)
       }
     );
 
@@ -226,9 +246,11 @@ export const getPlayerStats = async (retries = 3): Promise<StatsData> => {
   } catch (error) {
     console.error("Error fetching player stats:\n", error);
 
-    // Retry on network errors
+    // Retry on network errors (including TimeoutError)
     const isNetworkError =
       error instanceof TypeError ||
+      error instanceof DOMException || // TimeoutError is a DOMException
+      (error instanceof Error && error.name === "TimeoutError") ||
       (typeof error === "object" &&
         error !== null &&
         "code" in error &&
@@ -240,6 +262,7 @@ export const getPlayerStats = async (retries = 3): Promise<StatsData> => {
       return getPlayerStats(retries - 1);
     }
 
+    // Return empty stats data as fallback
     return {
       online: {},
       scoreboard: {
@@ -258,23 +281,42 @@ export async function fetchStatsData() {
   return statsData;
 }
 
-export const getPlayerIndividualStats = async (discordId: string) => {
-  const discordIds = await getDiscordIds();
-  const uuid = discordIds[discordId];
-  const playersUUIDS = await getPlayersUUIDS();
-  const playerName = Object.keys(playersUUIDS).find(
-    (key) => playersUUIDS[key] === uuid
-  );
-  const {
-    scoreboard: { scores },
-  } = await getPlayerStats();
-  const playerIndividualStats: Record<string, string> = {};
-  if (!playerName) return playerIndividualStats;
-  for (const [key, value] of Object.entries(scores)) {
-    if (value) {
-      const userStat = value[playerName];
-      playerIndividualStats[key] = userStat;
+export const getPlayerIndividualStats = async (
+  discordId: string
+): Promise<Record<string, string>> => {
+  try {
+    const discordIds = await getDiscordIds();
+    const uuid = discordIds[discordId];
+    if (!uuid) {
+      return {};
     }
+
+    const playersUUIDS = await getPlayersUUIDS();
+    const playerName = Object.keys(playersUUIDS).find(
+      (key) => playersUUIDS[key] === uuid
+    );
+    if (!playerName) {
+      return {};
+    }
+
+    const statsData = await getPlayerStats();
+    const { scoreboard } = statsData;
+    if (!scoreboard?.scores) {
+      return {};
+    }
+
+    const playerIndividualStats: Record<string, string> = {};
+    for (const [key, value] of Object.entries(scoreboard.scores)) {
+      if (value && typeof value === "object") {
+        const userStat = value[playerName];
+        if (userStat) {
+          playerIndividualStats[key] = userStat;
+        }
+      }
+    }
+    return playerIndividualStats;
+  } catch (error) {
+    console.error("Error fetching player individual stats:", error);
+    return {};
   }
-  return playerIndividualStats;
 };

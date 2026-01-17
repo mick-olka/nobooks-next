@@ -10,7 +10,13 @@ export default async function PrivatePage() {
 	const discordId = user?.user_metadata.provider_id;
 	let playerIndividualStats: Record<string, string> = {};
 	if (discordId) {
-		playerIndividualStats = await getPlayerIndividualStats(discordId);
+		try {
+			playerIndividualStats = await getPlayerIndividualStats(discordId);
+		} catch (error) {
+			console.error("Error loading player stats:", error);
+			// Continue with empty stats - page won't crash
+			playerIndividualStats = {};
+		}
 	}
 	const handleLogout = async () => {
 		"use server";
