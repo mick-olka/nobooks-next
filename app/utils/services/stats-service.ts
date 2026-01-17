@@ -128,6 +128,8 @@ export const getPlayerStats = async (retries = 2): Promise<StatsData> => {
 
     const data: StatsResponse = await response.json();
 
+    console.log(data);
+
     // Filter out time-related scores and add a single Time Played score
     const filteredScores = { ...data.scoreboard.scores };
 

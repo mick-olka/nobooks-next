@@ -2,17 +2,32 @@ import type { StatsData } from "@/app/types";
 import { useState } from "react";
 import "./stats.scss";
 
+// Online status indicator component
+const OnlineIndicator = ({
+	isOnline,
+}: {
+	isOnline: boolean;
+}) => (
+	<span
+		className={`online-indicator ${isOnline ? "online" : "offline"}`}
+		title={isOnline ? "Онлайн" : "Офлайн"}
+		aria-label={isOnline ? "Онлайн" : "Офлайн"}
+	/>
+);
+
 // Modal component for showing all players
 const PlayerModal = ({
 	isOpen,
 	onClose,
 	statName,
 	allPlayers,
+	onlineStatus,
 }: {
 	isOpen: boolean;
 	onClose: () => void;
 	statName: string;
 	allPlayers: Array<{ player: string; value: string; rawValue: number }>;
+	onlineStatus: Record<string, boolean>;
 }) => {
 	if (!isOpen) return null;
 
@@ -47,7 +62,12 @@ const PlayerModal = ({
 								className={`rank-${index + 1}`}
 							>
 								<span className="position">#{index + 1}</span>
-								<span className="player-name">{entry.player}</span>
+								<span className="player-name">
+									<OnlineIndicator
+										isOnline={onlineStatus[entry.player] === true}
+									/>
+									{entry.player}
+								</span>
 								<span className="score">{entry.value}</span>
 							</li>
 						))}
@@ -186,7 +206,12 @@ export const HallOfFame = ({ data }: { data: StatsData }) => {
 										className={`rank-${index + 1}`}
 									>
 										<span className="position">#{index + 1}</span>
-										<span className="player-name">{entry.player}</span>
+										<span className="player-name">
+											<OnlineIndicator
+												isOnline={data.online?.[entry.player] === true}
+											/>
+											{entry.player}
+										</span>
 										<span className="score">{entry.value}</span>
 									</li>
 								))}
@@ -210,6 +235,7 @@ export const HallOfFame = ({ data }: { data: StatsData }) => {
 				onClose={handleCloseModal}
 				statName={modalState.statName}
 				allPlayers={modalState.allPlayers}
+				onlineStatus={data.online || {}}
 			/>
 		</div>
 	);
