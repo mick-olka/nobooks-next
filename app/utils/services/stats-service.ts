@@ -53,7 +53,7 @@ const scoresTranslate = {
 export const getPlayersUUIDS = async (): Promise<Record<string, string>> => {
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_STATS_URL}/stats.json`,
+      `${process.env.NEXT_PUBLIC_STATS_URL}`,
       {
         headers: {
           "User-Agent": "Mozilla/5.0 (compatible; Next.js Server)",
@@ -110,7 +110,7 @@ export const getDiscordIds = async (): Promise<Record<string, string>> => {
 export const getPlayerStats = async (retries = 2): Promise<StatsData> => {
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_STATS_URL}/stats.json`,
+      `${process.env.NEXT_PUBLIC_STATS_URL}`,
       {
         headers: {
           "User-Agent": "Mozilla/5.0 (compatible; Next.js Server)",
