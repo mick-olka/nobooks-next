@@ -9,7 +9,7 @@ export const Logo = ({ logoName, redirectTo }: Props) => {
 			<div className="navbar-center flex items-center">
 				<Image
 					alt="Logo"
-					src="/images/logo1.png"
+					src="/images/nether-block.webp"
 					width={80}
 					height={80}
 					className="w-8 h-8"
