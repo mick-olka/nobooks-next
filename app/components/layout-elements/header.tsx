@@ -13,8 +13,8 @@ export const LayoutHeader: FC<LayoutHeaderProps> = ({ userName }) => {
 	return (
 		<>
 			<header className="relative">
-				{/* <FlowersBackground /> */}
-				<NetherBackground seed={Math.floor(Date.now() / 60_000)} />
+				<FlowersBackground />
+				{/* <NetherBackground seed={Math.floor(Date.now() / 60_000)} /> */}
 				<nav className="navbar bg-base-100">
 					<Menu
 						links={[
