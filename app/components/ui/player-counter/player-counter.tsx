@@ -1,36 +1,60 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import { PlayerCounter as PlayerCounterClass } from "./playercount";
+import { useEffect, useState } from "react";
 
 interface PlayerCounterProps {
-	ip: string;
 	format?: string;
 	refreshRate?: number;
 }
 
 export const PlayerCounter: React.FC<PlayerCounterProps> = ({
-	ip,
 	format,
-	refreshRate,
+	refreshRate = 60000,
 }) => {
-	const elementRef = useRef<HTMLDivElement>(null);
-	const counterRef = useRef<PlayerCounterClass | null>(null);
+	const [onlineCount, setOnlineCount] = useState<number | null>(null);
+	const [isOffline, setIsOffline] = useState(false);
 
 	useEffect(() => {
-		if (elementRef.current) {
-			counterRef.current = new PlayerCounterClass({
-				ip,
-				element: elementRef.current,
-				format,
-				refreshRate,
-			});
-		}
+		let isMounted = true;
+
+		const loadOnlineUsers = async () => {
+			try {
+				const response = await fetch("/api/online", {
+					cache: "no-store",
+				});
+
+				if (!response.ok) {
+					throw new Error("Failed to fetch online users");
+				}
+
+				const data = (await response.json()) as unknown;
+				const players = Array.isArray(data) ? data : [];
+
+				if (isMounted) {
+					setOnlineCount(players.length);
+					setIsOffline(false);
+				}
+			} catch (error) {
+				console.error("Error fetching online users:", error);
+				if (isMounted) {
+					setIsOffline(true);
+				}
+			}
+		};
+
+		loadOnlineUsers();
+		const intervalId = window.setInterval(loadOnlineUsers, refreshRate);
 
 		return () => {
-			counterRef.current?.destroy();
+			isMounted = false;
+			clearInterval(intervalId);
 		};
-	}, [ip, format, refreshRate]);
+	}, [refreshRate]);
 
-	return <div ref={elementRef} />;
+	if (isOffline) {
+		return <div>offline</div>;
+	}
+
+	const template = format || "{online}";
+	return <div>{template.replace("{online}", String(onlineCount ?? 0))}</div>;
 };

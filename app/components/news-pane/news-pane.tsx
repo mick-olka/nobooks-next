@@ -1,13 +1,14 @@
 "use server";
 
 import { WikiPageType } from "@/app/types";
-import { getWikiPages } from "@/app/utils/services";
+import { getWikiPages, syncTelegramNewsHourly } from "@/app/utils/services";
 import { createClient } from "@/app/utils/supabase/server";
 import Markdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import Link from "next/link";
 
 export const NewsPane = async () => {
+	await syncTelegramNewsHourly();
 	const supabase = await createClient();
 	const { data } = await getWikiPages(supabase, WikiPageType.HISTORY);
 

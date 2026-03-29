@@ -1,6 +1,6 @@
 "use server";
 
-import type { StatsData, StatsResponse } from "@/app/types";
+import type { StatsData } from "@/app/types";
 import { revalidatePath } from "next/cache";
 
 const scoresTranslate = {
@@ -50,24 +50,84 @@ const scoresTranslate = {
   "Armor Cleaned": "Очищено броні",
 };
 
+const API_BASE_URL = "https://api.noboobs.world";
+const UUID_REGEX =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+function findUuid(value: unknown): string | null {
+  if (typeof value === "string" && UUID_REGEX.test(value)) {
+    return value;
+  }
+
+  if (Array.isArray(value)) {
+    for (const item of value) {
+      const nestedUuid = findUuid(item);
+      if (nestedUuid) return nestedUuid;
+    }
+    return null;
+  }
+
+  if (isRecord(value)) {
+    for (const nestedValue of Object.values(value)) {
+      const nestedUuid = findUuid(nestedValue);
+      if (nestedUuid) return nestedUuid;
+    }
+  }
+
+  return null;
+}
+
+function toStatsMap(value: unknown): Record<string, string> {
+  if (!isRecord(value)) {
+    return {};
+  }
+
+  const candidateKeys = ["stats", "scoreboard", "scores", "data"];
+  for (const key of candidateKeys) {
+    const nested = value[key];
+    if (isRecord(nested)) {
+      const nestedStats = toStatsMap(nested);
+      if (Object.keys(nestedStats).length > 0) {
+        return nestedStats;
+      }
+    }
+  }
+
+  const result: Record<string, string> = {};
+  for (const [key, rawValue] of Object.entries(value)) {
+    if (
+      typeof rawValue === "string" ||
+      typeof rawValue === "number" ||
+      typeof rawValue === "boolean"
+    ) {
+      const translatedKey = scoresTranslate[key as keyof typeof scoresTranslate] || key;
+      result[translatedKey] = String(rawValue);
+    }
+  }
+
+  return result;
+}
+
 export const getPlayersUUIDS = async (): Promise<Record<string, string>> => {
   try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_STATS_URL}`,
-      {
-        headers: {
-          "User-Agent": "Mozilla/5.0 (compatible; Next.js Server)",
-        },
-        signal: AbortSignal.timeout(10000), // 10 second timeout
-      }
-    );
+    const response = await fetch(`${API_BASE_URL}/stats/all`, {
+      headers: {
+        "User-Agent": "Mozilla/5.0 (compatible; Next.js Server)",
+      },
+      signal: AbortSignal.timeout(10000),
+      cache: "no-store",
+    });
     if (!response.ok) {
       throw new Error(
         `Failed to fetch UUIDs: ${response.status} ${response.statusText}`
       );
     }
-    const data: StatsResponse = await response.json();
-    const playersIds = data.scoreboard.scores["Player UUID"];
+    const data = (await response.json()) as Record<string, Record<string, string>>;
+    const playersIds = data["Player UUID"];
     return playersIds || {};
   } catch (error) {
     console.error("Error fetching player UUIDs:", error);
@@ -76,62 +136,54 @@ export const getPlayersUUIDS = async (): Promise<Record<string, string>> => {
 };
 
 export const getDiscordIds = async (): Promise<Record<string, string>> => {
-  try {
-    const response = await fetch("https://map.noboobs.world:3140/accounts.aof", {
-      headers: {
-        "User-Agent": "Mozilla/5.0 (compatible; Next.js Server)",
-      },
-      signal: AbortSignal.timeout(10000), // 10 second timeout
-    });
-    if (!response.ok) {
-      throw new Error(
-        `Failed to fetch Discord IDs: ${response.status} ${response.statusText}`
-      );
-    }
-    const text = await response.text();
-    const lines = text.split("\n");
-    const accounts: Record<string, string> = {};
-
-    for (const line of lines) {
-      if (!line) continue;
-      const [uuid, discordId] = line.split(" ");
-      if (uuid && discordId) {
-        accounts[uuid] = discordId;
-      }
-    }
-
-    return accounts;
-  } catch (error) {
-    console.error("Error fetching Discord IDs:", error);
-    return {};
-  }
+  return {};
 };
 
 export const getPlayerStats = async (retries = 2): Promise<StatsData> => {
   try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_STATS_URL}`,
-      {
+    const [statsResponse, onlineResponse] = await Promise.all([
+      fetch(`${API_BASE_URL}/stats/all`, {
         headers: {
           "User-Agent": "Mozilla/5.0 (compatible; Next.js Server)",
         },
-        // Add timeout and other options
-        signal: AbortSignal.timeout(10000), // 10 second timeout (increased from 2s)
-      }
-    );
+        signal: AbortSignal.timeout(10000),
+        cache: "no-store",
+      }),
+      fetch(`${API_BASE_URL}/online`, {
+        headers: {
+          "User-Agent": "Mozilla/5.0 (compatible; Next.js Server)",
+        },
+        signal: AbortSignal.timeout(10000),
+        cache: "no-store",
+      }),
+    ]);
 
-    if (!response.ok) {
+    if (!statsResponse.ok) {
       throw new Error(
-        `Failed to fetch stats: ${response.status} ${response.statusText}`
+        `Failed to fetch stats: ${statsResponse.status} ${statsResponse.statusText}`
       );
     }
 
-    const data: StatsResponse = await response.json();
+    if (!onlineResponse.ok) {
+      throw new Error(
+        `Failed to fetch online players: ${onlineResponse.status} ${onlineResponse.statusText}`
+      );
+    }
 
-    console.log(data);
+    const scores = (await statsResponse.json()) as Record<
+      string,
+      Record<string, string>
+    >;
+    const onlineUuids = (await onlineResponse.json()) as string[];
+    const onlineUuidSet = new Set(
+      Array.isArray(onlineUuids) ? onlineUuids : []
+    );
 
     // Filter out time-related scores and add a single Time Played score
-    const filteredScores = { ...data.scoreboard.scores };
+    const filteredScores: Record<string, Record<string, string>> = {};
+    for (const [statName, playerScores] of Object.entries(scores)) {
+      filteredScores[statName] = { ...(playerScores || {}) };
+    }
 
     // Time-related keys to remove
     const extraScores = [
@@ -153,7 +205,7 @@ export const getPlayerStats = async (retries = 2): Promise<StatsData> => {
     }
 
     // Filter players based on "Hours Played" - only include players with more than 2 hours
-    const hoursPlayedData = data.scoreboard.scores["Hours Played"];
+    const hoursPlayedData = scores["Hours Played"];
     const eligiblePlayers = new Set<string>();
 
     if (hoursPlayedData) {
@@ -177,7 +229,7 @@ export const getPlayerStats = async (retries = 2): Promise<StatsData> => {
     }
 
     // Convert all distance measurements from centimeters to meters
-    for (const [key, playerScores] of Object.entries(data.scoreboard.scores)) {
+    for (const [key, playerScores] of Object.entries(scores)) {
       if (key.includes("Distance")) {
         for (const [player, value] of Object.entries(playerScores)) {
           const distance = Number.parseInt(value);
@@ -237,12 +289,22 @@ export const getPlayerStats = async (retries = 2): Promise<StatsData> => {
       ])
     );
 
+    const playerUuids = scores["Player UUID"] || {};
+    const onlineByPlayerName = Object.fromEntries(
+      Object.entries(playerUuids).map(([playerName, uuid]) => [
+        playerName,
+        onlineUuidSet.has(uuid),
+      ])
+    );
+
+    const playernames = Object.keys(scores["Player Name"] || {});
+
     const statsData: StatsData = {
-      online: data.online,
+      online: onlineByPlayerName,
       scoreboard: {
         scores: translatedScores,
       },
-      playernames: data.playernames,
+      playernames,
     };
     return statsData;
   } catch (error) {
@@ -287,36 +349,49 @@ export const getPlayerIndividualStats = async (
   discordId: string
 ): Promise<Record<string, string>> => {
   try {
-    const discordIds = await getDiscordIds();
-    const uuid = discordIds[discordId];
+    const accountResponse = await fetch(`${API_BASE_URL}/accounts/${discordId}`, {
+      headers: {
+        "User-Agent": "Mozilla/5.0 (compatible; Next.js Server)",
+      },
+      signal: AbortSignal.timeout(10000),
+      cache: "no-store",
+    });
+
+    if (!accountResponse.ok) {
+      throw new Error(
+        `Failed to fetch user account: ${accountResponse.status} ${accountResponse.statusText}`
+      );
+    }
+
+    const accountData = (await accountResponse.json()) as unknown;
+    const uuid = findUuid(accountData);
+
     if (!uuid) {
       return {};
     }
 
-    const playersUUIDS = await getPlayersUUIDS();
-    const playerName = Object.keys(playersUUIDS).find(
-      (key) => playersUUIDS[key] === uuid
-    );
-    if (!playerName) {
+    const statsResponse = await fetch(`${API_BASE_URL}/stats/${uuid}`, {
+      headers: {
+        "User-Agent": "Mozilla/5.0 (compatible; Next.js Server)",
+      },
+      signal: AbortSignal.timeout(10000),
+      cache: "no-store",
+    });
+
+    if (!statsResponse.ok) {
+      throw new Error(
+        `Failed to fetch user stats: ${statsResponse.status} ${statsResponse.statusText}`
+      );
+    }
+
+    const statsPayload = (await statsResponse.json()) as unknown;
+    const normalizedStats = toStatsMap(statsPayload);
+
+    if (Object.keys(normalizedStats).length === 0) {
       return {};
     }
 
-    const statsData = await getPlayerStats();
-    const { scoreboard } = statsData;
-    if (!scoreboard?.scores) {
-      return {};
-    }
-
-    const playerIndividualStats: Record<string, string> = {};
-    for (const [key, value] of Object.entries(scoreboard.scores)) {
-      if (value && typeof value === "object") {
-        const userStat = value[playerName];
-        if (userStat) {
-          playerIndividualStats[key] = userStat;
-        }
-      }
-    }
-    return playerIndividualStats;
+    return normalizedStats;
   } catch (error) {
     console.error("Error fetching player individual stats:", error);
     return {};

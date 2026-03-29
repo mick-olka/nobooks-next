@@ -63,9 +63,8 @@ export default async function Home() {
 						<div className="p-2 my-2 rounded-lg bg-gray-800 mx-auto text-center">
 							<div className="text-center">
 								<PlayerCounter
-									ip={constants.JAVA_IP}
 									format="Поточний онлайн: {online}"
-									refreshRate={600}
+									refreshRate={6000}
 								/>
 								{/* <b>Ведуться технічні роботи - сервер скоро повернеться</b> */}
 							</div>
