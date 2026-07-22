@@ -1,6 +1,7 @@
 import { createServerClient } from "@supabase/ssr";
 import { type NextRequest, NextResponse } from "next/server";
 import { isProtectedPath } from "@/app/auth/protected-paths";
+import { env } from "@/app/lib/env";
 import type { Database } from "@/app/lib/types/database.types";
 
 export async function updateSession(request: NextRequest) {
@@ -9,8 +10,8 @@ export async function updateSession(request: NextRequest) {
 	});
 
 	const supabase = createServerClient<Database>(
-		process.env.NEXT_PUBLIC_SUPABASE_URL || "",
-		process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "",
+		env.NEXT_PUBLIC_SUPABASE_URL,
+		env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
 		{
 			cookies: {
 				getAll() {

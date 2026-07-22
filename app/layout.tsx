@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { AnimatePresence } from "framer-motion";
+import { Toaster } from "react-hot-toast";
 import { getUser } from "./auth";
 import {
 	BuyMeACoffee,
@@ -50,6 +51,7 @@ export default async function RootLayout({
 					</div>
 				</AnimatePresence>
 				<BuyMeACoffee />
+				<Toaster />
 			</body>
 		</html>
 	);
