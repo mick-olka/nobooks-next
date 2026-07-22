@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import Markdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
-import { getAuthorizedUser } from "@/app/auth";
+import { getUser } from "@/app/auth";
 import { AdminButtons, BackBtn } from "@/app/components";
 import { getWikiPageByUrlName } from "@/app/lib/data/wiki";
 import { isNotFoundError } from "@/app/lib/errors";
@@ -15,7 +15,7 @@ export default async function WikiPage({
 }) {
 	const pageId = (await params).id;
 	const supabase = await createClient();
-	const user = await getAuthorizedUser();
+	const user = await getUser();
 	const isAdmin = user ? user.user_role === UserRole.ADMIN : false;
 
 	let data: Awaited<ReturnType<typeof getWikiPageByUrlName>>;

@@ -1,9 +1,10 @@
-import { notFound, redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 import { updateWikiPageAction } from "@/app/actions/wiki";
-import { getAuthorizedUser } from "@/app/auth";
+import { requireRole } from "@/app/auth";
 import { WikiPageForm } from "@/app/components";
 import { getWikiPageByUrlName } from "@/app/lib/data/wiki";
 import { isNotFoundError } from "@/app/lib/errors";
+import { UserRole } from "@/app/types";
 import { createClient } from "@/app/utils/supabase/server";
 
 export default async function WikiEditPage({
@@ -13,7 +14,7 @@ export default async function WikiEditPage({
 }) {
 	const historyId = (await params).id;
 	const supabase = await createClient();
-	const user = await getAuthorizedUser({ adminProtectedPage: true });
+	await requireRole(UserRole.ADMIN, UserRole.MODERATOR);
 
 	let data: Awaited<ReturnType<typeof getWikiPageByUrlName>>;
 	try {
@@ -22,7 +23,6 @@ export default async function WikiEditPage({
 		if (isNotFoundError(err)) notFound();
 		throw err;
 	}
-	if (!user) redirect("/login");
 
 	return (
 		<div className="p-8">

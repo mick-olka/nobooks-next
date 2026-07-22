@@ -1,12 +1,12 @@
-import { getAuthorizedUser } from "@/app/auth";
-import { logout } from "@/app/login/actions";
 import Image from "next/image";
 import Link from "next/link";
+import { requireUser } from "@/app/auth";
+import { logout } from "@/app/login/actions";
 import { constants } from "../utils";
 import { getPlayerIndividualStats } from "../utils/services";
 
 export default async function PrivatePage() {
-	const user = await getAuthorizedUser({ protectedPage: true });
+	const user = await requireUser();
 	const discordId = user?.user_metadata.provider_id;
 	let playerIndividualStats: Record<string, string> = {};
 	if (discordId) {

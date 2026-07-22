@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { AnimatePresence } from "framer-motion";
-import { getAuthorizedUser } from "./auth";
+import { getUser } from "./auth";
 import {
 	BuyMeACoffee,
 	FixedAnnouncement,
@@ -34,7 +34,7 @@ export default async function RootLayout({
 }: Readonly<{
 	children: React.ReactNode;
 }>) {
-	const user = await getAuthorizedUser();
+	const user = await getUser();
 	return (
 		<html lang="en" data-theme="dark">
 			<body
