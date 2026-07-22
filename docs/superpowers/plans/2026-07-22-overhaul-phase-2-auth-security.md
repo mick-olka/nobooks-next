@@ -34,7 +34,7 @@
 - Modify: `app/auth/helpers.ts`
 - Create: `app/auth/roles.ts`
 - Test: `app/auth/__tests__/roles.test.ts`
-- Modify (callers): `app/layout.tsx`, `app/features/page.tsx`, `app/history/page.tsx`, `app/regions/page.tsx`, `app/wiki/[id]/page.tsx`, `app/wiki/[id]/edit/page.tsx`
+- Modify (callers): `app/layout.tsx`, `app/features/page.tsx`, `app/history/page.tsx`, `app/regions/page.tsx`, `app/wiki/[id]/page.tsx`, `app/wiki/[id]/edit/page.tsx`, `app/private/page.tsx`
 
 **Interfaces:**
 - Consumes: `UserRole`, `UserAccount` from `@/app/types`; `createClient` from `@/app/utils/supabase/server`.
@@ -160,8 +160,7 @@ Apply these exact replacements:
 - `app/layout.tsx:37` — `const user = await getAuthorizedUser();` → `const user = await getUser();` and update the import `{ getAuthorizedUser }` → `{ getUser }`.
 - `app/features/page.tsx`, `app/history/page.tsx`, `app/regions/page.tsx`, `app/wiki/[id]/page.tsx` — same swap: import `getUser`, call `const user = await getUser();`.
 - `app/wiki/[id]/edit/page.tsx:16` — `const user = await getAuthorizedUser({ adminProtectedPage: true });` → `const user = await requireRole(UserRole.ADMIN, UserRole.MODERATOR);` (import `requireRole` from `@/app/auth` and `UserRole` from `@/app/types`). Since `requireRole` guarantees a user or redirects, the later `if (!user) redirect("/login")` line becomes dead — remove it.
-
-(The `/private`→`/profile` caller is handled in Task 3.)
+- `app/private/page.tsx` — swap `getAuthorizedUser({ protectedPage: true })` → `requireUser()` (import `requireUser` from `@/app/auth`). Leave the rest of the file unchanged; the `/private`→`/profile` folder move and hardening happen in Task 3. (This caller MUST be swapped here so the removal of `getAuthorizedUser` keeps the build green — it was originally mis-scoped to Task 3.)
 
 - [ ] **Step 8: Verify + commit**
 
@@ -284,7 +283,7 @@ git mv app/private app/profile
 - [ ] **Step 2: Harden `app/profile/page.tsx`**
 
 Apply these changes to the moved file:
-- Replace `const user = await getAuthorizedUser({ protectedPage: true });` with `const user = await requireUser();` (import `requireUser` from `@/app/auth`). Remove the now-dead `if (!user) return null;`.
+- The `requireUser()` call is already in place (the caller swap was done in Task 1); keep it, import from `@/app/auth`. Remove the now-dead `if (!user) return null;`.
 - The Discord id stays `const discordId = user.user_metadata.provider_id;`.
 - Replace the unguarded greeting `user.user_metadata.custom_claims.global_name || user.email` with the already-safe `user.name`.
 - Replace the avatar `src` fallback `"https://via.placeholder.com/100"` (host not allowed by `next.config.ts`) with a guarded conditional: if `user.user_metadata?.picture` is present use `next/image`, else render a `<div>` initials/emoji placeholder (no external host).
