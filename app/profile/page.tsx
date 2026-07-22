@@ -5,9 +5,9 @@ import { logout } from "@/app/login/actions";
 import { constants } from "../utils";
 import { getPlayerIndividualStats } from "../utils/services";
 
-export default async function PrivatePage() {
+export default async function ProfilePage() {
 	const user = await requireUser();
-	const discordId = user?.user_metadata.provider_id;
+	const discordId = user.user_metadata.provider_id;
 	let playerIndividualStats: Record<string, string> = {};
 	if (discordId) {
 		try {
@@ -23,8 +23,6 @@ export default async function PrivatePage() {
 		await logout();
 	};
 
-	if (!user) return null;
-
 	return (
 		<div className="min-h-screen flex items-center justify-center p-8 bg-base-200">
 			<div className="max-w-3xl w-full bg-base-100 rounded-lg shadow-lg p-8">
@@ -39,15 +37,19 @@ export default async function PrivatePage() {
 
 				<div className="flex flex-col md:flex-row gap-6 mb-6">
 					<div className="flex-shrink-0">
-						<Image
-							src={
-								user.user_metadata?.picture || "https://via.placeholder.com/100"
-							}
-							alt="Profile"
-							width={96}
-							height={96}
-							className="w-24 h-24 rounded-full border-4 border-primary"
-						/>
+						{user.user_metadata?.picture ? (
+							<Image
+								src={user.user_metadata.picture}
+								alt="Profile"
+								width={96}
+								height={96}
+								className="w-24 h-24 rounded-full border-4 border-primary"
+							/>
+						) : (
+							<div className="w-24 h-24 rounded-full border-4 border-primary bg-base-300 flex items-center justify-center text-3xl font-semibold">
+								{user.name?.charAt(0).toUpperCase() || "?"}
+							</div>
+						)}
 					</div>
 
 					<div className="flex-grow">
@@ -85,10 +87,7 @@ export default async function PrivatePage() {
 				<div className="divider" />
 
 				<p className="text-lg leading-relaxed">
-					Привіт,{" "}
-					<span className="font-medium">
-						{user.user_metadata.custom_claims.global_name || user.email}
-					</span>
+					Привіт, <span className="font-medium">{user.name}</span>
 					!
 					<br />
 					Скоро тут буде більше функцій для твого особистого кабінету, слідкуй

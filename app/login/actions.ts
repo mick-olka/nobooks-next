@@ -22,8 +22,8 @@ export const login = async (formData: FormData) => {
 		redirect("/error");
 	}
 
-	revalidatePath("/private", "layout");
-	redirect("/private");
+	revalidatePath("/profile", "layout");
+	redirect("/profile");
 };
 
 export const signup = async (formData: FormData) => {

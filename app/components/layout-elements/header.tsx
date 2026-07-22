@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { FC } from "react";
-import { FlowersBackground } from "../spring-ui";
 import { NetherBackground } from "../nether-ui";
+import { FlowersBackground } from "../spring-ui";
 import { Logo } from "./logo";
 import { Menu } from "./menu";
 
@@ -22,7 +22,7 @@ export const LayoutHeader: FC<LayoutHeaderProps> = ({ userName }) => {
 							{ name: "Додатки", href: "/features" },
 							{ name: "Карта", href: "/map" },
 							{ name: "Вікі", href: "/wiki" },
-							{ name: "Особистий кабінет", href: "/private" },
+							{ name: "Особистий кабінет", href: "/profile" },
 						]}
 					/>
 					<Logo logoName={userName || "no boobs"} />
