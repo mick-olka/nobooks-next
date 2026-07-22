@@ -1,5 +1,6 @@
 import { createServerClient } from "@supabase/ssr";
 import { type NextRequest, NextResponse } from "next/server";
+import { isProtectedPath } from "@/app/auth/protected-paths";
 import type { Database } from "@/app/lib/types/database.types";
 
 export async function updateSession(request: NextRequest) {
@@ -40,12 +41,7 @@ export async function updateSession(request: NextRequest) {
 		data: { user },
 	} = await supabase.auth.getUser();
 
-	if (
-		!user &&
-		!request.nextUrl.pathname.startsWith("/login") &&
-		!request.nextUrl.pathname.startsWith("/auth")
-	) {
-		// no user, potentially respond by redirecting the user to the login page
+	if (!user && isProtectedPath(request.nextUrl.pathname)) {
 		const url = request.nextUrl.clone();
 		url.pathname = "/login";
 		return NextResponse.redirect(url);
