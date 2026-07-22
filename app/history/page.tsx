@@ -1,12 +1,11 @@
 import Link from "next/link";
-import Markdown from "react-markdown";
-import rehypeRaw from "rehype-raw";
 import { getUser } from "@/app/auth";
 import { canEditContent } from "@/app/auth/roles";
 import {
 	AdminButtons,
 	CreateWikiPageBtn,
 	PageTransitionWrapper,
+	SafeMarkdown,
 } from "@/app/components";
 import { getWikiPages } from "@/app/lib/data/wiki";
 import { WikiPageType } from "@/app/types";
@@ -55,9 +54,7 @@ export default async function HistoryListPage() {
 							</div>
 							<div className="prose prose-slate max-w-none">
 								<div className="markdown">
-									<Markdown rehypePlugins={[rehypeRaw]}>
-										{page.content}
-									</Markdown>
+									<SafeMarkdown>{page.content}</SafeMarkdown>
 								</div>
 							</div>
 						</div>

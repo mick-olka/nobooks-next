@@ -1,7 +1,4 @@
 import Link from "next/link";
-import React from "react";
-import Markdown from "react-markdown";
-import rehypeRaw from "rehype-raw";
 import { canEditContent } from "@/app/auth/roles";
 import type { UserAccount, WikiPage, WikiPageType } from "@/app/types";
 import { CreateWikiPageBtn } from "./create-page-btn";

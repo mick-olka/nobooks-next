@@ -1,8 +1,7 @@
 "use server";
 
 import Link from "next/link";
-import Markdown from "react-markdown";
-import rehypeRaw from "rehype-raw";
+import { SafeMarkdown } from "@/app/components/ui";
 import { getWikiPages } from "@/app/lib/data/wiki";
 import { WikiPageType } from "@/app/types";
 import { syncTelegramNewsHourly } from "@/app/utils/services";
@@ -37,7 +36,7 @@ export const NewsPane = async () => {
 					</div>
 					<div className="prose prose-slate max-w-none">
 						<div className="markdown">
-							<Markdown rehypePlugins={[rehypeRaw]}>{record.content}</Markdown>
+							<SafeMarkdown>{record.content}</SafeMarkdown>
 						</div>
 					</div>
 				</div>

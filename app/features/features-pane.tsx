@@ -1,8 +1,6 @@
 "use client";
 
-import Markdown from "react-markdown";
-import rehypeRaw from "rehype-raw";
-import { AdminButtons } from "../components";
+import { AdminButtons, SafeMarkdown } from "../components";
 import type { WikiPage } from "../types";
 import { useSectionsWithHash } from "../utils/hooks/use-hash-link";
 
@@ -58,15 +56,13 @@ export const FeaturesPane = ({
 								</svg>
 
 								<div className="markdown">
-									<Markdown>{section.title}</Markdown>
+									<SafeMarkdown>{section.title}</SafeMarkdown>
 								</div>
 							</span>
 						</summary>
 						<div className="mt-2 pl-4 overflow-hidden transition-all duration-300 max-h-0 group-open:max-h-[2600px]">
 							<div className="markdown">
-								<Markdown rehypePlugins={[rehypeRaw]}>
-									{section.content}
-								</Markdown>
+								<SafeMarkdown>{section.content}</SafeMarkdown>
 							</div>
 						</div>
 					</details>

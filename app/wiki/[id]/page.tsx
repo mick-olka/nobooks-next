@@ -1,9 +1,7 @@
 import { notFound } from "next/navigation";
-import Markdown from "react-markdown";
-import rehypeRaw from "rehype-raw";
 import { getUser } from "@/app/auth";
 import { canEditContent } from "@/app/auth/roles";
-import { AdminButtons, BackBtn } from "@/app/components";
+import { AdminButtons, BackBtn, SafeMarkdown } from "@/app/components";
 import { getWikiPageByUrlName } from "@/app/lib/data/wiki";
 import { isNotFoundError } from "@/app/lib/errors";
 import { createClient } from "@/app/utils/supabase/server";
@@ -34,7 +32,7 @@ export default async function WikiPage({
 			</div>
 			<div className="card bg-base-100 shadow-md p-4">
 				<div className="markdown editor">
-					<Markdown rehypePlugins={[rehypeRaw]}>{data.content}</Markdown>
+					<SafeMarkdown>{data.content}</SafeMarkdown>
 				</div>
 			</div>
 			{canEdit && user && <AdminButtons id={data.url_name} />}
