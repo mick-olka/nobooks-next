@@ -1,6 +1,6 @@
 "use server";
 
-import { updateTag } from "next/cache";
+import { revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
 import { requireRole } from "@/app/auth";
 import {
@@ -22,7 +22,7 @@ export async function updateWikiPageAction(formData: WikiPageFormData) {
 		url_name: formData.url_name,
 		type: formData.type,
 	});
-	updateTag(WIKI_TAG);
+	revalidateTag(WIKI_TAG, { expire: 0 });
 	redirect(`/wiki/${updated.url_name}`);
 }
 
@@ -30,7 +30,7 @@ export async function createWikiPageAction(formData: WikiPageDTO) {
 	await requireRole(UserRole.ADMIN, UserRole.MODERATOR);
 	const supabase = await createClient();
 	const created = await createWikiPage(supabase, formData);
-	updateTag(WIKI_TAG);
+	revalidateTag(WIKI_TAG, { expire: 0 });
 	return created;
 }
 
@@ -39,7 +39,7 @@ export async function deleteWikiPageAction(url_name: string) {
 	const supabase = await createClient();
 	try {
 		await deleteWikiPageByUrlName(supabase, url_name);
-		updateTag(WIKI_TAG);
+		revalidateTag(WIKI_TAG, { expire: 0 });
 		return null;
 	} catch (error) {
 		return error;
