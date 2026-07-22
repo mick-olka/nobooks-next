@@ -1,6 +1,6 @@
+import { redirect } from "next/navigation";
 import { type UserAccount, UserRole } from "@/app/types/index";
 import { createClient } from "@/app/utils/supabase/server";
-import { redirect } from "next/navigation";
 
 export const getAuthorizedUser = async ({
 	protectedPage,
@@ -15,7 +15,7 @@ export const getAuthorizedUser = async ({
 	let userRole = UserRole.USER;
 	if (data.user) {
 		const { data: role } = await supabase.rpc("get_user_role");
-		userRole = role;
+		userRole = (role as UserRole | null) ?? UserRole.USER;
 	}
 
 	if (error || !data?.user) {
