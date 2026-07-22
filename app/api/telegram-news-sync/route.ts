@@ -1,5 +1,7 @@
+import { revalidateTag } from "next/cache";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
+import { WIKI_TAG } from "@/app/lib/data/wiki-cache";
 import { syncTelegramNews } from "@/app/utils/services";
 
 function isAuthorized(request: NextRequest): boolean {
@@ -17,5 +19,8 @@ export async function GET(request: NextRequest) {
 	}
 
 	const result = await syncTelegramNews();
+	if (result.status === "created") {
+		revalidateTag(WIKI_TAG, { expire: 0 });
+	}
 	return NextResponse.json({ ok: true, result });
 }

@@ -9,7 +9,7 @@ export function getCachedWikiPages(type: WikiPageType) {
 	return unstable_cache(
 		async () => getWikiPages(createPublicClient(), type),
 		["wiki-pages", type],
-		{ tags: [WIKI_TAG] },
+		{ tags: [WIKI_TAG], revalidate: 300 },
 	)();
 }
 
@@ -17,6 +17,6 @@ export function getCachedWikiPageByUrlName(urlName: string) {
 	return unstable_cache(
 		async () => getWikiPageByUrlName(createPublicClient(), urlName),
 		["wiki-page", urlName],
-		{ tags: [WIKI_TAG, `${WIKI_TAG}:${urlName}`] },
+		{ tags: [WIKI_TAG, `${WIKI_TAG}:${urlName}`], revalidate: 300 },
 	)();
 }
