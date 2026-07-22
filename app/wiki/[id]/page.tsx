@@ -2,10 +2,10 @@ import { notFound } from "next/navigation";
 import Markdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import { getUser } from "@/app/auth";
+import { canEditContent } from "@/app/auth/roles";
 import { AdminButtons, BackBtn } from "@/app/components";
 import { getWikiPageByUrlName } from "@/app/lib/data/wiki";
 import { isNotFoundError } from "@/app/lib/errors";
-import { UserRole } from "@/app/types";
 import { createClient } from "@/app/utils/supabase/server";
 
 export default async function WikiPage({
@@ -16,7 +16,7 @@ export default async function WikiPage({
 	const pageId = (await params).id;
 	const supabase = await createClient();
 	const user = await getUser();
-	const isAdmin = user ? user.user_role === UserRole.ADMIN : false;
+	const canEdit = user ? canEditContent(user.user_role) : false;
 
 	let data: Awaited<ReturnType<typeof getWikiPageByUrlName>>;
 	try {
@@ -29,7 +29,7 @@ export default async function WikiPage({
 	return (
 		<div className="p-4 max-w-[1200px] mx-auto">
 			<div className="flex items-center">
-				<BackBtn isAdmin={isAdmin} />
+				<BackBtn isAdmin={canEdit} />
 				<h1 className="text-3xl font-bold my-6">{data.title}</h1>
 			</div>
 			<div className="card bg-base-100 shadow-md p-4">
@@ -37,7 +37,7 @@ export default async function WikiPage({
 					<Markdown rehypePlugins={[rehypeRaw]}>{data.content}</Markdown>
 				</div>
 			</div>
-			{isAdmin && user && <AdminButtons id={data.url_name} />}
+			{canEdit && user && <AdminButtons id={data.url_name} />}
 		</div>
 	);
 }

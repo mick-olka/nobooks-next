@@ -2,25 +2,26 @@ import Link from "next/link";
 import Markdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import { getUser } from "@/app/auth";
+import { canEditContent } from "@/app/auth/roles";
 import {
 	AdminButtons,
 	CreateWikiPageBtn,
 	PageTransitionWrapper,
 } from "@/app/components";
 import { getWikiPages } from "@/app/lib/data/wiki";
-import { UserRole, WikiPageType } from "@/app/types";
+import { WikiPageType } from "@/app/types";
 import { createClient } from "@/app/utils/supabase/server";
 
 export default async function HistoryListPage() {
 	const supabase = await createClient();
 	const data = await getWikiPages(supabase, WikiPageType.HISTORY);
 	const user = await getUser();
-	const isAdmin = user ? user.user_role === UserRole.ADMIN : false;
+	const canEdit = user ? canEditContent(user.user_role) : false;
 
 	return (
 		<PageTransitionWrapper className="p-8">
 			<div className="max-w-3xl mx-auto px-4 py-8 z-10">
-				{isAdmin && user && (
+				{canEdit && user && (
 					<CreateWikiPageBtn userId={user.id} type={WikiPageType.HISTORY} />
 				)}
 
@@ -36,7 +37,7 @@ export default async function HistoryListPage() {
 							key={page.id}
 							className="relative mb-8 p-6 bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-shadow"
 						>
-							{isAdmin && user && <AdminButtons id={page.url_name} />}
+							{canEdit && user && <AdminButtons id={page.url_name} />}
 							<div className="text-gray-600 font-semibold mb-4">
 								{new Date(page.created_at).toLocaleDateString("uk-UA", {
 									day: "2-digit",
