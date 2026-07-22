@@ -12,7 +12,8 @@
 			"dist",
 			".next",
 			"public",
-			"**/*WebStats-dist.js"
+			"**/*WebStats-dist.js",
+			"coverage"
 		]
 	},
 	"formatter": {
