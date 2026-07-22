@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { fetchStatsData } from "@/app/lib/data/stats";
+import { fetchStatsData } from "@/app/actions/stats";
 import type { StatsData } from "../types";
 import { HallOfFame } from "./hall-of-fame";
 

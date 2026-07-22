@@ -1,6 +1,3 @@
-"use server";
-
-import { revalidatePath } from "next/cache";
 import { serverApiFetch } from "@/app/lib/data/server-api";
 import {
 	buildStatsData,
@@ -124,13 +121,6 @@ export const getPlayerStats = async (retries = 2): Promise<StatsData> => {
 		};
 	}
 };
-
-// Server action to fetch fresh stats data
-export async function fetchStatsData() {
-	const statsData = await getPlayerStats();
-	revalidatePath("/stats");
-	return statsData;
-}
 
 export const getPlayerIndividualStats = async (
 	discordId: string,
