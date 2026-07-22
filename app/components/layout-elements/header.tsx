@@ -1,6 +1,5 @@
 import Link from "next/link";
 import type { FC } from "react";
-import { NetherBackground } from "../nether-ui";
 import { FlowersBackground } from "../spring-ui";
 import { Logo } from "./logo";
 import { Menu } from "./menu";
@@ -14,7 +13,6 @@ export const LayoutHeader: FC<LayoutHeaderProps> = ({ userName }) => {
 		<>
 			<header className="relative">
 				<FlowersBackground />
-				{/* <NetherBackground seed={Math.floor(Date.now() / 60_000)} /> */}
 				<nav className="navbar bg-base-100">
 					<Menu
 						links={[

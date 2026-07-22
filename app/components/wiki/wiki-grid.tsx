@@ -24,14 +24,6 @@ export const WikiGrid = ({ data, user, type }: Props) => {
 					>
 						<div className="card bg-base-100 shadow-md p-6 w-96 h-32">
 							<h2 className="card-title max-h-10">{page.title}</h2>
-							{/* <Markdown rehypePlugins={[rehypeRaw]} className="my-4 max-h-12">
-								{`${page.content.slice(0, 50)}...`}
-							</Markdown> */}
-							{/* <Link href={`/wiki/${page.url_name}`} className="absolute bottom-4">
-              <button type="button" className="btn btn-primary">
-                Читати
-              </button>
-            </Link> */}
 							<p className="underline mt-4">Детальніше</p>
 						</div>
 					</Link>
