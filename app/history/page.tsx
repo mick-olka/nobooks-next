@@ -7,13 +7,11 @@ import {
 	PageTransitionWrapper,
 	SafeMarkdown,
 } from "@/app/components";
-import { getWikiPages } from "@/app/lib/data/wiki";
+import { getCachedWikiPages } from "@/app/lib/data/wiki-cache";
 import { WikiPageType } from "@/app/types";
-import { createClient } from "@/app/utils/supabase/server";
 
 export default async function HistoryListPage() {
-	const supabase = await createClient();
-	const data = await getWikiPages(supabase, WikiPageType.HISTORY);
+	const data = await getCachedWikiPages(WikiPageType.HISTORY);
 	const user = await getUser();
 	const canEdit = user ? canEditContent(user.user_role) : false;
 

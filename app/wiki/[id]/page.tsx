@@ -2,9 +2,9 @@ import { notFound } from "next/navigation";
 import { getUser } from "@/app/auth";
 import { canEditContent } from "@/app/auth/roles";
 import { AdminButtons, BackBtn, SafeMarkdown } from "@/app/components";
-import { getWikiPageByUrlName } from "@/app/lib/data/wiki";
+import type { getWikiPageByUrlName } from "@/app/lib/data/wiki";
+import { getCachedWikiPageByUrlName } from "@/app/lib/data/wiki-cache";
 import { isNotFoundError } from "@/app/lib/errors";
-import { createClient } from "@/app/utils/supabase/server";
 
 export default async function WikiPage({
 	params,
@@ -12,13 +12,12 @@ export default async function WikiPage({
 	params: Promise<{ id: string }>;
 }) {
 	const pageId = (await params).id;
-	const supabase = await createClient();
 	const user = await getUser();
 	const canEdit = user ? canEditContent(user.user_role) : false;
 
 	let data: Awaited<ReturnType<typeof getWikiPageByUrlName>>;
 	try {
-		data = await getWikiPageByUrlName(supabase, pageId);
+		data = await getCachedWikiPageByUrlName(pageId);
 	} catch (err) {
 		if (isNotFoundError(err)) notFound();
 		throw err;

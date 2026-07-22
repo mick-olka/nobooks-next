@@ -2,15 +2,13 @@
 
 import Link from "next/link";
 import { SafeMarkdown } from "@/app/components/ui";
-import { getWikiPages } from "@/app/lib/data/wiki";
+import { getCachedWikiPages } from "@/app/lib/data/wiki-cache";
 import { WikiPageType } from "@/app/types";
 import { syncTelegramNewsHourly } from "@/app/utils/services";
-import { createClient } from "@/app/utils/supabase/server";
 
 export const NewsPane = async () => {
 	await syncTelegramNewsHourly();
-	const supabase = await createClient();
-	const data = await getWikiPages(supabase, WikiPageType.HISTORY);
+	const data = await getCachedWikiPages(WikiPageType.HISTORY);
 
 	const sortedNews = data
 		?.sort(

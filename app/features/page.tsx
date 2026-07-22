@@ -1,12 +1,10 @@
 import { getUser } from "@/app/auth";
 import { PageTransitionWrapper, WikiGrid } from "@/app/components";
-import { getWikiPages } from "@/app/lib/data/wiki";
+import { getCachedWikiPages } from "@/app/lib/data/wiki-cache";
 import { WikiPageType } from "@/app/types";
-import { createClient } from "@/app/utils/supabase/server";
 
 export default async function FeaturesListPage() {
-	const supabase = await createClient();
-	const data = await getWikiPages(supabase, WikiPageType.FEATURE);
+	const data = await getCachedWikiPages(WikiPageType.FEATURE);
 	const user = await getUser();
 
 	return (
