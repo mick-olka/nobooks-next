@@ -1,7 +1,15 @@
 import { describe, expect, it, vi } from "vitest";
-import { getWikiPageByUrlName, getWikiPages } from "@/app/lib/data/wiki";
+import {
+	createWikiPage,
+	deleteWikiPage,
+	deleteWikiPageByUrlName,
+	getWikiPageById,
+	getWikiPageByUrlName,
+	getWikiPages,
+	updateWikiPage,
+} from "@/app/lib/data/wiki";
 import { AppError, NotFoundError } from "@/app/lib/errors";
-import { WikiPageType } from "@/app/types";
+import { type WikiPageDTO, WikiPageType } from "@/app/types";
 
 type Result = { data: unknown; error: unknown };
 
@@ -40,11 +48,19 @@ const page = {
 	type: "wiki",
 };
 
+const dto: WikiPageDTO = {
+	title: "Intro",
+	content: "hi",
+	url_name: "intro",
+	type: WikiPageType.WIKI,
+};
+
 describe("getWikiPages", () => {
 	it("returns rows filtered by type", async () => {
-		const { client, from } = mockClient({ data: [page], error: null });
+		const { client, from, builder } = mockClient({ data: [page], error: null });
 		const rows = await getWikiPages(client, WikiPageType.WIKI);
 		expect(from).toHaveBeenCalledWith("wiki_pages");
+		expect(builder.eq).toHaveBeenCalledWith("type", WikiPageType.WIKI);
 		expect(rows).toEqual([page]);
 	});
 
@@ -61,8 +77,9 @@ describe("getWikiPages", () => {
 
 describe("getWikiPageByUrlName", () => {
 	it("returns a single page", async () => {
-		const { client } = mockClient({ data: page, error: null });
+		const { client, builder } = mockClient({ data: page, error: null });
 		await expect(getWikiPageByUrlName(client, "intro")).resolves.toEqual(page);
+		expect(builder.eq).toHaveBeenCalledWith("url_name", "intro");
 	});
 
 	it("throws NotFoundError when the row is missing", async () => {
@@ -70,5 +87,100 @@ describe("getWikiPageByUrlName", () => {
 		await expect(getWikiPageByUrlName(client, "nope")).rejects.toBeInstanceOf(
 			NotFoundError,
 		);
+	});
+});
+
+describe("getWikiPageById", () => {
+	it("returns the page on success", async () => {
+		const { client } = mockClient({ data: page, error: null });
+		await expect(getWikiPageById(client, "1")).resolves.toEqual(page);
+	});
+
+	it("throws NotFoundError when the row is missing", async () => {
+		const { client } = mockClient({ data: null, error: null });
+		await expect(getWikiPageById(client, "404")).rejects.toBeInstanceOf(
+			NotFoundError,
+		);
+	});
+
+	it("throws AppError on a query error", async () => {
+		const { client } = mockClient({
+			data: null,
+			error: { message: "db down" },
+		});
+		await expect(getWikiPageById(client, "1")).rejects.toBeInstanceOf(AppError);
+	});
+});
+
+describe("createWikiPage", () => {
+	it("returns the created page and inserts the body", async () => {
+		const { client, from, builder } = mockClient({ data: page, error: null });
+		await expect(createWikiPage(client, dto)).resolves.toEqual(page);
+		expect(from).toHaveBeenCalledWith("wiki_pages");
+		expect(builder.insert).toHaveBeenCalledWith(dto);
+	});
+
+	it("throws AppError on a query error", async () => {
+		const { client } = mockClient({
+			data: null,
+			error: { message: "db down" },
+		});
+		await expect(createWikiPage(client, dto)).rejects.toBeInstanceOf(AppError);
+	});
+});
+
+describe("updateWikiPage", () => {
+	it("returns the updated page and updates by id", async () => {
+		const { client, builder } = mockClient({ data: page, error: null });
+		await expect(updateWikiPage(client, "1", dto)).resolves.toEqual(page);
+		expect(builder.update).toHaveBeenCalledWith(dto);
+		expect(builder.eq).toHaveBeenCalledWith("id", "1");
+	});
+
+	it("throws AppError on a query error", async () => {
+		const { client } = mockClient({
+			data: null,
+			error: { message: "db down" },
+		});
+		await expect(updateWikiPage(client, "1", dto)).rejects.toBeInstanceOf(
+			AppError,
+		);
+	});
+});
+
+describe("deleteWikiPage", () => {
+	it("resolves and deletes by id", async () => {
+		const { client, builder } = mockClient({ data: null, error: null });
+		await expect(deleteWikiPage(client, "1")).resolves.toBeUndefined();
+		expect(builder.delete).toHaveBeenCalled();
+		expect(builder.eq).toHaveBeenCalledWith("id", "1");
+	});
+
+	it("throws AppError on a query error", async () => {
+		const { client } = mockClient({
+			data: null,
+			error: { message: "db down" },
+		});
+		await expect(deleteWikiPage(client, "1")).rejects.toBeInstanceOf(AppError);
+	});
+});
+
+describe("deleteWikiPageByUrlName", () => {
+	it("resolves and deletes by url_name", async () => {
+		const { client, builder } = mockClient({ data: null, error: null });
+		await expect(
+			deleteWikiPageByUrlName(client, "intro"),
+		).resolves.toBeUndefined();
+		expect(builder.eq).toHaveBeenCalledWith("url_name", "intro");
+	});
+
+	it("throws AppError on a query error", async () => {
+		const { client } = mockClient({
+			data: null,
+			error: { message: "db down" },
+		});
+		await expect(
+			deleteWikiPageByUrlName(client, "intro"),
+		).rejects.toBeInstanceOf(AppError);
 	});
 });
