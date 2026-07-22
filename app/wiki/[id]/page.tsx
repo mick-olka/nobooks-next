@@ -1,10 +1,12 @@
-import { getAuthorizedUser } from "@/app/auth";
-import { AdminButtons, BackBtn } from "@/app/components";
-import { UserRole } from "@/app/types";
-import { getWikiPageByUrlName } from "@/app/utils/services";
-import { createClient } from "@/app/utils/supabase/server";
+import { notFound } from "next/navigation";
 import Markdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
+import { getAuthorizedUser } from "@/app/auth";
+import { AdminButtons, BackBtn } from "@/app/components";
+import { getWikiPageByUrlName } from "@/app/lib/data/wiki";
+import { isNotFoundError } from "@/app/lib/errors";
+import { UserRole } from "@/app/types";
+import { createClient } from "@/app/utils/supabase/server";
 
 export default async function WikiPage({
 	params,
@@ -15,7 +17,14 @@ export default async function WikiPage({
 	const supabase = await createClient();
 	const user = await getAuthorizedUser();
 	const isAdmin = user ? user.user_role === UserRole.ADMIN : false;
-	const { data } = await getWikiPageByUrlName(supabase, pageId);
+
+	let data: Awaited<ReturnType<typeof getWikiPageByUrlName>>;
+	try {
+		data = await getWikiPageByUrlName(supabase, pageId);
+	} catch (err) {
+		if (isNotFoundError(err)) notFound();
+		throw err;
+	}
 
 	return (
 		<div className="p-4 max-w-[1200px] mx-auto">
@@ -25,9 +34,7 @@ export default async function WikiPage({
 			</div>
 			<div className="card bg-base-100 shadow-md p-4">
 				<div className="markdown editor">
-					<Markdown rehypePlugins={[rehypeRaw]}>
-						{data.content}
-					</Markdown>
+					<Markdown rehypePlugins={[rehypeRaw]}>{data.content}</Markdown>
 				</div>
 			</div>
 			{isAdmin && user && <AdminButtons id={data.url_name} />}

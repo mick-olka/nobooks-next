@@ -1,19 +1,19 @@
+import Link from "next/link";
+import Markdown from "react-markdown";
+import rehypeRaw from "rehype-raw";
 import { getAuthorizedUser } from "@/app/auth";
 import {
 	AdminButtons,
 	CreateWikiPageBtn,
 	PageTransitionWrapper,
 } from "@/app/components";
+import { getWikiPages } from "@/app/lib/data/wiki";
 import { UserRole, WikiPageType } from "@/app/types";
 import { createClient } from "@/app/utils/supabase/server";
-import { getWikiPages } from "@/app/utils/services";
-import Markdown from "react-markdown";
-import rehypeRaw from "rehype-raw";
-import Link from "next/link";
 
 export default async function HistoryListPage() {
 	const supabase = await createClient();
-	const { data } = await getWikiPages(supabase, WikiPageType.HISTORY);
+	const data = await getWikiPages(supabase, WikiPageType.HISTORY);
 	const user = await getAuthorizedUser();
 	const isAdmin = user ? user.user_role === UserRole.ADMIN : false;
 

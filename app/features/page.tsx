@@ -1,13 +1,12 @@
 import { getAuthorizedUser } from "@/app/auth";
 import { PageTransitionWrapper, WikiGrid } from "@/app/components";
+import { getWikiPages } from "@/app/lib/data/wiki";
 import { WikiPageType } from "@/app/types";
 import { createClient } from "@/app/utils/supabase/server";
 
-import { getWikiPages } from "@/app/utils/services";
-
 export default async function FeaturesListPage() {
 	const supabase = await createClient();
-	const { data } = await getWikiPages(supabase, WikiPageType.FEATURE);
+	const data = await getWikiPages(supabase, WikiPageType.FEATURE);
 	const user = await getAuthorizedUser();
 
 	return (
