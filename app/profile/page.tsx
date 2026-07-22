@@ -1,9 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { requireUser } from "@/app/auth";
+import { getPlayerIndividualStats } from "@/app/lib/data/stats";
 import { logout } from "@/app/login/actions";
 import { constants } from "../utils";
-import { getPlayerIndividualStats } from "../utils/services";
 
 export default async function ProfilePage() {
 	const user = await requireUser();

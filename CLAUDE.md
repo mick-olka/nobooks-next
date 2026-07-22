@@ -40,7 +40,7 @@ Page content is Markdown, rendered with `react-markdown` + `rehype-raw` (**raw H
 
 ### External data sources
 
-- `https://api.noboobs.world` — Minecraft server API. `app/utils/services/stats-service.ts` fetches the scoreboard + online list, **translates stat keys to Ukrainian** (`scoresTranslate` map), filters to players with >8 hours played, converts distances cm→m, and derives a "Least Deaths" stat. `app/api/online/route.ts` proxies the online-players endpoint.
+- `https://api.noboobs.world` — Minecraft server API, accessed via `serverApiFetch()` in `app/lib/data/server-api.ts`. `app/lib/data/stats.ts` fetches the scoreboard (`/stats/all`, revalidate 60) + online list (`/online`, revalidate 30) and composes `buildStatsData()` from `app/lib/data/stats-transforms.ts`, which **translates stat keys to Ukrainian** (`SCORES_TRANSLATE` map), filters to players with >8 hours played, converts distances cm→m, and derives a "Least Deaths" stat. `app/api/online/route.ts` proxies the online-players endpoint.
 - Telegram news sync: `app/utils/services/news-service.ts` pulls the latest Telegram message from the API and inserts it as a `history`-type `wiki_pages` row (deduped by content). Triggered via `GET /api/telegram-news-sync` (optionally guarded by `CRON_SECRET`). This path uses a **service-role** Supabase client, so it needs `SUPABASE_SERVICE_ROLE_KEY`.
 
 ### Styling

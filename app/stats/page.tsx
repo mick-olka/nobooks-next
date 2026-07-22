@@ -1,11 +1,11 @@
-import { revalidatePath } from "next/cache";
+import { getPlayerStats } from "@/app/lib/data/stats";
+import type { StatsData } from "@/app/types";
 import { PageTransitionWrapper } from "../components";
-import { getPlayerStats } from "../utils/services/stats-service";
 import { StatsClient } from "./stats-client";
 
 // Server component to fetch initial data
 export default async function StatsPage() {
-	let initialData;
+	let initialData: StatsData;
 	try {
 		initialData = await getPlayerStats();
 	} catch (error) {
