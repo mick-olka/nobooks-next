@@ -22,14 +22,20 @@ export async function getWikiPageByUrlName(
 	sb: WikiClient,
 	urlName: string,
 ): Promise<WikiPage> {
+	// `url_name` has no UNIQUE constraint, so a slug can match multiple rows.
+	// `.maybeSingle()` turns that into a PGRST116 error (surfacing as a 500),
+	// so we fetch as an array — same shape as `getWikiPages` — and take the
+	// most-recently-updated row. Zero rows is a genuine not-found (404).
 	const { data, error } = await sb
 		.from("wiki_pages")
 		.select("*")
 		.eq("url_name", urlName)
-		.maybeSingle();
+		.order("updated_at", { ascending: false })
+		.limit(1);
 	if (error) throw new AppError("Failed to load wiki page", { cause: error });
-	if (!data) throw new NotFoundError(`wiki page: ${urlName}`);
-	return data as WikiPage;
+	const page = data?.[0];
+	if (!page) throw new NotFoundError(`wiki page: ${urlName}`);
+	return page as WikiPage;
 }
 
 export async function getWikiPageById(

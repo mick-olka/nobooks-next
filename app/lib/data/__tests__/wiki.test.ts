@@ -21,6 +21,7 @@ function mockClient(result: Result) {
 		"select",
 		"eq",
 		"order",
+		"limit",
 		"insert",
 		"update",
 		"delete",
@@ -76,16 +77,35 @@ describe("getWikiPages", () => {
 });
 
 describe("getWikiPageByUrlName", () => {
-	it("returns a single page", async () => {
-		const { client, builder } = mockClient({ data: page, error: null });
+	it("returns the page when one row matches", async () => {
+		const { client, builder } = mockClient({ data: [page], error: null });
 		await expect(getWikiPageByUrlName(client, "intro")).resolves.toEqual(page);
 		expect(builder.eq).toHaveBeenCalledWith("url_name", "intro");
 	});
 
-	it("throws NotFoundError when the row is missing", async () => {
-		const { client } = mockClient({ data: null, error: null });
+	// Regression: url_name has no UNIQUE constraint, so the DB can hold
+	// duplicate slugs. `.maybeSingle()` used to raise PGRST116 on >1 rows,
+	// which surfaced as a 500. We now take the most-recent row instead.
+	it("returns the first row when url_name is duplicated (no throw)", async () => {
+		const dup = { ...page, id: "2", title: "Intro (duplicate)" };
+		const { client } = mockClient({ data: [page, dup], error: null });
+		await expect(getWikiPageByUrlName(client, "intro")).resolves.toEqual(page);
+	});
+
+	it("throws NotFoundError when no rows match", async () => {
+		const { client } = mockClient({ data: [], error: null });
 		await expect(getWikiPageByUrlName(client, "nope")).rejects.toBeInstanceOf(
 			NotFoundError,
+		);
+	});
+
+	it("throws AppError on a query error", async () => {
+		const { client } = mockClient({
+			data: null,
+			error: { message: "db down" },
+		});
+		await expect(getWikiPageByUrlName(client, "intro")).rejects.toBeInstanceOf(
+			AppError,
 		);
 	});
 });
