@@ -43,3 +43,9 @@ next-env.d.ts
 
 # subagent-driven-development scratch (ledger, task briefs, review diffs)
 .superpowers/
+
+# playwright
+playwright-report/
+test-results/
+/blob-report/
+/.playwright/
