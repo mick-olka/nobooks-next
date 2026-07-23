@@ -24,11 +24,11 @@ type TelegramNewsSyncResult =
 const ONE_HOUR_MS = 60 * 60 * 1000;
 let lastHourlySyncAt = 0;
 
-function normalizeTelegramMessage(message?: string): string {
+export function normalizeTelegramMessage(message?: string): string {
 	return (message || "").trim();
 }
 
-function normalizeTelegramDate(dateString?: string): Date {
+export function normalizeTelegramDate(dateString?: string): Date {
 	if (!dateString) return new Date();
 	const normalized = dateString.replace(" ", "T");
 	const parsed = new Date(normalized);
@@ -36,7 +36,7 @@ function normalizeTelegramDate(dateString?: string): Date {
 	return parsed;
 }
 
-function formatDateForTitle(date: Date): string {
+export function formatDateForTitle(date: Date): string {
 	return date.toLocaleString("uk-UA", {
 		day: "2-digit",
 		month: "2-digit",
@@ -47,7 +47,7 @@ function formatDateForTitle(date: Date): string {
 	});
 }
 
-function formatDateForSlug(date: Date): string {
+export function formatDateForSlug(date: Date): string {
 	const year = date.getFullYear();
 	const month = String(date.getMonth() + 1).padStart(2, "0");
 	const day = String(date.getDate()).padStart(2, "0");
@@ -57,7 +57,7 @@ function formatDateForSlug(date: Date): string {
 	return `${year}-${month}-${day}-${hours}-${minutes}-${seconds}`;
 }
 
-function formatNewsContent(payload: TelegramMessageResponse): string {
+export function formatNewsContent(payload: TelegramMessageResponse): string {
 	const message = normalizeTelegramMessage(payload.message);
 	const image = payload.image?.trim();
 
