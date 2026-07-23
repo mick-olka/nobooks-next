@@ -21,7 +21,8 @@ const DEFAULT_SEED = 0x4e657468;
 /** Seeded PRNG so server and client render the same list (avoids hydration mismatch). */
 function createSeededRandom(seed: number) {
 	return function next(): number {
-		let t = (seed += 0x6d2b79f5);
+		seed += 0x6d2b79f5;
+		let t = seed;
 		t = Math.imul(t ^ (t >>> 15), t | 1);
 		t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
 		return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
@@ -29,22 +30,28 @@ function createSeededRandom(seed: number) {
 }
 
 /** Minute-based seed: pass from server so SSR and client agree. E.g. seed={Math.floor(Date.now() / 60000)} */
-export const NetherBackground = ({ seed = DEFAULT_SEED }: { seed?: number }) => {
+export const NetherBackground = ({
+	seed = DEFAULT_SEED,
+}: {
+	seed?: number;
+}) => {
 	const items = useMemo(() => {
 		const next = createSeededRandom(seed);
-		return Array.from({ length: ITEM_COUNT }, () => {
+		return Array.from({ length: ITEM_COUNT }, (_, index) => {
 			const icon = NETHER_IMAGES[Math.floor(next() * NETHER_IMAGES.length)];
 			const top =
-				icon === WEEPING_VINES ? 0 : VERTICAL_OFFSETS[Math.floor(next() * VERTICAL_OFFSETS.length)];
-			return { icon, top };
+				icon === WEEPING_VINES
+					? 0
+					: VERTICAL_OFFSETS[Math.floor(next() * VERTICAL_OFFSETS.length)];
+			return { id: index, icon, top };
 		});
 	}, [seed]);
 
 	return (
 		<ul className="nether-line bg-base-200">
-			{items.map((item, i) => (
+			{items.map((item) => (
 				<li
-					key={i}
+					key={item.id}
 					style={{
 						backgroundImage: `url(${item.icon})`,
 						top: `${item.top}px`,

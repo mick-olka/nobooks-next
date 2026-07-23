@@ -25,8 +25,14 @@ body {
 	color: rgb(171, 178, 191);
 	padding: 0.2em 0.4em;
 	border-radius: 6px;
-	font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas,
-		Liberation, monospace;
+	font-family:
+		ui-monospace,
+		SFMono-Regular,
+		SF Mono,
+		Menlo,
+		Consolas,
+		Liberation,
+		monospace;
 	font-size: 85%;
 	text-wrap: wrap;
 }
@@ -53,7 +59,8 @@ details > summary::-webkit-details-marker {
 }
 
 .summer-background {
-	background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.9)),
+	background-image:
+		linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.9)),
 		url("/images/village-day.png");
 	background-position: center;
 	background-repeat: no-repeat;
@@ -69,21 +76,25 @@ details > summary::-webkit-details-marker {
 }
 
 .sb-night {
-	background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.5)),
+	background-image:
+		linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.5)),
 		url("/images/village-night.png");
 }
 
 .sb-day {
-	background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.9)),
+	background-image:
+		linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.9)),
 		url("/images/village-day.png");
 }
 
 .sb-evening {
-	background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.9)),
+	background-image:
+		linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.9)),
 		url("/images/village-evening.png");
 }
 
 .sb-morning {
-	background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.9)),
+	background-image:
+		linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.9)),
 		url("/images/village-morning.png");
 }

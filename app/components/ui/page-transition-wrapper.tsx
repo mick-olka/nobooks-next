@@ -1,7 +1,7 @@
 "use client";
-import { cn } from "@/app/utils";
 import { motion } from "framer-motion";
 import type { ReactNode } from "react";
+import { cn } from "@/app/utils";
 
 const pageVariants = {
 	initial: { opacity: 0, x: -0 },
