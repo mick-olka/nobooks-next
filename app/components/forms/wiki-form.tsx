@@ -1,9 +1,8 @@
 "use client";
 
-import type { WikiPage, WikiPageFormData } from "@/app/types";
 import { useState } from "react";
-import Markdown from "react-markdown";
-import rehypeRaw from "rehype-raw";
+import { SafeMarkdown } from "@/app/components/ui";
+import type { WikiPage, WikiPageFormData } from "@/app/types";
 
 export const WikiPageForm = ({
 	handleSubmitAction,
@@ -63,9 +62,7 @@ export const WikiPageForm = ({
 				/>
 				<div className="border rounded p-4 overflow-y-auto w-full md:w-1/2">
 					<div className="markdown editor">
-						<Markdown rehypePlugins={[rehypeRaw]}>
-							{content}
-						</Markdown>
+						<SafeMarkdown>{content}</SafeMarkdown>
 					</div>
 				</div>
 			</div>

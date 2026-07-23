@@ -1,16 +1,14 @@
 "use server";
 
-import { WikiPageType } from "@/app/types";
-import { getWikiPages, syncTelegramNewsHourly } from "@/app/utils/services";
-import { createClient } from "@/app/utils/supabase/server";
-import Markdown from "react-markdown";
-import rehypeRaw from "rehype-raw";
 import Link from "next/link";
+import { SafeMarkdown } from "@/app/components/ui";
+import { getCachedWikiPages } from "@/app/lib/data/wiki-cache";
+import { WikiPageType } from "@/app/types";
+import { syncTelegramNewsHourly } from "@/app/utils/services";
 
 export const NewsPane = async () => {
 	await syncTelegramNewsHourly();
-	const supabase = await createClient();
-	const { data } = await getWikiPages(supabase, WikiPageType.HISTORY);
+	const data = await getCachedWikiPages(WikiPageType.HISTORY);
 
 	const sortedNews = data
 		?.sort(
@@ -36,9 +34,7 @@ export const NewsPane = async () => {
 					</div>
 					<div className="prose prose-slate max-w-none">
 						<div className="markdown">
-							<Markdown rehypePlugins={[rehypeRaw]}>
-								{record.content}
-							</Markdown>
+							<SafeMarkdown>{record.content}</SafeMarkdown>
 						</div>
 					</div>
 				</div>

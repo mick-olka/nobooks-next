@@ -1,14 +1,11 @@
-import { getAuthorizedUser } from "@/app/auth";
+import { getUser } from "@/app/auth";
 import { PageTransitionWrapper, WikiGrid } from "@/app/components";
+import { getCachedWikiPages } from "@/app/lib/data/wiki-cache";
 import { WikiPageType } from "@/app/types";
-import { createClient } from "@/app/utils/supabase/server";
-
-import { getWikiPages } from "@/app/utils/services";
 
 export default async function RegionListPage() {
-	const supabase = await createClient();
-	const { data } = await getWikiPages(supabase, WikiPageType.REGION);
-	const user = await getAuthorizedUser();
+	const data = await getCachedWikiPages(WikiPageType.REGION);
+	const user = await getUser();
 
 	return (
 		<PageTransitionWrapper className="p-8">

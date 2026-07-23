@@ -1,6 +1,6 @@
-export * from "./wiki-pages";
-export * from "./user";
 export * from "./stats";
+export * from "./user";
+export * from "./wiki-pages";
 export enum UserRole {
 	ADMIN = "admin",
 	MODERATOR = "moderator",

@@ -8,7 +8,7 @@ type Feature = {
 
 export const useFeaturesList = (mdContentList: string[]) => {
 	const [features, setFeatures] = useState<Feature[]>([]);
-	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+	// biome-ignore lint/correctness/useExhaustiveDependencies: parse mdContentList once on mount only
 	useEffect(() => {
 		const parsedFeatures = mdContentList
 			.map((content) => {

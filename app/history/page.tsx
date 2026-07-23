@@ -1,26 +1,24 @@
-import { getAuthorizedUser } from "@/app/auth";
+import Link from "next/link";
+import { getUser } from "@/app/auth";
+import { canEditContent } from "@/app/auth/roles";
 import {
 	AdminButtons,
 	CreateWikiPageBtn,
 	PageTransitionWrapper,
+	SafeMarkdown,
 } from "@/app/components";
-import { UserRole, WikiPageType } from "@/app/types";
-import { createClient } from "@/app/utils/supabase/server";
-import { getWikiPages } from "@/app/utils/services";
-import Markdown from "react-markdown";
-import rehypeRaw from "rehype-raw";
-import Link from "next/link";
+import { getCachedWikiPages } from "@/app/lib/data/wiki-cache";
+import { WikiPageType } from "@/app/types";
 
 export default async function HistoryListPage() {
-	const supabase = await createClient();
-	const { data } = await getWikiPages(supabase, WikiPageType.HISTORY);
-	const user = await getAuthorizedUser();
-	const isAdmin = user ? user.user_role === UserRole.ADMIN : false;
+	const data = await getCachedWikiPages(WikiPageType.HISTORY);
+	const user = await getUser();
+	const canEdit = user ? canEditContent(user.user_role) : false;
 
 	return (
 		<PageTransitionWrapper className="p-8">
 			<div className="max-w-3xl mx-auto px-4 py-8 z-10">
-				{isAdmin && user && (
+				{canEdit && user && (
 					<CreateWikiPageBtn userId={user.id} type={WikiPageType.HISTORY} />
 				)}
 
@@ -36,7 +34,7 @@ export default async function HistoryListPage() {
 							key={page.id}
 							className="relative mb-8 p-6 bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-shadow"
 						>
-							{isAdmin && user && <AdminButtons id={page.url_name} />}
+							{canEdit && user && <AdminButtons id={page.url_name} />}
 							<div className="text-gray-600 font-semibold mb-4">
 								{new Date(page.created_at).toLocaleDateString("uk-UA", {
 									day: "2-digit",
@@ -54,9 +52,7 @@ export default async function HistoryListPage() {
 							</div>
 							<div className="prose prose-slate max-w-none">
 								<div className="markdown">
-									<Markdown rehypePlugins={[rehypeRaw]}>
-										{page.content}
-									</Markdown>
+									<SafeMarkdown>{page.content}</SafeMarkdown>
 								</div>
 							</div>
 						</div>

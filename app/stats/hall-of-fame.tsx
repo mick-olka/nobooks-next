@@ -1,16 +1,13 @@
-import type { StatsData } from "@/app/types";
 import { useState } from "react";
+import type { StatsData } from "@/app/types";
 import "./stats.scss";
 
 // Online status indicator component
-const OnlineIndicator = ({
-	isOnline,
-}: {
-	isOnline: boolean;
-}) => (
+const OnlineIndicator = ({ isOnline }: { isOnline: boolean }) => (
 	<span
 		className={`online-indicator ${isOnline ? "online" : "offline"}`}
 		title={isOnline ? "Онлайн" : "Офлайн"}
+		role="img"
 		aria-label={isOnline ? "Онлайн" : "Офлайн"}
 	/>
 );
@@ -38,6 +35,7 @@ const PlayerModal = ({
 			onKeyDown={(e) => e.key === "Escape" && onClose()}
 			open
 		>
+			{/* biome-ignore lint/a11y/noStaticElementInteractions: handlers only stop propagation / mirror the dialog's own Escape handling, not an interactive widget */}
 			<div
 				className="modal-content"
 				onClick={(e) => e.stopPropagation()}
@@ -155,9 +153,8 @@ export const HallOfFame = ({ data }: { data: StatsData }) => {
 
 		if (!data?.scoreboard?.scores) return records;
 
-		// biome-ignore lint/complexity/noForEach: <fix later>
 		Object.entries(data.scoreboard.scores).forEach(
-			([statName, playerScores]) => {
+			([statName, _playerScores]) => {
 				const allPlayers = getAllPlayersForStat(statName);
 
 				if (allPlayers.length === 0) return;

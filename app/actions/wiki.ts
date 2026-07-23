@@ -1,36 +1,52 @@
 "use server";
 
-import type { WikiPageDTO, WikiPageFormData } from "@/app/types";
-import { createWikiPage, updateWikiPage } from "@/app/utils/services";
-import { createClient } from "@/app/utils/supabase/server";
+import { revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
+import { z } from "zod";
+import { parseWikiPageInput } from "@/app/actions/wiki-schema";
+import { requireRole } from "@/app/auth";
+import {
+	createWikiPage,
+	deleteWikiPageByUrlName,
+	updateWikiPage,
+} from "@/app/lib/data/wiki";
+import { WIKI_TAG } from "@/app/lib/data/wiki-cache";
+import { UserRole, type WikiPageDTO, type WikiPageFormData } from "@/app/types";
+import { createClient } from "@/app/utils/supabase/server";
 
 export async function updateWikiPageAction(formData: WikiPageFormData) {
-  const supabase = await createClient();
-  const { data: updatedWiki } = await updateWikiPage(supabase, formData.id, {
-    title: formData.title,
-    content: formData.content,
-    last_modified_by: formData.userId,
-    url_name: formData.url_name,
-    type: formData.type,
-  });
-
-  if (updatedWiki) {
-    redirect(`/wiki/${updatedWiki.url_name}`);
-  }
+	await requireRole(UserRole.ADMIN, UserRole.MODERATOR);
+	const body = parseWikiPageInput({
+		title: formData.title,
+		content: formData.content,
+		last_modified_by: formData.userId,
+		url_name: formData.url_name,
+		type: formData.type,
+	});
+	const supabase = await createClient();
+	const updated = await updateWikiPage(supabase, formData.id, body);
+	revalidateTag(WIKI_TAG, { expire: 0 });
+	redirect(`/wiki/${updated.url_name}`);
 }
 
 export async function createWikiPageAction(formData: WikiPageDTO) {
-  const supabase = await createClient();
-  const { data: newWiki } = await createWikiPage(supabase, formData);
-  return newWiki;
+	await requireRole(UserRole.ADMIN, UserRole.MODERATOR);
+	const body = parseWikiPageInput(formData);
+	const supabase = await createClient();
+	const created = await createWikiPage(supabase, body);
+	revalidateTag(WIKI_TAG, { expire: 0 });
+	return created;
 }
 
 export async function deleteWikiPageAction(url_name: string) {
-  const supabase = await createClient();
-  const { error } = await supabase
-    .from("wiki_pages")
-    .delete()
-    .eq("url_name", url_name);
-  return error;
+	await requireRole(UserRole.ADMIN, UserRole.MODERATOR);
+	const supabase = await createClient();
+	try {
+		const parsedUrlName = z.string().min(1).parse(url_name);
+		await deleteWikiPageByUrlName(supabase, parsedUrlName);
+		revalidateTag(WIKI_TAG, { expire: 0 });
+		return null;
+	} catch (error) {
+		return error;
+	}
 }

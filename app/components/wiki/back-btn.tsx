@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 
-export const BackBtn = ({ isAdmin }: { isAdmin?: boolean }) => {
+export const BackBtn = ({ isAdmin: _isAdmin }: { isAdmin?: boolean }) => {
 	const router = useRouter();
 
 	const handleClick = () => {
