@@ -1,3 +1,5 @@
+import "server-only";
+
 import { serverApiFetch } from "@/app/lib/data/server-api";
 import {
 	buildStatsData,

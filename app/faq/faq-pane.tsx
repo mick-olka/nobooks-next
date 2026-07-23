@@ -6,7 +6,7 @@ import { useSectionsWithHash } from "../utils/hooks/use-hash-link";
 
 export const FaqPane = ({ featuresData }: { featuresData: string[] }) => {
 	const features = useFeaturesList(featuresData);
-	const { openSection, handleSectionClick } = useSectionsWithHash();
+	const { openSection, handleSectionToggle } = useSectionsWithHash();
 
 	return (
 		<>
@@ -15,21 +15,11 @@ export const FaqPane = ({ featuresData }: { featuresData: string[] }) => {
 					<details
 						className="cursor-pointer group"
 						open={section.id === openSection}
+						onToggle={(e) =>
+							handleSectionToggle(section.id, e.currentTarget.open)
+						}
 					>
-						<summary
-							className="text-2xl font-semibold mb-4 list-none"
-							onClick={(e) => {
-								e.preventDefault();
-								handleSectionClick(section.id);
-							}}
-							onKeyDown={(e) => {
-								if (e.key === "Enter" || e.key === " ") {
-									e.preventDefault();
-									handleSectionClick(section.id);
-								}
-							}}
-							tabIndex={0}
-						>
+						<summary className="text-2xl font-semibold mb-4 list-none">
 							<span className="flex items-center">
 								<svg
 									className="w-6 h-6 mr-2 transition-transform duration-300 group-open:rotate-90"

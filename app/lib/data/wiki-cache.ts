@@ -1,3 +1,5 @@
+import "server-only";
+
 import { unstable_cache } from "next/cache";
 import { getWikiPageByUrlName, getWikiPages } from "@/app/lib/data/wiki";
 import { createPublicClient } from "@/app/lib/supabase/public";
