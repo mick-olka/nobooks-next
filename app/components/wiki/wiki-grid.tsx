@@ -14,17 +14,18 @@ export const WikiGrid = ({ data, user, type }: Props) => {
 	return (
 		<>
 			{canEdit && user && <CreateWikiPageBtn userId={user.id} type={type} />}
-			{/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"> */}
-			<div className="flex flex-wrap gap-6 justify-center">
+			<div className="flex flex-wrap justify-center gap-6">
 				{data?.map((page) => (
 					<Link
 						href={`/wiki/${page.url_name}`}
-						// className="absolute bottom-4"
 						key={page.id}
+						className="block w-full sm:w-80"
 					>
-						<div className="card bg-base-100 shadow-md p-6 w-96 h-32">
-							<h2 className="card-title max-h-10">{page.title}</h2>
-							<p className="underline mt-4">Детальніше</p>
+						<div className="card h-32 border border-base-content/5 bg-base-100 p-6 shadow-sm transition hover:-translate-y-0.5 hover:border-base-content/15 hover:shadow-md">
+							<h2 className="card-title line-clamp-2">{page.title}</h2>
+							<p className="mt-auto text-base-content/70 underline">
+								Детальніше
+							</p>
 						</div>
 					</Link>
 				))}

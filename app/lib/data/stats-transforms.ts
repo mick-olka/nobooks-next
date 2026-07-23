@@ -35,7 +35,7 @@ export const SCORES_TRANSLATE: Record<string, string> = {
 	"Trades with Villagers": "Торгівель з селянами",
 	"Items Enchanted": "Зачаровано предметів",
 	"Ender Chests Opened": "Відкрито ендер-скринь",
-	"Horse Travel Distance": "Пройдено відстань конем (блоків)",
+	"Horse Travel Distance": "Пройдено конем (блоків)",
 	"Fish Caught": "Спіймано риби",
 	"Note Blocks Tuned": "Налаштовано нотних блоків",
 	"Furnaces Used": "Використано печей",

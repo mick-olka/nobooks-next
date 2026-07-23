@@ -59,7 +59,7 @@ export default async function Home() {
 							Український ванільний+ Майнкрафт сервер для Java та Bedrock
 							гравців
 						</p>
-						<div className="p-2 my-2 rounded-lg bg-gray-800 mx-auto text-center">
+						<div className="p-3 my-2 rounded-box border border-base-content/10 bg-base-300/85 backdrop-blur-sm mx-auto text-center shadow-lg">
 							<div className="text-center">
 								<PlayerCounter
 									format="Поточний онлайн: {online}"
@@ -72,7 +72,7 @@ export default async function Home() {
 									<span className="text-center">Java:</span>
 									<IpContainer ip={constants.JAVA_IP} />
 									<Link
-										className="text-sm text-gray-400 underline absolute top-7 right-0"
+										className="text-sm text-base-content/60 underline hover:text-base-content absolute top-7 right-0"
 										href="/start/java"
 									>
 										<p>Проблеми з підключенням?</p>

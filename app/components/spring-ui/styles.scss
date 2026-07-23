@@ -26,39 +26,45 @@ $globe-spacing: 40px;
 $globe-spread: 3px;
 $light-off-opacity: 0.4;
 
-$flower-width: 25px;
-$flower-height: 25px;
-$flower-spacing: 10px;
+$flower-width: 22px;
+$flower-height: 22px;
+$flower-spacing: 12px;
 
+// Decorative flower garland anchored to the header's bottom edge.
+// The header is `position: relative`, so absolute + bottom:0 pins the row to
+// the navbar's lower border; the row itself takes no layout space (height: 0).
 .flowers-line {
-  opacity: 0.5;
-  background-color: transparent;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 0;
+  margin: 0;
+  padding: 0;
+  z-index: 1;
   text-align: center;
   white-space: nowrap;
   overflow: visible;
-  height: 0;
-  position: sticky;
-  z-index: 1;
-  margin: 0;
-  padding: 0;
   pointer-events: none;
-  width: 100%;
-  
+  opacity: 0.65;
+
   li {
-    top: 48px;
     position: relative;
-    list-style: none;
-    margin: 0;
-    padding: 0;
+    // straddle the header's bottom border: half over the navbar, half over content
+    vertical-align: top;
+    transform: translateY(-90%);
     display: inline-block;
+    list-style: none;
+    margin: 0 calc($flower-spacing / 2);
+    padding: 0;
     width: $flower-width;
     height: $flower-height;
-    margin: 0 calc($flower-spacing / 2);
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
-    
-    // Simplified pattern using modulo
+    image-rendering: pixelated; // keep the pixel-art flowers crisp
+
+    // Repeating 4-flower pattern
     &:nth-child(4n + 1) {
       background-image: url("/images/blue-flower.png");
     }
@@ -72,12 +78,9 @@ $flower-spacing: 10px;
       background-image: url("/images/red-flower.png");
     }
 
-    &:before, &:after {
+    &:before,
+    &:after {
       content: none;
-    }
-    
-    &:first-child {
-      margin-left: 0;
     }
   }
 }
