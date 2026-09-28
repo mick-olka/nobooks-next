@@ -5,7 +5,7 @@ import { constants } from "../../utils";
 export default function BedrockPage() {
 	return (
 		<PageTransitionWrapper className="mb-8">
-			<div className="cursor-pointer group mx-auto py-6 w-fit">
+			<div className="cursor-pointer group mx-auto p-6 w-fit">
 				<div className="text-2xl font-semibold mb-4 list-none">
 					<span className="flex items-center">Грати з Bedrock</span>
 				</div>
@@ -15,7 +15,68 @@ export default function BedrockPage() {
 						<IpContainer ip={constants.BEDROCK_IP} />
 					</p>
 					<br />
-					<p className="font-bold">Версія: ({constants.VERSION})</p>
+					<p className="font-bold">Версія: 1.21.50–26.51</p>
+					<br />
+					<p>
+						Голосовий чат 🎙
+						<p>
+							Щоб спілкуватися голосом під час гри, виберіть зручний варіант:
+						</p>
+						<br />
+						<p>
+							Windows:{" "}
+							<a
+								className="underline"
+								href="http://cloud.noboobs.world/public.php/dav/files/nPjp6zmREBLMQBP/?accept=zip"
+							>
+								версія зі встановленням
+							</a>{" "}
+						</p>
+						<p>
+							або{" "}
+							<a
+								className="underline"
+								href="http://cloud.noboobs.world/public.php/dav/files/FgtgYNYnQgkjcrA/?accept=zip"
+							>
+								портативна версія
+							</a>
+						</p>
+						<br />
+						<p>
+							Linux:{" "}
+							<a
+								className="underline"
+								href="http://cloud.noboobs.world/public.php/dav/files/GjYnbdrg3HFWPgy/?accept=zip"
+							>
+								завантажити
+							</a>
+						</p>
+						<br />
+						<p>
+							Android:{" "}
+							<a
+								className="underline"
+								href="http://cloud.noboobs.world/public.php/dav/files/4GbFwf5knmrsTGo/?accept=zip"
+							>
+								завантажити
+							</a>
+						</p>
+						<br />
+						<p>
+							Без встановлення:{" "}
+							<a className="underline" href={constants.VOICE_URL}>
+								відкрити вебверсію
+							</a>
+						</p>
+						<br />
+						<p>
+							Як підключитися:{" "}
+							<a className="underline" href="https://noboobs.world/voicechat">
+								інструкція з голосового чату
+							</a>
+							. Голосовий чат необов’язковий — грати можна й без нього.
+						</p>
+					</p>
 					<br />
 					<p>Проходка безплатна!</p>
 					<br />

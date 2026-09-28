@@ -19,5 +19,8 @@
 	"[jsonc]": {
 		"editor.defaultFormatter": "biomejs.biome"
 	},
-	"files.autoSave": "onFocusChange"
+	"files.autoSave": "onFocusChange",
+	"[typescript]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	}
 }

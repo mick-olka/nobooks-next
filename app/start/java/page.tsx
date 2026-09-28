@@ -6,7 +6,7 @@ import { constants } from "../../utils";
 export default function JavaPage() {
 	return (
 		<PageTransitionWrapper className="mb-8">
-			<div className="cursor-pointer group mx-auto py-6 w-fit">
+			<div className="cursor-pointer group mx-auto p-6 w-fit">
 				<div className="text-2xl font-semibold mb-4 list-none">
 					<span>Грати з Java</span>
 				</div>
@@ -16,7 +16,21 @@ export default function JavaPage() {
 						Якщо не виходить приєднатись, спробуйте інший айпі: <br />
 						<IpContainer ip={"tunel.noboobs.world:3134"} />
 					</p>
-					<p className="font-bold my-4">Версія: ({constants.VERSION})</p>
+					<p className="font-bold my-4">Версія: 1.21.4-26.2</p>
+					<p>🎙 На сервері працює голосовий чат Plasmo Voice.</p>
+					<br />
+					<p>
+						Щоб спілкуватися з іншими гравцями, скористайтеся інструкцією зі
+						встановлення (
+						<a className="underline" href="https://noboobs.world/voicechat">
+							https://noboobs.world/voicechat
+						</a>
+						).
+					</p>
+					<br />
+					<p>Без голосового чату теж можна грати.</p>
+
+					<br />
 					<p>Якщо айпі не працює - спробуйте айпі бедроку</p>
 					<br />
 					<p>Проходка безплатна!</p>
